@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: alias, require, and import
+title: Использование alias, require, и import
 ---
 
 # {{ page.title }}

@@ -68,15 +68,15 @@ Later on we will learn how to compile Elixir code (in [Chapter 8](/getting-start
 
 ## Возникли вопросы?
 
-When going through this getting started guide, it is common to have questions, after all, that is part of the learning process! There are many places you could ask them to learn more about Elixir:
+При прохождении данного курса, у вас могут возникнуть вопросы, в конце концов, это часть учебного процесса! Ответы на ваши вопросы в можете получить тут:
 
-  * [#elixir-lang on freenode IRC](irc://irc.freenode.net/elixir-lang)
-  * [Elixir on Slack](https://elixir-slackin.herokuapp.com/)
-  * [Elixir Forum](http://elixirforum.com)
-  * [elixir tag on StackOverflow](https://stackoverflow.com/questions/tagged/elixir)
+  * [#elixir-lang канал в IRC](irc://irc.freenode.net/elixir-lang)
+  * [Elixir в Slack](https://elixir-slackin.herokuapp.com/)
+  * [Elixir форум](http://elixirforum.com)
+  * [elixir в StackOverflow](https://stackoverflow.com/questions/tagged/elixir)
 
-When asking questions, remember these two tips:
+Перед тем как задать вопрос, учтите что:
 
-  * Instead of asking "how to do X in Elixir", ask "how to solve Y in Elixir". In other words, don't ask how to implement a particular solution, instead describe the problem at hand. Stating the problem gives more context and less bias for a correct answer.
+  * Вместо того что бы спросить "как сделать X в Elixir", лучше спросите "как решить Y в Elixir". Другими словами, не спрашивайте как реализовать конкретную фичу, вместо этого опишите проблему в целом. Описание проблемы в целом позволяет придумать более оптимальное решение.
 
-  * In case things are not working as expected, please include as much information as you can in your report, for example: your Elixir version, the code snippet and the error message alongside the error stacktrace. Use sites like [Gist](https://gist.github.com/) to paste this information.
+  * Если какой то оператор или конструкция работает не так как описано в документации, по мимо собщения об этой проблеме, постарайтесь включить в отчет полную информацию о среде исполнения для примера: укажите версию Elixir, участок кода в котором возникла ошибка. Для хранения данных можно использовать [Gist](https://gist.github.com/).

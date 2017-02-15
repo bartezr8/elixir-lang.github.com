@@ -1,15 +1,15 @@
 ---
 layout: getting-started
-title: Basic operators
+title: Базовые операторы
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-In the [previous chapter](/getting-started/basic-types.html), we saw Elixir provides `+`, `-`, `*`, `/` as arithmetic operators, plus the functions `div/2` and `rem/2` for integer division and remainder.
+В [предыдущем уроке](/getting-started/basic-types.html), мы рассматривали арифмитические операторы `+`, `-`, `*`, `/`, а так же функции `div/2` и `rem/2` для целочисленного деления и деления с остатком.
 
-Elixir also provides `++` and `--` to manipulate lists:
+Так же в Elixir доступны операторы `++` и `--` для работы с списками:
 
 ```iex
 iex> [1, 2, 3] ++ [4, 5, 6]
@@ -18,14 +18,14 @@ iex> [1, 2, 3] -- [2]
 [1, 3]
 ```
 
-String concatenation is done with `<>`:
+Для конкатенации строк предназначен оператор `<>`:
 
 ```iex
 iex> "foo" <> "bar"
 "foobar"
 ```
 
-Elixir also provides three boolean operators: `or`, `and` and `not`. These operators are strict in the sense that they expect a boolean (`true` or `false`) as their first argument:
+В Elixir реализованны логические операторы истинности: `or`, `and` и `not`. Данные операторы предназначены для строгого сравнения, в качестве первого агрумента они принимают только логические значения (`true` или `false`):
 
 ```iex
 iex> true and true
@@ -34,25 +34,25 @@ iex> false or is_atom(:example)
 true
 ```
 
-Providing a non-boolean will raise an exception:
+Использование не булевых значений приведет к возникновению ошибок в ходе выполнения:
 
 ```iex
 iex> 1 and true
-** (BadBooleanError) expected a boolean on left-side of "and", got: 1
+** (BadBooleanError) ожидалось булево значение слево от "and", получено: 1
 ```
 
-`or` and `and` are short-circuit operators. They only execute the right side if the left side is not enough to determine the result:
+`or` и `and` операторы короткого цикла. Они выполняют правую часть выражения только в том случае если левой части выражения недостаточно для вычисления результата:
 
 ```iex
-iex> false and raise("This error will never be raised")
+iex> false and raise("Эта ошибка никогда не возникнет")
 false
-iex> true or raise("This error will never be raised")
+iex> true or raise("Эта ошибка никогда не возникнет")
 true
 ```
 
-> Note: If you are an Erlang developer, `and` and `or` in Elixir actually map to the `andalso` and `orelse` operators in Erlang.
+> Примечание: Если вы занкомы с Erlang, то вам будет полезго знать что операторы `and` и `or` в Elixir аналогичны операторам `andalso` и `orelse` в Erlang.
 
-Besides these boolean operators, Elixir also provides `||`, `&&` and `!` which accept arguments of any type. For these operators, all values except `false` and `nil` will evaluate to true:
+Помимо булевых операторов, в Elixir доступны операторы `||`, `&&` и `!` которые в качестве аргументов сравнения принимают данные любого типа. Для данных операторов, все значения за исключением `false` и `nil` эквивалентны `true`:
 
 ```iex
 # or
@@ -76,9 +76,9 @@ iex> !nil
 true
 ```
 
-As a rule of thumb, use `and`, `or` and `not` when you are expecting booleans. If any of the arguments are non-boolean, use `&&`, `||` and `!`.
+Как показывает опыт, использовать `and`, `or` и `not` рекомендуется для работы с булевыми значениями. В остальных случаях, при работе с не булевыми значениями лучше всего использовать `&&`, `||` и `!`.
 
-Elixir also provides `==`, `!=`, `===`, `!==`, `<=`, `>=`, `<`, and `>` as comparison operators:
+В Elixir для сравнения данных используются операторы `==`, `!=`, `===`, `!==`, `<=`, `>=`, `<`, и `>`:
 
 ```iex
 iex> 1 == 1
@@ -89,7 +89,7 @@ iex> 1 < 2
 true
 ```
 
-The difference between `==` and `===` is that the latter is more strict when comparing integers and floats:
+Разница меджу `==` и `===` заключается в более строгом сравнении целых чисел и чисел с плавающей точкой:
 
 ```iex
 iex> 1 == 1.0
@@ -98,18 +98,18 @@ iex> 1 === 1.0
 false
 ```
 
-In Elixir, we can compare two different data types:
+В Elixir, мы можем сравнивать два разных типа данных:
 
 ```iex
 iex> 1 < :atom
 true
 ```
 
-The reason we can compare different data types is pragmatism. Sorting algorithms don't need to worry about different data types in order to sort. The overall sorting order is defined below:
+The reason we can compare different data types is pragmatism. Алгоритмы сортировки не требуют строгого соотвествия типов данных для определения порядка сортировки. Пример сравнения основных типов в Elixir предствлен ниже:
 
     number < atom < reference < function < port < pid < tuple < map < list < bitstring
 
-You don't actually need to memorize this ordering, it's enough to know that this ordering exists.
+Особой необходимости запоминать порядок сортировки основных типов нету, достаточно просто знать что она есть.
 
 For reference information about operators (and ordering), check the [reference page on operators](/docs/master/elixir/operators.html).
 

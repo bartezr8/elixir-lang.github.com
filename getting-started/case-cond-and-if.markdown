@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: case, cond, and if
+title: Операторы case, cond, и if
 ---
 
 # {{ page.title }}
