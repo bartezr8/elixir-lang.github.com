@@ -105,12 +105,12 @@ iex> 1 < :atom
 true
 ```
 
-The reason we can compare different data types is pragmatism. Алгоритмы сортировки не требуют строгого соотвествия типов данных для определения порядка сортировки. Пример сравнения основных типов в Elixir предствлен ниже:
+Задачи в которых требуется сравнение данных различных типов, как правило носят прагматический характер. Алгоритмы сортировки не требуют строгого соотвествия типов данных для определения порядка сортировки. Приоритет при сравнении основных типов в Elixir предствлен ниже:
 
     number < atom < reference < function < port < pid < tuple < map < list < bitstring
 
 Особой необходимости запоминать порядок сортировки основных типов нету, достаточно просто знать что она есть.
 
-For reference information about operators (and ordering), check the [reference page on operators](/docs/master/elixir/operators.html).
+Более подробную информацию об операторах и их приоритете вы можете получить на странице [операторы в Elixir](/docs/master/elixir/operators.html).
 
-In the next chapter, we are going to discuss some basic functions, data type conversions, and a bit of control flow.
+В следующем уроке, мы поговорим о функциях, преобразовании данных, и контроле данных.
