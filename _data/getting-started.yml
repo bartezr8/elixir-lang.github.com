@@ -1,77 +1,77 @@
-- title: Getting Started
+- title: Приступая к работе
   dir: /getting-started/
   pages:
-    - title: Introduction
+    - title: Введение
       slug: introduction
 
-    - title: Basic types
+    - title: Типы
       slug: basic-types
 
-    - title: Basic operators
+    - title: Операторы
       slug: basic-operators
 
     - title: Pattern matching
       slug: pattern-matching
 
-    - title: case, cond and if
+    - title: Управляющие конструкции
       slug: case-cond-and-if
 
-    - title: Binaries, strings and char lists
+    - title: Бинарные данные, строки и списки
       slug: binaries-strings-and-char-lists
 
-    - title: Keywords and maps
+    - title: Ключевые слова и мапы
       slug: keywords-and-maps
 
-    - title: Modules and Functions
+    - title: Модули и функции
       slug: modules-and-functions
 
-    - title: Recursion
+    - title: Рекурсии
       slug: recursion
 
-    - title: Enumerables and streams
+    - title: Перечисляемые данные и потоки
       slug: enumerables-and-streams
 
-    - title: Processes
+    - title: Процессы
       slug: processes
 
-    - title: IO and the file system
+    - title: Работа с IO и Fs
       slug: io-and-the-file-system
 
-    - title: alias, require and import
+    - title: alias, require и import
       slug: alias-require-and-import
 
-    - title: Module attributes
+    - title: Атрибуты модулей
       slug: module-attributes
 
-    - title: Structs
+    - title: Структуры
       slug: structs
 
-    - title: Protocols
+    - title: Протоколы
       slug: protocols
 
-    - title: Comprehensions
+    - title: Соглашения
       slug: comprehensions
 
     - title: Sigils
       slug: sigils
 
-    - title: try, catch and rescue
+    - title: Обработка исключений
       slug: try-catch-and-rescue
 
-    - title: Typespecs and behaviours
+    - title: Typespecs и поведения
       slug: typespecs-and-behaviours
 
-    - title: Erlang libraries
+    - title: Библиотеки Erlang
       slug: erlang-libraries
 
-    - title: Where to go next
+    - title: Для дальнейшего изучения
       slug: where-to-go-next
 
 
-- title: Mix and OTP
+- title: Mix и OTP
   dir: /getting-started/mix-otp/
   pages:
-    - title: Introduction to Mix
+    - title: Введение в систему сборки Mix
       slug: introduction-to-mix
 
     - title: Agent
@@ -89,24 +89,24 @@
     - title: Dependencies and umbrella apps
       slug: dependencies-and-umbrella-apps
 
-    - title: Task and gen-tcp
+    - title: Задачи и gen-tcp
       slug: task-and-gen-tcp
 
-    - title: Docs, tests and with
+    - title: Документирование и тестирование
       slug: docs-tests-and-with
 
     - title: Distributed tasks and configuration
       slug: distributed-tasks-and-configuration
 
 
-- title: Meta-programming in Elixir
+- title: Мета программирование в Elixir
   dir: /getting-started/meta/
   pages:
-    - title: Quote and unquote
+    - title: Применение quote
       slug: quote-and-unquote
 
-    - title: Macros
+    - title: Макросы
       slug: macros
 
-    - title: Domain Specific Languages
+    - title: Предметно-ориентированный язык
       slug: domain-specific-languages

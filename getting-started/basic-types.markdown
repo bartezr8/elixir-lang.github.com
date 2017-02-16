@@ -1,13 +1,13 @@
 ---
 layout: getting-started
-title: Basic types
+title: Типы данных в Elixir
 ---
 
-# {{ page.title }}
+# Типы данных
 
 {% include toc.html %}
 
-In this chapter we will learn more about Elixir basic types: integers, floats, booleans, atoms, strings, lists and tuples. Some basic types are:
+В данной главе мы изучим основные типы данных в Elixir: Целые числа ( integer ), Числа с плавающей точкой ( float ), Булевы значения ( boolean ), атомы ( atom ), строки ( string ), списки ( lists ) и кортежи ( tuple ):
 
 ```iex
 iex> 1          # integer
@@ -20,9 +20,9 @@ iex> [1, 2, 3]  # list
 iex> {1, 2, 3}  # tuple
 ```
 
-## Basic arithmetic
+## Арифмитические операции
 
-Open up `iex` and type the following expressions:
+Запустим интерактивную оболочку `iex` и введем следующие примеры:
 
 ```iex
 iex> 1 + 2
@@ -33,7 +33,7 @@ iex> 10 / 2
 5.0
 ```
 
-Notice that `10 / 2` returned a float `5.0` instead of an integer `5`. This is expected. In Elixir, the operator `/` always returns a float. If you want to do integer division or get the division remainder, you can invoke the `div` and `rem` functions:
+Обратите внимание что деление `10 / 2` вернет число с плавающей точкой `5.0` вместо ожидаемого целого числа `5`. В Elixir, оператор `/` в качестве результата всегда возвращает число с плавающей точкой. Если вам нужно выполнить деление целых чисел с получением остатка или без остатка, используйте функции `div` и `rem`:
 
 ```iex
 iex> div(10, 2)
@@ -44,9 +44,9 @@ iex> rem 10, 3
 1
 ```
 
-Notice Elixir allows you to drop the parentheses when invoking named functions. Such feature gives a cleaner syntax when writing declarations and control-flow constructs.
+Обратите внимание что при использовании функций Elixir позволяет опускать скобки, таким образом делая код более читабельным и элегантным.
 
-Elixir also supports shortcut notations for entering binary, octal, and hexadecimal numbers:
+Elixir поддерживает краткую запись двоичных, восьмеричных, и шестнадцатеричных чисел:
 
 ```iex
 iex> 0b1010

@@ -1,17 +1,17 @@
 ---
 layout: getting-started
-title: Quote and unquote
+title: Данные кавычках и без
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-An Elixir program can be represented by its own data structures. In this chapter, we will learn what those structures look like and how to compose them. The concepts learned in this chapter are the building blocks for macros, which we are going to take a deeper look at in the next chapter.
+В Elixir представлены собственные типы данных. В данном уроке, мы рассмотрим эти типы данных и способы их комбинирования. Понимание данной особенности языка обязательно для написания макросов, которые мы будем изучать в следующем уроке.
 
-## Quoting
+## Данные в кавычках
 
-The building block of an Elixir program is a tuple with three elements. For example, the function call `sum(1, 2, 3)` is represented internally as:
+Для примера возмем кортеж The building block of an Elixir program is a tuple with three elements. For example, the function call `sum(1, 2, 3)` is represented internally as:
 
 ```elixir
 {:sum, [], [1, 2, 3]}

@@ -1,5 +1,5 @@
 ---
-title: "Installing Elixir"
+title: "Установка Elixir"
 section: install
 layout: default
 ---

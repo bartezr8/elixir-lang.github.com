@@ -10,7 +10,7 @@ redirect_from: /getting_started/1.html
 
 Добро пожаловать!
 
-В ходе данных уроков мы изучим синтаксис Elixir, основные типы данных, работу с модулями и многое другое. This chapter will focus on ensuring Elixir is installed and that you can successfully run Elixir's Interactive Shell, called IEx.
+В ходе данных уроков мы изучим синтаксис Elixir, основные типы данных, работу с модулями и многое другое. Для начала нам нужно удостоверится в том что у нас установлен Elixir и проверить что интерактивная оболочка ( называется `IEx`) рабтает нормально.
 
 Основыне требования:
 
@@ -25,7 +25,7 @@ redirect_from: /getting_started/1.html
 
 Если у вас не установлен Elixir, ознакомтесь с [руководством по установке](/install.html). После того как вы установили Elixir, для проверки правильности установки в консоле выполните команду `elixir --version` для получения текущей версии Elixir.
 
-## Интерактивный режим
+## Интерактивная оболочка
 
 После установки Elixir, вам станут доступны исполняемые файлы: `iex`, `elixir` и `elixirc`. Если вы собирали Elixir из исходников или через менеджер версий, данные файлы находятся в папке `bin`.
 
@@ -43,28 +43,26 @@ iex(2)> "hello" <> " world"
 "hello world"
 ```
 
-Please note that some details like version numbers may differ a bit in your session, that's not important. From now on `iex` sessions will be stripped down to focus on the code. To exit `iex` press `Ctrl+C` twice.
-
-It seems we are ready to go! We will use the interactive shell quite a lot in the next chapters to get a bit more familiar with the language constructs and basic types, starting in the next chapter.
+Вводить теже числа что и в премере, не обязательно, вы можете указать любоые числа которые вам нравятся. После того как мы завершили работу в `iex` нам нужно выйти из неё. Для выхода из `iex` дважды нажмите `Ctrl+C`.
 
 > Примечание: если вы работаете в Windows, рекомендуем запускать оболочку используя команду `iex.bat --werl` для получения расширенных сообщений об ошибках.
 
 ## Выполнение скриптов
 
-After getting familiar with the basics of the language you may want to try writing simple programs. This can be accomplished by putting the following Elixir code into a file:
+После того как мы познакомились с интерактивной оболочкой, мы можем попробовать написать простую программу. Писать программу мы будем в отдельном файле, для этого создайте новый файл и добавте в него следующие строки:
 
 ```elixir
 IO.puts "Hello world from Elixir"
 ```
 
-Save it as `simple.exs` and execute it with `elixir`:
+Сохраните файл с именем `simple.exs` и выполните его с помощью `elixir` для этого набирите в консоле:
 
 ```bash
 $ elixir simple.exs
 Hello world from Elixir
 ```
 
-Later on we will learn how to compile Elixir code (in [Chapter 8](/getting-started/modules-and-functions.html)) and how to use the Mix build tool (in the [Mix & OTP guide](/getting-started/mix-otp/introduction-to-mix.html)). For now, let's move on to [Chapter 2](/getting-started/basic-types.html).
+В последующих уроках для компиляции исходного кода Elixir (в [8 Уроке](/getting-started/modules-and-functions.html)) мы будем использовать элемент сборки `Mix` ( подробней о нем в [руководстве по Mix & OTP](/getting-started/mix-otp/introduction-to-mix.html)). Теперь мы можем перейти к изучению [базовых типов](/getting-started/basic-types.html).
 
 ## Возникли вопросы?
 
