@@ -57,7 +57,7 @@ iex> 0x1F
 31
 ```
 
-Float numbers require a dot followed by at least one digit and also support `e` for the exponent number:
+Числа numbers require a dot followed by at least one digit and also support `e` for the exponent number:
 
 ```iex
 iex> 1.0
@@ -77,13 +77,13 @@ iex> trunc(3.58)
 3
 ```
 
-## Identifying functions
+## Функции
 
 Functions in Elixir are identified by both their name and their arity. The arity of a function describes the number of arguments which the function takes. From this point on we will use both the function name and its arity to describe functions throughout the documentation. `round/1` identifies the function which is named `round` and takes 1 argument, whereas `round/2` identifies a different (nonexistent) function with the same name but with an arity of `2`.
 
-## Booleans
+## Булевы значения
 
-Elixir supports `true` and `false` as booleans:
+Elixir поддерживает булевы значения `true` и `false`:
 
 ```iex
 iex> true
@@ -101,13 +101,13 @@ iex> is_boolean(1)
 false
 ```
 
-You can also use `is_integer/1`, `is_float/1` or `is_number/1` to check, respectively, if an argument is an integer, a float, or either.
+Для проверки типа числа мы можем использовать `is_integer/1`, `is_float/1` или `is_number/1`, для случаев когда значением является целое число или число с плавающей точкой.
 
-> Note: At any moment you can type `h()` in the shell to print information on how to use the shell. The `h` helper can also be used to access documentation for any function. For example, typing `h is_integer/1` is going to print the documentation for the `is_integer/1` function. It also works with operators and other constructs (try `h ==/2`).
+> Примечание: Для получения справки по используемой функции можно воспользоваться функцией `h()` для получения справки по её применению. Функция `h` может быть использована для получения информации по любой функции. Для примера, в консоле введем `h is_integer/1` в качестве результата в консоль будет выведенно `is_integer/1`. Данная функция так же может быть использована для операторов и конструкторов ( можете попробовать `h ==/2`).
 
-## Atoms
+## Атомы
 
-Atoms are constants where their name is their own value. Some other languages call these symbols:
+Атомы это константы are constants where their name is their own value. Some other languages call these symbols:
 
 ```iex
 iex> :hello
@@ -127,7 +127,7 @@ iex> is_boolean(:false)
 true
 ```
 
-## Strings
+## Строки
 
 Strings in Elixir are inserted between double quotes, and they are encoded in UTF-8:
 
@@ -194,7 +194,7 @@ iex> String.upcase("hellö")
 "HELLÖ"
 ```
 
-## Anonymous functions
+## Анонимные функции
 
 Anonymous functions can be created inline and are delimited by the keywords `fn` and `end`:
 
@@ -235,7 +235,7 @@ iex> x
 42
 ```
 
-## (Linked) Lists
+## Списки
 
 Elixir uses square brackets to specify a list of values. Values can be of any type:
 
@@ -306,7 +306,7 @@ false
 
 Single quotes are char lists, double quotes are strings. We will talk more about them in the ["Binaries, strings and char lists"](/getting-started/binaries-strings-and-char-lists.html) chapter.
 
-## Tuples
+## Кортежи
 
 Elixir uses curly brackets to define tuples. Like lists, tuples can hold any value:
 
@@ -341,7 +341,7 @@ iex> tuple
 
 Notice that `put_elem/3` returned a new tuple. The original tuple stored in the `tuple` variable was not modified because Elixir data types are immutable. By being immutable, Elixir code is easier to reason about as you never need to worry that any code might be mutating your data structure in place.
 
-## Lists or tuples?
+## Списки или кортежи?
 
 What is the difference between lists and tuples?
 
