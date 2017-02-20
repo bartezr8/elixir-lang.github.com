@@ -57,7 +57,7 @@ iex> 0x1F
 31
 ```
 
-Числа numbers require a dot followed by at least one digit and also support `e` for the exponent number:
+Для записи данных числел необходимо обязательно указывать точку после первого числа, так же поддерживается экспонента `e`:
 
 ```iex
 iex> 1.0
@@ -66,9 +66,9 @@ iex> 1.0e-10
 1.0e-10
 ```
 
-Floats in Elixir are 64 bit double precision.
+В Elixir числа с плавающей точкой являются 64 битными с двойной точностью.
 
-You can invoke the `round` function to get the closest integer to a given float, or the `trunc` function to get the integer part of a float.
+Для округления числа с плавающей точкой до целого числа используется функция `round`, для получения целой части от числа с плавающей точкой используется функция `trunc`.
 
 ```iex
 iex> round(3.58)
@@ -79,7 +79,7 @@ iex> trunc(3.58)
 
 ## Функции
 
-Functions in Elixir are identified by both their name and their arity. The arity of a function describes the number of arguments which the function takes. From this point on we will use both the function name and its arity to describe functions throughout the documentation. `round/1` identifies the function which is named `round` and takes 1 argument, whereas `round/2` identifies a different (nonexistent) function with the same name but with an arity of `2`.
+В Elixir для задания функции указывается имя и арность ( прим. `round\2` ). Арность указывает количество аргумментов принимаемых функцией. Для описания функций в документации используется имя и арность. Например запись `round/1` обозначает что это функция `round()` которая принимает один аргумент, в качестве еще одно примера рассмотрим запись `round/2` здесь имеется в виду функция `round()` которая принимат два аргумента.
 
 ## Булевы значения
 
@@ -92,7 +92,7 @@ iex> true == false
 false
 ```
 
-Elixir provides a bunch of predicate functions to check for a value type. For example, the `is_boolean/1` function can be used to check if a value is a boolean or not:
+В Elixir реализован набор функций для проверки типов данных. Например, функция `is_boolean/1` может быть использована для проверки является ли переданное значение булевым типом данных или нет:
 
 ```iex
 iex> is_boolean(true)
@@ -107,7 +107,7 @@ false
 
 ## Атомы
 
-Атомы это константы are constants where their name is their own value. Some other languages call these symbols:
+Атомы это константы, значением которых является их имя. В некоторых языках амтомами называют символы:
 
 ```iex
 iex> :hello
@@ -116,7 +116,7 @@ iex> :hello == :world
 false
 ```
 
-The booleans `true` and `false` are, in fact, atoms:
+По факту булевы значения `true` и `false` являются атомами:
 
 ```iex
 iex> true == :true
@@ -129,14 +129,14 @@ true
 
 ## Строки
 
-Strings in Elixir are inserted between double quotes, and they are encoded in UTF-8:
+Строками в Elixir называются значения обрамленные двойными ковычками, хранятся в кодировке UTF-8:
 
 ```iex
 iex> "hellö"
 "hellö"
 ```
 
-> Note: if you are running on Windows, there is a chance your terminal does not use UTF-8 by default. You can change the encoding of your current session by running `chcp 65001` before entering IEx.
+> Примечание: если вы работаете в ос Windows, скорее всего консоль по умолчанию не поддерживает кодировку UTF-8 по умолчанию. Вы можете изменить кодировку для текущей сессии, для этого нужно выполнить в консоле команду `chcp 65001` перед запуском интерактивной оболочки IEx.
 
 Elixir also supports string interpolation:
 
@@ -145,7 +145,7 @@ iex> "hellö #{:world}"
 "hellö world"
 ```
 
-Strings can have line breaks in them. You can introduce them using escape sequences:
+Внутри строк возможно использовать управляющие символы, например символ перевода строки:
 
 ```iex
 iex> "hello
@@ -155,7 +155,7 @@ iex> "hello\nworld"
 "hello\nworld"
 ```
 
-You can print a string using the `IO.puts/1` function from the `IO` module:
+Вы можете вывести строку в консоль с помощью функции `IO.puts/1` из модуля `IO`:
 
 ```iex
 iex> IO.puts "hello\nworld"
@@ -164,30 +164,30 @@ world
 :ok
 ```
 
-Notice the `IO.puts/1` function returns the atom `:ok` as result after printing.
+В качестве результата выполнения функция `IO.puts/1` вернет атом `:ok`.
 
-Strings in Elixir are represented internally by binaries which are sequences of bytes:
+В Elixir строки являются двоичными данными представленные в качестве последовательности байтов:
 
 ```iex
 iex> is_binary("hellö")
 true
 ```
 
-We can also get the number of bytes in a string:
+Так же мы можем получить длинну байтов используемых для строки:
 
 ```iex
 iex> byte_size("hellö")
 6
 ```
 
-Notice the number of bytes in that string is 6, even though it has 5 characters. That's because the character "ö" takes 2 bytes to be represented in UTF-8. We can get the actual length of the string, based on the number of characters, by using the `String.length/1` function:
+Обратите внимание что мы плучили длинну строки в байтах равную 6, хотя по факту у нас используется 5 символов. Так получилось из за того что для кодирования символа "ö" в кодировке UTF-8 нужно 2 байта. Получить длинну строки в символах мы можем воспользовавшись функцией `String.length/1`:
 
 ```iex
 iex> String.length("hellö")
 5
 ```
 
-The [String module](https://hexdocs.pm/elixir/String.html) contains a bunch of functions that operate on strings as defined in the Unicode standard:
+Библиотека для работу со [строками](https://hexdocs.pm/elixir/String.html) содержит набор функций которые работают со строками так как это описано в стандарте Unicode:
 
 ```iex
 iex> String.upcase("hellö")
@@ -196,7 +196,7 @@ iex> String.upcase("hellö")
 
 ## Анонимные функции
 
-Anonymous functions can be created inline and are delimited by the keywords `fn` and `end`:
+Анонимные функции начинаются с ключевого слова `fn` и звершаются ключевым словом `end`:
 
 ```iex
 iex> add = fn a, b -> a + b end
@@ -205,17 +205,17 @@ iex> add.(1, 2)
 3
 iex> is_function(add)
 true
-iex> is_function(add, 2) # check if add is a function that expects exactly 2 arguments
+iex> is_function(add, 2) # проверка является ли add функцией, если да то принимает ли она 2 аргумента?
 true
-iex> is_function(add, 1) # check if add is a function that expects exactly 1 argument
+iex> is_function(add, 1) # проверка является ли add функцией, если да то принимает ли она 1 аргумент?
 false
 ```
 
-Functions are "first class citizens" in Elixir meaning they can be passed as arguments to other functions in the same way as integers and strings. In the example, we have passed the function in the variable `add` to the `is_function/1` function which correctly returned `true`. We can also check the arity of the function by calling `is_function/2`.
+В Elixir функции являются функциями высшего порядка, это значит что они могут принимать в качестве агрумента функцию, так же как например строку или число. В примере выше, в качестве агрумента для функции `is_function/1` мы передавали значение `add`, в этом случае в качестве результата будет возвращено `true`. Так же мы можем проверить количество принимаемых аргументов функцией передав её в функцию `is_function/2`.
 
-Note a dot (`.`) between the variable and parentheses is required to invoke an anonymous function. The dot ensures there is no ambiguity between calling an anonymous function named `add` and a named function `add/2`. In this sense, Elixir makes a clear distinction between anonymous functions and named functions. We will explore those differences in [Chapter 8](/getting-started/modules-and-functions.html).
+Для вызова анонимной функции используется точка (`.`) между переменной и скобками. Применение точки необходимо для избежания двусмысленного толкования переменной `add` и функции `add/2`. В этом плане Elixir проводит четкое рзграничение между именноваными и анонимными функциями. Более продробно это будет рассмотрено в [8 Уроке](/getting-started/modules-and-functions.html).
 
-Anonymous functions are closures and as such they can access variables that are in scope when the function is defined. Let's define a new anonymous function that uses the `add` anonymous function we have previously defined:
+Анонимные функции использующиеся для создания замыкания имеют доступ к переменным объявленным в теле функции. Для примера объявим функцию которая будет будет содержать вызов ранее объявленной анонимной фунуции `add`:
 
 ```iex
 iex> double = fn a -> add.(a, a) end
@@ -224,7 +224,7 @@ iex> double.(2)
 4
 ```
 
-Keep in mind a variable assigned inside a function does not affect its surrounding environment:
+*Запомните:* переменные объявленные в теле функции не влияют на переменные с тем же именем за приделами функции в которой они объявлены:
 
 ```iex
 iex> x = 42
@@ -237,7 +237,7 @@ iex> x
 
 ## Списки
 
-Elixir uses square brackets to specify a list of values. Values can be of any type:
+В Elixir квадратные скобки используются для объявления списка значений. Значения могут быть любого типа:
 
 ```iex
 iex> [1, 2, true, 3]
@@ -246,7 +246,7 @@ iex> length [1, 2, 3]
 3
 ```
 
-Two lists can be concatenated or subtracted using the `++/2` and `--/2` operators:
+Два списка можно сложить или вычесть используя операторы `++/2` and `--/2`:
 
 ```iex
 iex> [1, 2, 3] ++ [4, 5, 6]
@@ -255,7 +255,7 @@ iex> [1, true, 2, false, 3, true] -- [true, false]
 [1, 2, 3, true]
 ```
 
-Throughout the tutorial, we will talk a lot about the head and tail of a list. The head is the first element of a list and the tail is the remainder of the list. They can be retrieved with the functions `hd/1` and `tl/1`. Let's assign a list to a variable and retrieve its head and tail:
+На протяжении наших уроков мы будем много говорить о хвосте и голове списка. У каждого списка есть *голова* и *хвост*. Головой списка является первый элемент, хвостом является остальная часть списка. Для получения головы списка используется функция `hd/1` для получения хвоста `tl/1`. Для примера присвоим список переменной и получим его голову и хвост:
 
 ```iex
 iex> list = [1, 2, 3]
@@ -265,14 +265,14 @@ iex> tl(list)
 [2, 3]
 ```
 
-Getting the head or the tail of an empty list throws an error:
+Попытка получить хвост или голову у пустого списка вызовет ошибку:
 
 ```iex
 iex> hd []
 ** (ArgumentError) argument error
 ```
 
-Sometimes you will create a list and it will return a value in single quotes. For example:
+Иногда при создании списка в качестве результата он возвращает значение в одинарных ковычках. Например:
 
 ```iex
 iex> [11, 12, 13]
@@ -281,7 +281,7 @@ iex> [104, 101, 108, 108, 111]
 'hello'
 ```
 
-When Elixir sees a list of printable ASCII numbers, Elixir will print that as a char list (literally a list of characters). Char lists are quite common when interfacing with existing Erlang code. Whenever you see a value in IEx and you are not quite sure what it is, you can use the `i/1` to retrieve information about it:
+Когда Elixir встречает список потенциальных ASCII чисел, Elixir выводит на экран список символов (литерал списка символов). Символьные списки часто встречаютсся при работе с кодом Erlang. Если вы  встречаете при выводе незнакомое значение и вы не уверены в том что знаете что это такое, вы можете получить по нему подробную информацию с помощь функции `i/1`:
 
 ```iex
 iex> i 'hello'
@@ -297,18 +297,18 @@ Reference modules
   List
 ```
 
-Keep in mind single-quoted and double-quoted representations are not equivalent in Elixir as they are represented by different types:
+Хочу обратить ваше внимание, на то что, одно и тоже значение, в одинарных и двойных ковычках при сравнении не равны друг другу:
 
 ```iex
 iex> 'hello' == "hello"
 false
 ```
 
-Single quotes are char lists, double quotes are strings. We will talk more about them in the ["Binaries, strings and char lists"](/getting-started/binaries-strings-and-char-lists.html) chapter.
+Значение в одинарных ковычках является символьным списком, а в двойных ковычках строкой. Мы поговорим об этом подробнее в уроке по ["бинарным данным, строкам и символьным спскам"](/getting-started/binaries-strings-and-char-lists.html).
 
 ## Кортежи
 
-Elixir uses curly brackets to define tuples. Like lists, tuples can hold any value:
+Для объявления кортежей в Elixir используются фигурные скобки. Так же как и списки, кортежи могут содержать любые значения:
 
 ```iex
 iex> {:ok, "hello"}
@@ -317,7 +317,7 @@ iex> tuple_size {:ok, "hello"}
 2
 ```
 
-Tuples store elements contiguously in memory. This means accessing a tuple element by index or getting the tuple size is a fast operation. Indexes start from zero:
+Кортежи хранят элементы смежно в памяти. Это позволяет ускорить доступ к элементу кортежа, а также быстро рассчитать его размер. Индексы начинаются с нуля:
 
 ```iex
 iex> tuple = {:ok, "hello"}
@@ -328,7 +328,7 @@ iex> tuple_size(tuple)
 2
 ```
 
-It is also possible to put an element at a particular index in a tuple with `put_elem/3`:
+Мы так же можем положить элемент в конкретную ячейку кортежа используя её индекс, для этого можно воспользоваться функцией `put_elem/3`:
 
 ```iex
 iex> tuple = {:ok, "hello"}
@@ -339,29 +339,29 @@ iex> tuple
 {:ok, "hello"}
 ```
 
-Notice that `put_elem/3` returned a new tuple. The original tuple stored in the `tuple` variable was not modified because Elixir data types are immutable. By being immutable, Elixir code is easier to reason about as you never need to worry that any code might be mutating your data structure in place.
+Обратите что функция `put_elem/3` в качестве результата вернет новый кортеж. Учтите что первоначальный кортеж небудет изменен, потому что данные в Elixir являются иммутабельными. Благодаря иммутабельности, писать код в Elixir проще по той причине что вам ненужно беспокоится о том что кто то изменит данные в время работы программы.
 
 ## Списки или кортежи?
 
-What is the difference between lists and tuples?
+В чем различие между списками и кортежами?
 
-Lists are stored in memory as linked lists, meaning that each element in a list holds its value and points to the following element until the end of the list is reached. We call each pair of value and pointer a **cons cell**:
+Списки хранятся в памяти в виде связанных списков, а это означает, что каждый элемент в списке имеет свое значение и указывает на следующий элемент до тех пор пока небудет достигнут конец списка. Мы называем каждую пару значения и указатель на **cons cell** :
 
 ```iex
 iex> list = [1 | [2 | [3 | []]]]
 [1, 2, 3]
 ```
 
-This means accessing the length of a list is a linear operation: we need to traverse the whole list in order to figure out its size. Updating a list is fast as long as we are prepending elements:
+Это означает, что доступ к длине списка является линейной операцией: мы должны пройти весь список, чтобы вычислить его размер. Обновление списка быстро до тех пор, пока значения предопределенны:
 
 ```iex
 iex> [0 | list]
 [0, 1, 2, 3]
 ```
 
-Tuples, on the other hand, are stored contiguously in memory. This means getting the tuple size or accessing an element by index is fast. However, updating or adding elements to tuples is expensive because it requires copying the whole tuple in memory.
+С другой стороны Кортежи сохраняются в памяти непрерывно. Это позволяет быстро получить размер кортежа или доступ к элементу по индексу. Тем не менее, обновление или добавление элементов в кортеж является дорогостоющей операцией, поскольку она требует, копирования всего кортежа.
 
-Those performance characteristics dictate the usage of those data structures. One very common use case for tuples is to use them to return extra information from a function. For example, `File.read/1` is a function that can be used to read file contents. It returns tuples:
+Учитывая разницу в скорости следует пнимательно подходить к их использованию. Чаще всего кортежи используют для структурирования результатов работы функции. Например функция `File.read/1` используется для чтения содержимого файла. Результатом выполнения функции будет кортеж:
 
 ```iex
 iex> File.read("path/to/existing/file")
@@ -370,9 +370,9 @@ iex> File.read("path/to/unknown/file")
 {:error, :enoent}
 ```
 
-If the path given to `File.read/1` exists, it returns a tuple with the atom `:ok` as the first element and the file contents as the second. Otherwise, it returns a tuple with `:error` and the error description.
+Если по пути переданному в качестве аргумента в функцию `File.read/1` существует файл, в качестве результата функция вернет кортеж у которого в качестве первого аргумента будет атом `:ok`, а в качестве второго аргумента содержимое файла. В противном случае, результатом будет кортеж у которого первым аргументом будет атом `:error` и вторым аргументом сообщение об ошибке.
 
-Most of the time, Elixir is going to guide you to do the right thing. For example, there is an `elem/2` function to access a tuple item but there is no built-in equivalent for lists:
+Большую часть времени, Elixir учит писать правильный код хотя бывают и исключения. К примеру для получения значения по индексу есть функция `elem/2`, но для списков анологичных функций нет:
 
 ```iex
 iex> tuple = {:ok, "hello"}
@@ -381,8 +381,8 @@ iex> elem(tuple, 1)
 "hello"
 ```
 
-When counting the elements in a data structure, Elixir also abides by a simple rule: the function is named `size` if the operation is in constant time (i.e. the value is pre-calculated) or `length` if the operation is linear (i.e. calculating the length gets slower as the input grows). As a mnemonic, both "length" and "linear" start with "l".
+При вычислении размера структуры данных, Elixir придерживается простого правила: если необходимо переодически получать размер структуры используется функция `size`  ( если размер структуры статичен ), функция `length` если операция линейная (т.е. при росте размера скорость работы функции замедляется).
 
-For example, we have used 4 counting functions so far: `byte_size/1` (for the number of bytes in a string), `tuple_size/1` (for tuple size), `length/1` (for list length) and `String.length/1` (for the number of graphemes in a string). We use `byte_size` to get the number of bytes in a string -- a cheap operation. Retrieving the number of unicode characters, on the other hand, uses `String.length`, and may be expensive as it relies on a traversal of the entire string.
+Например, у нас есть 4 функции для вычисления длины структуры: `byte_size/1` (для вычисления количества байтов в строке), `tuple_size/1` (для вычисления размера кортежа), `length/1` (для вычисления длины строки) и `String.length/1` (для вычисления количества графем в строке). Мы используем `byte_size` для вычисления количества байт в строке -- является "дешевой" операцией. Для вычисления количетва символов юникода, используется функция `String.length` которая работает намного медленее так как для получение длины обходит всю строку.
 
-Elixir also provides `Port`, `Reference`, and `PID` as data types (usually used in process communication), and we will take a quick look at them when talking about processes. For now, let's take a look at some of the basic operators that go with our basic types.
+В Elixir доступны типы данных `Port`, `Reference`, и `PID` (как правило используется при взаимодействии с процессами), в последствии мы рассмотрим работу с процессами.

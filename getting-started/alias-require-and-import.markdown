@@ -7,54 +7,54 @@ title: Использование alias, require, и import
 
 {% include toc.html %}
 
-In order to facilitate software reuse, Elixir provides three directives (`alias`, `require` and `import`) plus a macro called `use` summarized below:
+Для реализации модульности в Elixir используются операторы `alias`, `require` и `import`, `use`.
 
 ```elixir
-# Alias the module so it can be called as Bar instead of Foo.Bar
+# Использование псевдонима для модуля позволяет вызывать функцию используя имя Bar вместо Foo.Bar
 alias Foo.Bar, as: Bar
 
-# Ensure the module is compiled and available (usually for macros)
+# Убеждаемся что модуль скомпилирован и доступен ( как правило для макросов)
 require Foo
 
-# Import functions from Foo so they can be called without the `Foo.` prefix
+# Импортируем функции из модуля Foo таким образом мы сможем использовать их без префикса `Foo.`
 import Foo
 
-# Invokes the custom code defined in Foo as an extension point
+# Выполняет пользовательский код объявленый в модуле Foo как исполняемый
 use Foo
 ```
 
-We are going to explore them in detail now. Keep in mind the first three are called directives because they have **lexical scope**, while `use` is a common extension point.
+Давайте более подробно рассмотрим работу с ними. Имейте в виду, первые три оператора являются директивами, потому что они имеют **лексическую область видимости**, в то время как `use` общая точка вызова.
 
 ## alias
 
-`alias` allows you to set up aliases for any given module name.
+`alias` позволяют указать псевдоним для любого модуля.
 
-Imagine a module uses a specialized list implemented in `Math.List`. The `alias` directive allows referring to `Math.List` just as `List` within the module definition:
+Представте что модуль использует специальную реализацию функции `Math.List`. Использование оператора `alias`  позволит нам ссылатся на функцию `Math.List` по имени `List` не указывая при этом имя модуля:
 
 ```elixir
 defmodule Stats do
   alias Math.List, as: List
-  # In the remaining module definition List expands to Math.List.
+  # В конечном модуле функция List использовать Math.List.
 end
 ```
 
-The original `List` can still be accessed within `Stats` by the fully-qualified name `Elixir.List`.
+Оригинальная функция `List` остается доступной в модуле `Stats` по её полному имени `Elixir.List`.
 
-> Note: All modules defined in Elixir are defined inside a main `Elixir` namespace. However, for convenience, you can omit "Elixir." when referencing them.
+> Примечание: Все модули доступные в Elixir объявлены в пространстве имен `Elixir`. Тем не менее, для удобства использования, указание "Elixir." не требуется.
 
-Aliases are frequently used to define shortcuts. In fact, calling `alias` without an `:as` option sets the alias automatically to the last part of the module name, for example:
+Псевдонимы часто используются для сокращения. По факту, использование `alias` без опции `:as` указывает в качестве псевдонима последний элемент в имени модуля, например:
 
 ```elixir
 alias Math.List
 ```
 
-Is the same as:
+Тоже самое что и:
 
 ```elixir
 alias Math.List, as: List
 ```
 
-Note that `alias` is **lexically scoped**, which allows you to set aliases inside specific functions:
+Обратите внимание что оператор `alias` имеет **лексическую область видимости**, что позволяет использовать псевдонимы в составе определенных функций:
 
 ```elixir
 defmodule Math do
@@ -69,13 +69,13 @@ defmodule Math do
 end
 ```
 
-In the example above, since we are invoking `alias` inside the function `plus/2`, the alias will be valid only inside the function `plus/2`. `minus/2` won't be affected at all.
+В примере выше, мы используем оператор `alias` внутри функции `plus/2`, при этом псевдоним будет доступен только внутри функции `plus/2`. В функции `minus/2` он будет недоступен.
 
 ## require
 
-Elixir provides macros as a mechanism for meta-programming (writing code that generates code).
+В Elixir доступны макросы для реализации механизма мета программирования ( написания кода который генерирует код).
 
-Macros are chunks of code that are executed and expanded at compilation time. This means, in order to use a macro, we need to guarantee its module and implementation are available during compilation. This is done with the `require` directive:
+Макросы это части кода, которые выполняются и расширяются во время компиляции. Это означает, что для того, чтобы использовать макрос, нам необходимо, гарантировать что его модуль в котором он описан будет доступен во время компиляции. Это делается с помощью оператора `require`:
 
 ```iex
 iex> Integer.is_odd(3)
@@ -86,13 +86,13 @@ iex> Integer.is_odd(3)
 true
 ```
 
-In Elixir, `Integer.is_odd/1` is defined as a macro so that it can be used as a guard. This means that, in order to invoke `Integer.is_odd/1`, we need to first require the `Integer` module.
+В Elixir, `Integer.is_odd/1` объявлен как макрос. Это значит что, для того что бы использовать `Integer.is_odd/1`, нам сначала нужно подключить модуль `Integer`.
 
-In general a module does not need to be required before usage, except if we want to use the macros available in that module. An attempt to call a macro that was not loaded will raise an error. Note that like the `alias` directive, `require` is also lexically scoped. We will talk more about macros in a later chapter.
+В большинстве случаем не требуется подключение модулей перед их использованием, за исключением тех случаев когда мы хотим что бы макрос был доступен в нашем модуле. Попытка использования макроса который небыл подключен вызовет ошибку. Так же как и оператор `alias`, оператор `require` имеет лексическую область видимости. В последующих уроках мы подробнее рассмотрим макросы.
 
 ## import
 
-We use `import` whenever we want to easily access functions or macros from other modules without using the fully-qualified name. For instance, if we want to use the `duplicate/2` function from the `List` module several times, we can import it:
+Оператор `import` используется когда нам нужнен доступ к функции или макросу из другого модуля без использования обращения к нему по его молному имени. Для примера, если мы хотим использовать только функцию `duplicate/2` из модуля `List`, мы можем импортировать только её:
 
 ```iex
 iex> import List, only: [duplicate: 2]
@@ -101,21 +101,21 @@ iex> duplicate :ok, 3
 [:ok, :ok, :ok]
 ```
 
-In this case, we are importing only the function `duplicate` (with arity 2) from `List`. Although `:only` is optional, its usage is recommended in order to avoid importing all the functions of a given module inside the namespace. `:except` could also be given as an option in order to import everything in a module *except* a list of functions.
+В данном случае, мы импортировали толко функцию `duplicate` из модуля `List`. Использование опции `:only` опционально, такой способ рекомендуется во избежание импорта всех функций в пространство имен. Так же доступна опция `:except` для импорта всех фукций за исключением некоторых.
 
-`import` also supports `:macros` and `:functions` to be given to `:only`. For example, to import all macros, one could write:
+Оператор `import` для опции `:only` доступны `:macros` и `:functions`. Например, для импорта только макросов, мы можем использовать:
 
 ```elixir
 import Integer, only: :macros
 ```
 
-Or to import all functions, you could write:
+Или для импорта только функций:
 
 ```elixir
 import Integer, only: :functions
 ```
 
-Note that `import` is **lexically scoped** too. This means that we can import specific macros or functions inside function definitions:
+Оператор `import` так же имеет **лексическую область видимости**. Это значит что мы можем импортировать определенные функции и макросы в конкретную функцию:
 
 ```elixir
 defmodule Math do
@@ -126,15 +126,15 @@ defmodule Math do
 end
 ```
 
-In the example above, the imported `List.duplicate/2` is only visible within that specific function. `duplicate/2` won't be available in any other function in that module (or any other module for that matter).
+В примере выше, мы импортировали функцию `List.duplicate/2` в конкретной функции и доступна она будет только в ней. Это значит что функция `duplicate/2` небудет доступна в другой функции в этом модуле (или в другом модуле).
 
-Note that `import`ing a module automatically `require`s it.
+Обратите внимание что `import` - вание модуля автоматически его подключит ( неявно выполнив `require`).
 
 ## use
 
-Although not a directive, `use` is a macro tightly related to `require` that allows you to use a module in the current context. The `use` macro is frequently used by developers to bring external functionality into the current lexical scope, often modules.
+Хотя `use` и не является дерективой, он тесно связан с `require` что позволяет использовать модуль в текущем контексте. Макрос `use` часто используется для добавление дополнительного функциона в текущий контекст, как правило используется в модулях.
 
-For example, in order to write tests using the ExUnit framework, a developer should use the `ExUnit.Case` module:
+Для примера, для написания тестов с использованием фреймворка ExUnit, разработчику нужно подключить модуль `ExUnit.Case`:
 
 ```elixir
 defmodule AssertionTest do
@@ -146,7 +146,7 @@ defmodule AssertionTest do
 end
 ```
 
-Behind the scenes, `use` requires the given module and then calls the `__using__/1` callback on it allowing the module to inject some code into the current context. Generally speaking, the following module:
+Неявным образом оператор `use` подключает указанный модуль и затем вызывает `__using__/1` функция обратного вызова, позволяет сделать доступным код подключаемого модуля в текущем контексте. Проще говоря, модуль:
 
 ```elixir
 defmodule Example do
@@ -154,7 +154,7 @@ defmodule Example do
 end
 ```
 
-is compiled into
+будет скомпилирован в:
 
 ```elixir
 defmodule Example do
@@ -163,11 +163,11 @@ defmodule Example do
 end
 ```
 
-## Understanding Aliases
+## Введение в псевдонимы
 
-At this point, you may be wondering: what exactly is an Elixir alias and how is it represented?
+На данный момент  скорее всего вы задаетесь вопросом: чем именно являются псевдонимы в Elixir и как они реализованны?
 
-An alias in Elixir is a capitalized identifier (like `String`, `Keyword`, etc) which is converted to an atom during compilation. For instance, the `String` alias translates by default to the atom `:"Elixir.String"`:
+Псевдоним в Elixir является идентификатором который начинается с большой буквы (например как `String`, `Keyword` и т.д) который преобразуется в атом при компиляции. Например, псевдоним `String` по умолчанию преобразуется в атом `:"Elixir.String"`:
 
 ```iex
 iex> is_atom(String)
@@ -178,18 +178,18 @@ iex> :"Elixir.String" == String
 true
 ```
 
-By using the `alias/2` directive, we are changing the atom the alias expands to.
+Используя директиву `alias/2`, мы можем изменить структуру в которую будет преобразован атом.
 
-Aliases expand to atoms because in the Erlang <abbr title="Virtual Machine">VM</abbr> (and consequently Elixir) modules are always represented by atoms. For example, that's the mechanism we use to call Erlang modules:
+Псевдонимы преобразуются в атом потому что в Erlang <abbr title="Virtual Machine">VM</abbr> (и следовательно в Elixir) модули всегда представлены атомами. Например, вот такой механизм мы бы использовали для вызова Erlang модулей:
 
 ```iex
 iex> :lists.flatten([1, [2], 3])
 [1, 2, 3]
 ```
 
-## Module nesting
+## Вложенные модули
 
-Now that we have talked about aliases, we can talk about nesting and how it works in Elixir. Consider the following example:
+Теперь после того как мы разобрались с псевдонимами, мы можем поговорить о вложенных модулях и том как это работает в Elixir. Рассмотрим следующий пример:
 
 ```elixir
 defmodule Foo do
@@ -198,7 +198,7 @@ defmodule Foo do
 end
 ```
 
-The example above will define two modules: `Foo` and `Foo.Bar`. The second can be accessed as `Bar` inside `Foo` as long as they are in the same lexical scope. The code above is exactly the same as:
+В примере мы объявили 2 модуля: `Foo` и `Foo.Bar`. Доступ к модулю `Bar` мы можем получить через `Foo` поскольку они находятся в одной лексической области видимости. Код приведенный выше тоже самое что и:
 
 ```elixir
 defmodule Elixir.Foo do
@@ -208,18 +208,18 @@ defmodule Elixir.Foo do
 end
 ```
 
-If, later, the `Bar` module is moved outside the `Foo` module definition, it must be referenced by its full name (`Foo.Bar`) or an alias must be set using the `alias` directive discussed above.
+Если, позднее, модуль `Bar` будет вынесен за приделы модуля `Foo`, он будет доступен по его полному имени (`Foo.Bar`) или для него нужно будет укзать псевдоним с помощью дерективы `alias`.
 
-**Note**: in Elixir, you don't have to define the `Foo` module before being able to define the `Foo.Bar` module, as the language translates all module names to atoms. You can define arbitrarily-nested modules without defining any module in the chain (e.g., `Foo.Bar.Baz` without defining `Foo` or `Foo.Bar` first).
+**Примечание**: В Elixir, нельзя объявить модуль `Foo` до того как он будет доступен как `Foo.Bar`, так как язык преобразует все имена модулей в атомы. Вы можете определить произвольно вложенные модули без определения каких-либо модулей в цепи (например, `Foo.Bar.Baz` без объявления ` Foo` или `Foo.Bar`).
 
-As we will see in later chapters, aliases also play a crucial role in macros, to guarantee they are hygienic.
+Как вы увидите в последствии, псевдонимы играют важную роль в использовании макросов, как гарант их чистоты.
 
-## Multi alias/import/require/use
+## Подключение нескольких модулей одновременно ( alias/import/require/use )
 
-From Elixir v1.2, it is possible to alias, import or require multiple modules at once. This is particularly useful once we start nesting modules, which is very common when building Elixir applications. For example, imagine you have an application where all modules are nested under `MyApp`, you can alias the modules `MyApp.Foo`, `MyApp.Bar` and `MyApp.Baz` at once as follows:
+Начиная с Elixir v1.2, it is possible to alias, import or require multiple modules at once. This is particularly useful once we start nesting modules, which is very common when building Elixir applications. Для примера, представте что у вас есть приложение в котором все модули вложены в `MyApp`, вы можете создать псевдонимы для модулей `MyApp.Foo`, `MyApp.Bar` и `MyApp.Baz` одной строкой:
 
 ```elixir
 alias MyApp.{Foo, Bar, Baz}
 ```
 
-With this we have finished our tour of Elixir modules. The last topic to cover is module attributes.
+На этом мы заканчиваем обзор модулей в Elixir.
