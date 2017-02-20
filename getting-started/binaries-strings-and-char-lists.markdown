@@ -1,13 +1,13 @@
 ---
 layout: getting-started
-title: Binaries, strings, and char lists
+title: Бинарные данные, строки, символьные списки
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-In "Basic types", we learned about strings and used the `is_binary/1` function for checks:
+В уроке "Типы", мы познакомились со строками и научились использовать функцию `is_binary/1` для проверки типа данных:
 
 ```iex
 iex> string = "hello"
@@ -16,17 +16,17 @@ iex> is_binary(string)
 true
 ```
 
-In this chapter, we will understand what binaries are, how they associate with strings, and what a single-quoted value, `'like this'`, means in Elixir.
+В данном уроке, мы будем изучать бинарные данные, то как они связанны с строками и чем в Elixir являются данные, в одинарных ковычках.
 
-## UTF-8 and Unicode
+## UTF-8 и Unicode
 
-A string is a UTF-8 encoded binary. In order to understand exactly what we mean by that, we need to understand the difference between bytes and code points.
+Строки кодируются UTF-8 кодировкой. Для того что бы понять что это означает, нам нужно понять в чем разница между байтами и символьными кодами.
 
-The Unicode standard assigns code points to many of the characters we know. For example, the letter `a` has code point `97` while the letter `ł` has code point `322`. When writing the string `"hełło"` to disk, we need to convert this code point to bytes. If we adopted a rule that said one byte represents one code point, we wouldn't be able to write `"hełło"`, because it uses the code point `322` for `ł`, and one byte can only represent a number from `0` to `255`. But of course, given you can actually read `"hełło"` on your screen, it must be represented *somehow*. That's where encodings come in.
+Стандарт Unicode свзявает знакомые нам символы алфавита с символьными кодами. Например, буква `a` имеет символьный код `97` а буква `ł` имеет код `322`. Для записи строки `"hełło"` на диск, нам нужно преобразовать символьные коды в байты. Если бы для кодирования одного символьного кода использовался один байт мы бы несмогли написать слово `"hełło"`, потому что для записи одного символа `ł` используется три символа `322`, при этом один байт может хранить только одно число от `0` до `255`. Но, конечно же, поскольку вы можете прочитать `"hełło"` на вашем экране, так как нам нужно это представить *как нибудь*. В этом нам может помочь кодировка.
 
-When representing code points in bytes, we need to encode them somehow. Elixir chose the UTF-8 encoding as its main and default encoding. When we say a string is a UTF-8 encoded binary, we mean a string is a bunch of bytes organized in a way to represent certain code points, as specified by the UTF-8 encoding.
+Для преобразования символьных кодов в байты, нам нужно их как то закодировать. В Elixir используется кодировка UTF-8 по умолчанию. Когда мы говорим что строка представлена в кодировке UTF-8, мы имеем в виду что строка это набор байтов который содержит набор символьных кодов, указанных в кодировке UTF-8.
 
-Since we have characters like `ł` assigned to the code point `322`, we actually need more than one byte to represent them. That's why we see a difference when we calculate the `byte_size/1` of a string compared to its `String.length/1`:
+Так как у нас есть сиволы такие как `ł` имеющий символьный код `322`, нам нужно больше одно байта для кодирования таких символов. В этом и заключается разница в работе функций `byte_size/1` и `String.length/1`, рассмотрим пример:
 
 ```iex
 iex> string = "hełło"
@@ -37,11 +37,11 @@ iex> String.length(string)
 5
 ```
 
-There, `byte_size/1` counts the underlying raw bytes, and `String.length/1` counts characters.
+Где, функция `byte_size/1` считает количество байтов, а функция `String.length/1` считает количество символов.
 
-> Note: if you are running on Windows, there is a chance your terminal does not use UTF-8 by default. You can change the encoding of your current session by running `chcp 65001` before entering `iex` (`iex.bat`).
+> Примечание: Если вы работаете в ос Windows, есть вероятность что ваша консоль не поддерживает UTF-8 по умолчанию. Вы можете указать кодировку для текущей сессии выполнив команду `chcp 65001` перед тем как запустить интерактивную оболочку `iex` (`iex.bat`).
 
-UTF-8 requires one byte to represent the characters `h`, `e`, and `o`, but two bytes to represent `ł`. In Elixir, you can get a character's code point by using `?`:
+Кодировка UTF-8 требует одного байта для кодировки символа `h`, `e`, и `o`, и два байта для кодирования символа `ł`. в Elixir, вы можете получить символ кода воспользовавшись оператором `?`:
 
 ```iex
 iex> ?a
@@ -50,7 +50,7 @@ iex> ?ł
 322
 ```
 
-You can also use the functions in [the `String` module](https://hexdocs.pm/elixir/String.html) to split a string in its individual characters, each one as a string of length 1:
+Так же вы можете использовать функцию из [модуля `String`](https://hexdocs.pm/elixir/String.html) для разбиения строки на отдельные символы, длина каждого из них равна 1:
 
 ```iex
 iex> String.codepoints("hełło")
@@ -61,9 +61,9 @@ You will see that Elixir has excellent support for working with strings. It also
 
 However, strings are just part of the story. If a string is a binary, and we have used the `is_binary/1` function, Elixir must have an underlying type empowering strings. And it does! Let's talk about binaries.
 
-## Binaries (and bitstrings)
+## Бинарные данные (и бинарные строки)
 
-In Elixir, you can define a binary using `<<>>`:
+В Elixir, вы можете объявить бинарные данные используя оператор `<<>>`:
 
 ```iex
 iex> <<0, 1, 2, 3>>
@@ -163,9 +163,9 @@ iex> rest
 
 A complete reference about the binary / bitstring constructor `<<>>` can be found [in the Elixir documentation](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1). This concludes our tour of bitstrings, binaries and strings. A string is a UTF-8 encoded binary and a binary is a bitstring where the number of bits is divisible by 8. Although this shows the flexibility Elixir provides for working with bits and bytes, 99% of the time you will be working with binaries and using the `is_binary/1` and `byte_size/1` functions.
 
-## Char lists
+## Список символов
 
-A char list is nothing more than a list of code points. Char lists may be created with single-quoted literals:
+Список символов это ничто иное как список символьных кодов. Список символов можно создать используя литерал строки в одинарных ковычках:
 
 ```iex
 iex> 'hełło'
