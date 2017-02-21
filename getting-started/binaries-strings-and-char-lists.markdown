@@ -57,13 +57,13 @@ iex> String.codepoints("hełło")
 ["h", "e", "ł", "ł", "o"]
 ```
 
-You will see that Elixir has excellent support for working with strings. It also supports many of the Unicode operations. In fact, Elixir passes all the tests showcased in the article ["The string type is broken"](http://mortoray.com/2013/11/27/the-string-type-is-broken/).
+Elixir имеет хорошую поддержку для работы со строками. Так же он поддерживает множество операций по работу с Юникод кодировкой. По факту, Elixir успешно проходит все тесты описанные в статье ["почему тип данных строка это плохо"](http://mortoray.com/2013/11/27/the-string-type-is-broken/).
 
-However, strings are just part of the story. If a string is a binary, and we have used the `is_binary/1` function, Elixir must have an underlying type empowering strings. And it does! Let's talk about binaries.
+Однако, строки это всего лишь одна сторона медали. Если строки это двоичные данные, мы можем использовать в работе функцию `is_binary/1`, Elixir должен иметь базовый тип расширяющий возможности строк. И он есть! Давайте поговорим о двоичных данных.
 
-## Бинарные данные (и бинарные строки)
+## Двоичные данные (и двоичные строки)
 
-В Elixir, вы можете объявить бинарные данные используя оператор `<<>>`:
+В Elixir, вы можете объявить двоичные данные используя оператор `<<>>`:
 
 ```iex
 iex> <<0, 1, 2, 3>>
@@ -72,28 +72,28 @@ iex> byte_size(<<0, 1, 2, 3>>)
 4
 ```
 
-A binary is a sequence of bytes. Those bytes can be organized in any way, even in a sequence that does not make them a valid string:
+Двоичные данные это последовательность байт. Эти байты могут идти в любой последовательности, даже если это сделает строку невалидной:
 
 ```iex
 iex> String.valid?(<<239, 191, 191>>)
 false
 ```
 
-The string concatenation operation is actually a binary concatenation operator:
+Операция по объеденению ( конкатенации ) строк по факту является операцией объеденения двоичных данных:
 
 ```iex
 iex> <<0, 1>> <> <<2, 3>>
 <<0, 1, 2, 3>>
 ```
 
-A common trick in Elixir is to concatenate the null byte `<<0>>` to a string to see its inner binary representation:
+Часто используемая фишка Elixir это конкатенация нулевого байта к строке `<<0>>` для того что бы увидеть её двоичное представление:
 
 ```iex
 iex> "hełło" <> <<0>>
 <<104, 101, 197, 130, 197, 130, 111, 0>>
 ```
 
-Each number given to a binary is meant to represent a byte and therefore must go up to 255. Binaries allow modifiers to be given to store numbers bigger than 255 or to convert a code point to its UTF-8 representation:
+Каждое число в двоичной строке является байтом находящимся в диапазоне от 0 до 255. Двоичные данные допускают испльзование модификаторов для хранения чисел больше чем 255 или преобразования символьного кода в его UTF-8 аналог:
 
 ```iex
 iex> <<255>>
@@ -108,7 +108,7 @@ iex> <<256 :: utf8, 0>>
 <<196, 128, 0>>
 ```
 
-If a byte has 8 bits, what happens if we pass a size of 1 bit?
+Если в байте 8 бит, что будет если указать в качестве размера 1 бит?
 
 ```iex
 iex> <<1 :: size(1)>>
@@ -123,7 +123,7 @@ iex> bit_size(<< 1 :: size(1)>>)
 1
 ```
 
-The value is no longer a binary, but a bitstring -- a bunch of bits! So a binary is a bitstring where the number of bits is divisible by 8.
+Значение болше не является двоичным, но побитовая строка -- это последовательность бит! Таким образом двоичными данными является побитовая строка число битов в которой делится без остатка на 8.
 
 ```iex
 iex>  is_binary(<<1 :: size(16)>>)
@@ -132,7 +132,7 @@ iex>  is_binary(<<1 :: size(15)>>)
 false
 ```
 
-We can also pattern match on binaries / bitstrings:
+Для проверки того является строка побитовой или двоичной мы можем использовать *pattern match*:
 
 ```iex
 iex> <<0, 1, x>> = <<0, 1, 2>>
@@ -143,7 +143,7 @@ iex> <<0, 1, x>> = <<0, 1, 2, 3>>
 ** (MatchError) no match of right hand side value: <<0, 1, 2, 3>>
 ```
 
-Note each entry in the binary pattern is expected to match exactly 8 bits. If we want to match on a binary of unknown size, it is possible by using the binary modifier at the end of the pattern:
+Обратите внимание что для каждой записи в *binary pattern* ожидается точное соотвествие 8 битам. Если нам неизвестен размер строки мы можем воспользоваться *бинарным модификатором* в конце строки:
 
 ```iex
 iex> <<0, 1, x :: binary>> = <<0, 1, 2, 3>>
@@ -152,7 +152,7 @@ iex> x
 <<2, 3>>
 ```
 
-Similar results can be achieved with the string concatenation operator `<>`:
+Аналогичный результат можно достигнуть воспользовавшись оператором `<>`:
 
 ```iex
 iex> "he" <> rest = "hello"
@@ -161,7 +161,7 @@ iex> rest
 "llo"
 ```
 
-A complete reference about the binary / bitstring constructor `<<>>` can be found [in the Elixir documentation](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1). This concludes our tour of bitstrings, binaries and strings. A string is a UTF-8 encoded binary and a binary is a bitstring where the number of bits is divisible by 8. Although this shows the flexibility Elixir provides for working with bits and bytes, 99% of the time you will be working with binaries and using the `is_binary/1` and `byte_size/1` functions.
+Более полные сведения об использовании конструктора двоичных строки `<<>>` вы можете найти [в документации по Elixir](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1). На этом завершается наш урок по битовым строкам, двоичным данным и строкам. Подводя итог можно сказать что строки кодируются в кодировку UTF-8, двоичную строку и в побитовую строку, при этом количество бит в ней должно делится без остатка на 8. Хотя это и показывает гибкость Elixir в работе с байтами и битами, 99% времени вы будете работать с двоичными данными, при этом чаще всего используются функции `is_binary/1` и `byte_size/1`.
 
 ## Список символов
 
@@ -178,9 +178,9 @@ iex> List.first('hello')
 104
 ```
 
-You can see that, instead of containing bytes, a char list contains the code points of the characters between single-quotes (note that by default IEx will only output code points if any of the integers is outside the ASCII range). So while double-quotes represent a string (i.e. a binary), single-quotes represent a char list (i.e. a list).
+Как видите, вместо байт, в списке имволов используются символьные коды букв заключенных в одинарные ковычки ( по умолчанию IEx для вывода использует символьные коды, если какой то из символов выходит за пределы ASCII). Таким образом в то время как последовательность символов в двойных ковычках является строкой (т.е двоичными данными), символы в одинарных ковычках являются символным списком (т.е списком).
 
-In practice, char lists are used mostly when interfacing with Erlang, in particular old libraries that do not accept binaries as arguments. You can convert a char list to a string and back by using the `to_string/1` and `to_charlist/1` functions:
+На практике, символьные списки чаще всего используются при взаимодействии с Erlang, так же стоит обратить внимание что старые библиотеки не принимают двоичные строки в качестве аргументов. Вы можете конвертировать символьные списки в строки и обратно используя функции `to_string/1` и `to_charlist/1`:
 
 ```iex
 iex> to_charlist "hełło"
@@ -193,6 +193,6 @@ iex> to_string 1
 "1"
 ```
 
-Note that those functions are polymorphic. They not only convert char lists to strings, but also integers to strings, atoms to strings, and so on.
+Обратите внимание что данные функции являются полиморфными. Они не только конвертируют списки символов в строки, но также и числа в строки, атомы в строки и т.д.
 
-With binaries, strings, and char lists out of the way, it is time to talk about key-value data structures.
+Мы рассмотрели двоичные данные, строки и символьные строки, пришло время поговорить о данных типа ключ/значение.
