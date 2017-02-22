@@ -7,18 +7,18 @@ title: Sigils
 
 {% include toc.html %}
 
-We have already learned that Elixir provides double-quoted strings and single-quoted char lists. However, this only covers the surface of structures that have textual representation in the language. Atoms, for example, are mostly created via the `:atom` representation.
+Мы знаем что в Elixir, символы в двойных ковычках являются строкой, а в одинарных ковычках списком символов. Однако, это касается только структур данных которые можно представить в виде последовательности символов. К примеру атомы задаются с помощью команды `:atom`.
 
 One of Elixir's goals is extensibility: developers should be able to extend the language to fit any particular domain. Computer science has become such a wide field that it is impossible for a language to tackle many fields as part of its core. Rather, our best bet is to make the language extensible, so developers, companies, and communities can extend the language to their relevant domains.
 
-In this chapter, we are going to explore sigils, which are one of the mechanisms provided by the language for working with textual representations. Sigils start with the tilde (`~`) character which is followed by a letter (which identifies the sigil) and then a delimiter; optionally, modifiers can be added after the final delimiter.
+В данном уроке, мы будем изучать *sigils*, которые являются одним из механизмов  provided by the language for working with textual representations. Sigils start with the tilde (`~`) character which is followed by a letter (which identifies the sigil) and then a delimiter; optionally, modifiers can be added after the final delimiter.
 
-## Regular expressions
+## Регулярные выражения
 
-The most common sigil in Elixir is `~r`, which is used to create [regular expressions](https://en.wikipedia.org/wiki/Regular_Expressions):
+Часто используемый sigil в Elixir это `~r`, который используется для создания [регулярных выражений](https://en.wikipedia.org/wiki/Regular_Expressions):
 
 ```iex
-# A regular expression that matches strings which contain "foo" or "bar":
+# Данному регулярному выражению соотвествуют строки содержащие "foo" или "bar":
 iex> regex = ~r/foo|bar/
 ~r/foo|bar/
 iex> "foo" =~ regex
@@ -27,7 +27,7 @@ iex> "bat" =~ regex
 false
 ```
 
-Elixir provides Perl-compatible regular expressions (regexes), as implemented by the [PCRE](http://www.pcre.org/) library. Regexes also support modifiers. For example, the `i` modifier makes a regular expression case insensitive:
+В Elixir используются Perl-совместимые регулярные выражения (regexes), описаные в библиотеке [PCRE](http://www.pcre.org/). В регулярных выражениях доступно использование модификаторов. Например, модификатор `i` делает регулярное выражение регистро независиммым:
 
 ```iex
 iex> "HELLO" =~ ~r/hello/
@@ -36,9 +36,9 @@ iex> "HELLO" =~ ~r/hello/i
 true
 ```
 
-Check out the [`Regex` module](https://hexdocs.pm/elixir/Regex.html) for more information on other modifiers and the supported operations with regular expressions.
+См [ документацию по `Regex`](https://hexdocs.pm/elixir/Regex.html) для получения более полной информации по модификторам и опциям которые можно использовать в регулярных выражениях.
 
-So far, all examples have used `/` to delimit a regular expression. However sigils support 8 different delimiters:
+До сих пор, во всех примерах мы использовали `/` для обрамления регулярных выражений. Однако sigils поддерживает 8 различных разделителей:
 
 ```
 ~r/hello/
@@ -51,49 +51,49 @@ So far, all examples have used `/` to delimit a regular expression. However sigi
 ~r<hello>
 ```
 
-The reason behind supporting different delimiters is to provide a way to write literals without escaped delimiters. For example, a regular expression with forward slashes like `~r(^https?://)` reads arguably better than `~r/^https?:\/\/`. Similarly, if the regular expression has forward slashes and capturing groups (that use `()`), you may then choose double quotes instead of parentheses.
+Различные разделители используются для написания литеральных выражений без использования экранирующих разделителей. В качестве примера рассмотрим, регулярное выражение с использованием обратных слэшей `~r(^https?://)` выглядит намного лучше чем `~r/^https?:\/\/`. Точно так же, если в регулярном выражении используются обратные слэши и оператор захвата (см. `()`), вместо скобок двойные ковычки вместо скобок.
 
-## Strings, char lists, and word lists sigils
+## Строки, списки символов, и списки слов с sigils
 
-Besides regular expressions, Elixir ships with three other sigils.
+Помимо регулярных выражений, в Elixir существуют добавочные символы.
 
-### Strings
+### Строки
 
-The `~s` sigil is used to generate strings, like double quotes are. The `~s` sigil is useful when a string contains double quotes:
+Sigil `~s` можно использовать для создания строк вместо двойных ковычек. Sigil `~s` используется в том случае когда в строке встречаются двойные ковычки:
 
 ```iex
 iex> ~s(this is a string with "double" quotes, not 'single' ones)
 "this is a string with \"double\" quotes, not 'single' ones"
 ```
 
-### Char lists
+### Списки символов
 
-The `~c` sigil is useful for generating char lists that contain single quotes:
+Sigil `~c` испльзуется когда нужно создать список символов в котором встречаются одинарные ковычки:
 
 ```iex
 iex> ~c(this is a char list containing 'single quotes')
 'this is a char list containing \'single quotes\''
 ```
 
-### Word lists
+### Списки слов
 
-The `~w` sigil is used to generate lists of words (*words* are just regular strings). Inside the `~w` sigil, words are separated by whitespace.
+Sigil `~w` используется для создания списка слов. Внутри сигила `~w`, слова разделаются пробелами.
 
 ```iex
 iex> ~w(foo bar bat)
 ["foo", "bar", "bat"]
 ```
 
-The `~w` sigil also accepts the `c`, `s` and `a` modifiers (for char lists, strings and atoms, respectively), which specify the data type of the elements of the resulting list:
+Sigil `~w` так же принимает модификаторы `c`, `s` и `a`  (так же можно использовать с символьными списками, строками и атомами), которые определяют какого типа будут данные возвращаемые в качестве результата:
 
 ```iex
 iex> ~w(foo bar bat)a
 [:foo, :bar, :bat]
 ```
 
-## Interpolation and escaping in sigils
+## Интерполяция и экранирующие символы в sigils
 
-Besides lowercase sigils, Elixir supports uppercase sigils to deal with escaping characters and interpolation. While both `~s` and `~S` will return strings, the former allows escape codes and interpolation while the latter does not:
+Кроме sigils в нижнем регистре, в Elixir поддерживаются sigils в верхнем регистре для совместного использования с экранирующими символами и механизмом интерполяцией. Независимо от того испльзуем мы `~s` или `~S` результатом будет строка, в первом случае в строке можно использовать экранирующие символы и механизм интерполяции в последнем случае нет:
 
 ```iex
 iex> ~s(String with escape codes \x26 #{"inter" <> "polation"})
@@ -102,26 +102,26 @@ iex> ~S(String without escape codes \x26 without #{interpolation})
 "String without escape codes \\x26 without \#{interpolation}"
 ```
 
-The following escape codes can be used in strings and char lists:
+В строках и символьных списках можно использовать следующие экранирующие символы:
 
-* `\\` – single backslash
-* `\a` – bell/alert
-* `\b` – backspace
+* `\\` - один обратный слэш
+* `\a` - bell/alert
+* `\b` - возврат на символ назад
 * `\d` - delete
 * `\e` - escape
-* `\f` - form feed
-* `\n` – newline
-* `\r` – carriage return
-* `\s` – space
-* `\t` – tab
-* `\v` – vertical tab
-* `\0` - null byte
-* `\xDD` - represents a single byte in hexadecimal (such as `\x13`)
-* `\uDDDD` and `\u{D...}` - represents a Unicode codepoint in hexadecimal (such as `\u{1F600}`)
+* `\f` - перевод карретки к началу страницы
+* `\n` - новая строка
+* `\r` - возврат карретки
+* `\s` - пробел
+* `\t` - символ табуляции
+* `\v` - вертикальная табуляция
+* `\0` - нулевой байт
+* `\xDD` - один байт в шестнадцатеричной системе исчисления (прим `\x13`)
+* `\uDDDD` и `\u{D...}` - символ юникода codepoint в шестнадцатеричной системе исчисления (прим `\u{1F600}`)
 
-In addition to those, a double quote inside a double-quoted string needs to be escaped as `\"`, and, analogously, a single quote inside a single-quoted char list needs to be escaped as `\'`. Nevertheless, it is better style to change delimiters as seen above than to escape them.
+В дополнение к выше сказанному, двойные ковычки внутри строки в двойных ковычках нужно предварять обратным слэшем `\"`, и по аналогии делать тоже самое для одинарных ковычек `\'`. Тем неменее, лучшем решением в данной ситуации будет использование разделителей вместо экранирующих символов.
 
-Sigils also support heredocs, that is, triple double- or single-quotes as separators:
+Sigils так же поддерживает использование heredocs синтаксиса, т.е изпользование 3 двойных или одинарных ковычек в качестве разделителя:
 
 ```iex
 iex> ~s"""
@@ -130,13 +130,13 @@ iex> ~s"""
 ...> """
 ```
 
-The most common use case for heredoc sigils is when writing documentation. For example, writing escape characters in documentation would soon become error prone because of the need to double-escape some characters:
+Чаще всего *heredoc sigils* используется для оформления документации. Постоянное использование экранирующих символов при написании рано или поздно приведет к ошибке, так как в большинстве случаев может потребоваться использование двойных экранирующих символов подряд:
 
 ```elixir
 @doc """
-Converts double-quotes to single-quotes.
+Преобразуем двойные ковычки в одинарные.
 
-## Examples
+## Пример
 
     iex> convert("\\\"foo\\\"")
     "'foo'"
@@ -145,13 +145,13 @@ Converts double-quotes to single-quotes.
 def convert(...)
 ```
 
-By using `~S`, this problem can be avoided altogether:
+Используя `~S`, эту проблему можно полностью избежать:
 
 ```elixir
 @doc ~S"""
-Converts double-quotes to single-quotes.
+Преобразуем двойные ковычки в одинарные.
 
-## Examples
+## Пример
 
     iex> convert("\"foo\"")
     "'foo'"
@@ -160,23 +160,23 @@ Converts double-quotes to single-quotes.
 def convert(...)
 ```
 
-## Custom sigils
+## Пользовательские sigils
 
-As hinted at the beginning of this chapter, sigils in Elixir are extensible. In fact, using the sigil `~r/foo/i` is equivalent to calling `sigil_r` with a binary and a char list as argument:
+Как говорилось в начале урока, sigils в Elixir являются расширяемыми. По факту, используя sigil `~r/foo/i` эквивалентно использованию `sigil_r` с двоичными данными и символьными списками в качестве аргументов:
 
 ```iex
 iex> sigil_r(<<"foo">>, 'i')
 ~r"foo"i
 ```
 
-We can access the documentation for the `~r` sigil via `sigil_r`:
+Вы можете получить подробную информацию по `~r` sigil используя команду `sigil_r`:
 
 ```iex
 iex> h sigil_r
 ...
 ```
 
-We can also provide our own sigils by implementing functions that follow the `sigil_{identifier}` pattern. For example, let's implement the `~i` sigil that returns an integer (with the optional `n` modifier to make it negative):
+Вы можете создать свой собственный sigils используя функцию `sigil_{identifier}` в качестве шаблона. Для примера, создадим `~i` sigil который возвращает целое число (комбинируя с `n` результат будет инвертирован):
 
 ```iex
 iex> defmodule MySigils do
@@ -190,4 +190,4 @@ iex> ~i(42)n
 -42
 ```
 
-Sigils can also be used to do compile-time work with the help of macros. For example, regular expressions in Elixir are compiled into an efficient representation during compilation of the source code, therefore skipping this step at runtime. If you're interested in the subject, we recommend you learn more about macros and check out how sigils are implemented in the `Kernel` module (where the `sigil_*` functions are defined).
+Sigils так же могут быть использованы для выполнения работы с макросами во время компиляции. Например, регулярные выражения в Elixir компилируются в эффективные конструкции во время компиляции в исходный код, что позволяет их опускать их во время рантайми. Если вас интересует данная тема, мы рекомендуем изучить то как реализованны макросы и sigils реализованны в модуле `Kernel` (где объявлена функция `sigil_*`).
