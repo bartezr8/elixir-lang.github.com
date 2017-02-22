@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: Structs
+title: Структуры
 redirect_from: /getting-started/struct.html
 ---
 
@@ -8,7 +8,7 @@ redirect_from: /getting-started/struct.html
 
 {% include toc.html %}
 
-In [chapter 7](/getting-started/keywords-and-maps.html) we learned about maps:
+В [7 уроке](/getting-started/keywords-and-maps.html) мы изучили работу с функцией `map`:
 
 ```iex
 iex> map = %{a: 1, b: 2}
@@ -19,11 +19,11 @@ iex> %{map | a: 3}
 %{a: 3, b: 2}
 ```
 
-Structs are extensions built on top of maps that provide compile-time checks and default values.
+Структуры являются надстройкой над *maps* обеспечивают проверку на этапе компиляции и значения по умолчанию.
 
-## Defining structs
+## Объявление структуры
 
-To define a struct, the `defstruct` construct is used:
+Для объявления структуры, используется конструктор `defstruct`:
 
 ```iex
 iex> defmodule User do
@@ -51,7 +51,7 @@ iex> %User{oops: :field}
 ** (KeyError) key :oops not found in: %User{age: 27, name: "John"}
 ```
 
-## Accessing and updating structs
+## Доступ к структурам и их обновление
 
 When we discussed maps, we showed how we can access and update the fields of a map. The same techniques (and the same syntax) apply to structs as well:
 
@@ -115,9 +115,9 @@ iex> Map.keys(john)
 
 Structs alongside protocols provide one of the most important features for Elixir developers: data polymorphism. That's what we will explore in the next chapter.
 
-## Default values and required keys
+## Значения по умолчанию и обязательные ключи
 
-If you don't specify a default key value when defining a struct, `nil` will be assumed:
+Если вы не указали значение ключа по умолчанию во время объявления структуры, в качестве значения будет использовано `nil`:
 
 ```iex
 iex> defmodule Product do
