@@ -9,9 +9,9 @@ title: Sigils
 
 Мы знаем что в Elixir, символы в двойных ковычках являются строкой, а в одинарных ковычках списком символов. Однако, это касается только структур данных которые можно представить в виде последовательности символов. К примеру атомы задаются с помощью команды `:atom`.
 
-One of Elixir's goals is extensibility: developers should be able to extend the language to fit any particular domain. Computer science has become such a wide field that it is impossible for a language to tackle many fields as part of its core. Rather, our best bet is to make the language extensible, so developers, companies, and communities can extend the language to their relevant domains.
+Одна из целей Elixir's является расширяемость: разработчики должны иметь возможность расширить язык, чтобы соответствовать любой конкретной предметной области. Программирование охватывает множество областей, поэтому невозможно спроектировать язык таким образом, что бы он охватыва все области. Лучшим решением в данной ситуации сделать удобный механизм для написания расширений для языка, что бы в любой момент разработчик мог написать необходимый ему функционал.
 
-В данном уроке, мы будем изучать *sigils*, которые являются одним из механизмов  provided by the language for working with textual representations. Sigils start with the tilde (`~`) character which is followed by a letter (which identifies the sigil) and then a delimiter; optionally, modifiers can be added after the final delimiter.
+В данном уроке, мы будем изучать *sigils*, которые являются одним из механизмов для обработки текстовых данных. Sigils начинаются со знака (`~`) символы следующие за буквой (которая идентифицирует sigil) и разделителем; Модификаторы можно добавлять после последнего разделителя.
 
 ## Регулярные выражения
 
