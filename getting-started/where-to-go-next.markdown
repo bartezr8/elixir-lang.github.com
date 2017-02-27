@@ -7,38 +7,38 @@ title: Where to go next
 
 {% include toc.html %}
 
-Eager to learn more? Keep reading!
+Готовы узнать больше? Продолжай читать!
 
-## Build your first Elixir project
+## Создаем ваш первый Elixir проект
 
-In order to get your first project started, Elixir ships with a build tool called Mix. You can get your new project started by running:
+Для создания нашего первого проекта, мы воспользуемся `Mix` это система сборки входящая в состав Elixir. Для создания шаблона проекта в консоли наберите:
 
 ```bash
 $ mix new path/to/new/project
 ```
 
-We have written a guide that covers how to build an Elixir application, with its own supervision tree, configuration, tests, and more. The application works as a distributed key-value store where we organize key-value pairs into buckets and distribute those buckets across multiple nodes:
+Мы написали руководство по написанию простого приложения на Elixir включая контроль кода, конфигурацию, тесты и многое другое. Приложение будет выполнять роль хранилища пар ключ-значение, хранилища будут находится на отдельных нодах:
 
-* [Mix and OTP](/getting-started/mix-otp/introduction-to-mix.html)
+* [Mix и OTP](/getting-started/mix-otp/introduction-to-mix.html)
 
-## Meta-programming
+## Метапрограммирование
 
 Elixir is an extensible and very customizable programming language thanks to its meta-programming support. Most meta-programming in Elixir is done through macros, which are very useful in several situations, especially for writing DSLs. We have written a short guide that explains the basic mechanisms behind macros, shows how to write macros, and how to use macros to create DSLs:
 
-* [Meta-programming in Elixir](/getting-started/meta/quote-and-unquote.html)
+* [Метапрограммирование в Elixir](/getting-started/meta/quote-and-unquote.html)
 
-## Community and other resources
+## Сообщество и другие ресурсы
 
 We have a [Learning](/learning.html) section that suggests books, screencasts, and other resources for learning Elixir and exploring the ecosystem. There are also plenty of Elixir resources out there, like conference talks, open source projects, and other learning material produced by the community.
 
 Don't forget that you can also check the [source code of Elixir itself](https://github.com/elixir-lang/elixir), which is mostly written in Elixir (mainly the `lib` directory), or [explore Elixir's documentation](/docs.html).
 
-## A byte of Erlang
+## Взаимодействие с Erlang
 
-Elixir runs on the Erlang Virtual Machine and, sooner or later, an Elixir developer will want to interface with existing Erlang libraries. Here's a list of online resources that cover Erlang's fundamentals and its more advanced features:
+Elixir работает поверх виртуальной машины Erlang и, рано или поздно, Elixir разработчику понадобится механизм для работы с библиотеками Erlang. Мы собрали для вас список онлайн ресурсов по Erlang's которые содержат много полезной информации:
 
-* This [Erlang Syntax: A Crash Course](/crash-course.html) provides a concise intro to Erlang's syntax. Each code snippet is accompanied by equivalent code in Elixir. This is an opportunity for you to not only get some exposure to Erlang's syntax but also review some of the things you have learned in this guide.
+* This [Синтаксис Erlang: Экстремальный курс](/crash-course.html) provides a concise intro to Erlang's syntax. Each code snippet is accompanied by equivalent code in Elixir. This is an opportunity for you to not only get some exposure to Erlang's syntax but also review some of the things you have learned in this guide.
 
-* Erlang's official website has a short [tutorial](http://www.erlang.org/course/concurrent_programming.html) with pictures that briefly describe Erlang's primitives for concurrent programming.
+* На официальном сайте по Erlang's есть краткое [руководство](http://www.erlang.org/course/concurrent_programming.html) с иллюстрациями по Erlang's и основам параллельного программирования.
 
-* [Learn You Some Erlang for Great Good!](http://learnyousomeerlang.com/) is an excellent introduction to Erlang, its design principles, standard library, best practices, and much more. Once you have read through the crash course mentioned above, you'll be able to safely skip the first couple of chapters in the book that mostly deal with the syntax. When you reach [The Hitchhiker's Guide to Concurrency](http://learnyousomeerlang.com/the-hitchhikers-guide-to-concurrency) chapter, that's where the real fun starts.
+* [Изучай Erlang во имя добра!](http://learnyousomeerlang.com/) отличное пособие по изучению Erlang, принципах проектирования, стандартной библиотеки, лучших практиках, и моногому другому. Once you have read through the crash course mentioned above, you'll be able to safely skip the first couple of chapters in the book that mostly deal with the syntax. When you reach [руководство по параллельному программированию от Hitchhiker's Guide](http://learnyousomeerlang.com/the-hitchhikers-guide-to-concurrency) chapter, that's where the real fun starts.

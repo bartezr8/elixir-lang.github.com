@@ -1,17 +1,17 @@
 ---
 layout: getting-started
-title: IO and the file system
+title: Операции ввода/вывода и работа с файловой системой
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-This chapter is a quick introduction to input/output mechanisms and file-system-related tasks, as well as to related modules like [`IO`](https://hexdocs.pm/elixir/IO.html), [`File`](https://hexdocs.pm/elixir/File.html) and [`Path`](https://hexdocs.pm/elixir/Path.html).
+В этом уроке мы рассмотрим механизм ввода/вывода и работу с файловой системой, а также связанных с ними модулей, таких как [`IO`](https://hexdocs.pm/elixir/IO.html), [`File`](https://hexdocs.pm/elixir/File.html) и [`Path`](https://hexdocs.pm/elixir/Path.html).
 
 We had originally sketched this chapter to come much earlier in the getting started guide. However, we noticed the IO system provides a great opportunity to shed some light on some philosophies and curiosities of Elixir and the <abbr title="Virtual Machine">VM</abbr>.
 
-## The `IO` module
+## Модуль `IO`
 
 The [`IO`](http://elixir-lang.org/docs/v1.0/elixir/IO.html) module is the main mechanism in Elixir for reading and writing to standard input/output (`:stdio`), standard error (`:stderr`), files, and other IO devices. Usage of the module is pretty straightforward:
 
@@ -32,7 +32,7 @@ hello world
 :ok
 ```
 
-## The `File` module
+## Модуль `File`
 
 The [`File`](https://hexdocs.pm/elixir/File.html) module contains functions that allow us to open files as IO devices. By default, files are opened in binary mode, which requires developers to use the specific `IO.binread/2` and `IO.binwrite/2` functions from the `IO` module:
 
@@ -85,7 +85,7 @@ as, in case of an error, `File.read/1` will return `{:error, reason}` and the pa
 
 Therefore, if you don't want to handle the error outcomes, prefer using `File.read!/1`.
 
-## The `Path` module
+## Модуль `Path`
 
 The majority of the functions in the `File` module expect paths as arguments. Most commonly, those paths will be regular binaries. The [`Path`](https://hexdocs.pm/elixir/Path.html) module provides facilities for working with such paths:
 
@@ -100,16 +100,16 @@ Using functions from the `Path` module as opposed to directly manipulating strin
 
 With this we have covered the main modules that Elixir provides for dealing with IO and interacting with the file system. In the next sections, we will discuss some advanced topics regarding IO. Those sections are not necessary in order to write Elixir code, so feel free to skip them, but they do provide a nice overview of how the IO system is implemented in the <abbr title="Virtual Machine">VM</abbr> and other curiosities.
 
-## Processes and group leaders
+## Процессы и управление группами
 
-You may have noticed that `File.open/2` returns a tuple like `{:ok, pid}`:
+Вы могли заметить что функция `File.open/2` возвращает кортеж вида `{:ok, pid}`:
 
 ```iex
 iex> {:ok, file} = File.open "hello", [:write]
 {:ok, #PID<0.47.0>}
 ```
 
-That happens because the `IO` module actually works with processes (see [chapter 11](/getting-started/processes.html)). When you write `IO.write(pid, binary)`, the `IO` module will send a message to the process identified by `pid` with the desired operation. Let's see what happens if we use our own process:
+Это происходит потому что модуль `IO` работает с процессами (см [урок 11](/getting-started/processes.html)). Когда вы записываете данные используя функцию `IO.write(pid, binary)`, модуль `IO` отправляет сообщение процессу по идентификатору `pid` который выполняет обработку данной задачи. Давайте посмотрим что произойдет, если мы для обработки используем наш процесс:
 
 ```iex
 iex> pid = spawn fn ->
@@ -122,9 +122,9 @@ iex> IO.write(pid, "hello")
 ** (ErlangError) erlang error: :terminated
 ```
 
-After `IO.write/2`, we can see the request sent by the `IO` module (a four-elements tuple) printed out. Soon after that, we see that it fails since the `IO` module expected some kind of result that we did not supply.
+После выполнения функции `IO.write/2`, как мы можем увидеть запрос отправляется модулю `IO` который его обработает и выведет результат (кортеж из 4 элементов). В скоре после этого, мы увидим что он завершится неудачей, так как модуль `IO` ожидает результат выполнения, который мы ему не передаем.
 
-The [`StringIO`](https://hexdocs.pm/elixir/StringIO.html) module provides an implementation of the `IO` device messages on top of strings:
+Модуль [`StringIO`](https://hexdocs.pm/elixir/StringIO.html) обеспечивает отправку сообщений `IO`поверх строк:
 
 ```iex
 iex> {:ok, pid} = StringIO.open("hello")
@@ -133,7 +133,7 @@ iex> IO.read(pid, 2)
 "he"
 ```
 
-By modelling IO devices with processes, the Erlang <abbr title="Virtual Machine">VM</abbr> allows different nodes in the same network to exchange file processes in order to read/write files in between nodes. Of all IO devices, there is one that is special to each process: the **group leader**.
+By modelling IO devices with processes, the Erlang <abbr title="Virtual Machine">VM</abbr> allows different nodes in the same network to exchange file processes in order to read/write files in between nodes. Of all IO devices, there is one that is special to each process: the **управление группами**.
 
 When you write to `:stdio`, you are actually sending a message to the group leader, which writes to the standard-output file descriptor:
 
@@ -148,11 +148,11 @@ hello
 
 The group leader can be configured per process and is used in different situations. For example, when executing code in a remote terminal, it guarantees messages in a remote node are redirected and printed in the terminal that triggered the request.
 
-## `iodata` and `chardata`
+## `iodata` и `chardata`
 
 In all of the examples above, we used binaries when writing to files. In the chapter ["Binaries, strings and char lists"](/getting-started/binaries-strings-and-char-lists.html), we mentioned how strings are made of bytes while char lists are lists with unicode codepoints.
 
-The functions in `IO` and `File` also allow lists to be given as arguments. Not only that, they also allow a mixed list of lists, integers and binaries to be given:
+The functions in `IO` и `File` also allow lists to be given as arguments. Not only that, they also allow a mixed list of lists, integers и binaries to be given:
 
 ```iex
 iex> IO.puts 'hello world'
