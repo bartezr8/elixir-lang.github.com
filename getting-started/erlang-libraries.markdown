@@ -1,26 +1,19 @@
 ---
 layout: getting-started
-title: Erlang libraries
+title: Использование библиотек Erlang
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-Elixir provides excellent interoperability with Erlang libraries. In fact,
-Elixir discourages simply wrapping Erlang libraries in favor of directly
-interfacing with Erlang code. In this section we will present some of the
-most common and useful Erlang functionality that is not found in Elixir.
+Elixir обеспечивает отличную совместемость с библиотеками Erlang. По факту, Elixir предлагает работать с кодом Erlang напряму вместо создания оберток над библиотеками Erlang. В данном уроке мы разберем самые популярные и наиболее часто используемые фичи Erlang используемые в Elixir.
 
-As you grow more proficient in Elixir, you may want to explore the Erlang 
-[STDLIB Reference Manual](http://erlang.org/doc/apps/stdlib/index.html) in more
-detail.
+По мере роста опыта в работе с Elixir, вам возможно захочется изучить Erlang, вся основная документация по Erlang сосреготочена в [руководстве по STDLIB](http://erlang.org/doc/apps/stdlib/index.html).
 
-## The binary module
+## Двоичные модули
 
-The built-in Elixir String module handles binaries that are UTF-8 encoded.
-[The binary module](http://erlang.org/doc/man/binary.html) is useful when
-you are dealing with binary data that is not necessarily UTF-8 encoded.
+Встроенный модуль работы с строками в Elixir работает с кодировкой UTF-8. [Двоичный модуль](http://erlang.org/doc/man/binary.html) полезен когда у вас возникает необходимость работы с двоичными данными которые не обязательно в кодировке UTF-8.
 
 ```iex
 iex> String.to_charlist "Ø"
@@ -29,42 +22,33 @@ iex> :binary.bin_to_list "Ø"
 [195, 152]
 ```
 
-The above example shows the difference; the `String` module returns Unicode
-codepoints, while `:binary` deals with raw data bytes.
+В примере выше видна разница при использовании этих модулей; Модуль `String` возвращает список юникод символов, в то время как модуль `:binary` возвращает последовательность байтов.
 
-## Formatted text output
+## Форматирование вывода
 
-Elixir does not contain a function similar to `printf` found in C and other
-languages. Luckily, the Erlang standard library functions `:io.format/2` and
-`:io_lib.format/2` may be used. The first formats to terminal output, while
-the second formats to an iolist. The format specifiers differ from `printf`,
-[refer to the Erlang documentation for details](http://erlang.org/doc/man/io.html#format-1).
+В Elixir нет аналога функции `printf`, которая используется в C и других языках. К счастью, в стандартной библиотеке Erlang есть функция `:io.format/2` и
+`:io_lib.format/2` которые мы можем использовать. Первая отвечает за форматирование данных при выводе в терминал, в то время как вторая форматирует данные для вывода в iolist. Параметры форматироватирования отличаются от `printf`, [см документацию по Erlang](http://erlang.org/doc/man/io.html#format-1).
 
 ```iex
-iex> :io.format("Pi is approximately given by:~10.3f~n", [:math.pi])
-Pi is approximately given by:     3.142
+iex> :io.format("Число Pi равно:~10.3f~n", [:math.pi])
+Число Pi равно:     3.142
 :ok
-iex> to_string :io_lib.format("Pi is approximately given by:~10.3f~n", [:math.pi])
-"Pi is approximately given by:     3.142\n"
+iex> to_string :io_lib.format("Число Pi равно:~10.3f~n", [:math.pi])
+"Число Pi равно:     3.142\n"
 ```
 
-Also note that Erlang's formatting functions require special attention to
-Unicode handling.
+Учтите использование функций форматирования Erlang's требует особого внимания при работе с символами Unicode.
 
-## The crypto module
+## Модуль шифрования
 
-[The crypto module](http://erlang.org/doc/man/crypto.html) contains hashing
-functions, digital signatures, encryption and more:
+[Модуль crypto](http://erlang.org/doc/man/crypto.html) содержит функции для хэширования, цифровой подписи, шифрования и много другого:
 
 ```iex
 iex> Base.encode16(:crypto.hash(:sha256, "Elixir"))
 "3315715A7A3AD57428298676C5AE465DADA38D951BDFAC9348A8A31E9C7401CB"
 ```
 
-The `:crypto` module is not part of the Erlang standard library, but is
-included with the Erlang distribution. This means you must list `:crypto`
-in your project's applications list whenever you use it. To do this,
-edit your `mix.exs` file to include:
+Модуль `:crypto` не является частью стандартной библиотеки Erlang, но входит в в пакет языка Erlang. Это значит что вам нужно добавить модуль `:crypto` в список зависимостей проекта. Для этого, отредактируйте файл `mix.exs` добавив в него:
 
 ```elixir
 def application do
@@ -72,15 +56,13 @@ def application do
 end
 ```
 
-## The digraph module
+## Модуль графов
 
-[The digraph module](http://erlang.org/doc/man/digraph.html) (as well as
-[digraph_utils](http://erlang.org/doc/man/digraph_utils.html)) contains
-functions for dealing with directed graphs built of vertices and edges.
-After constructing the graph, the algorithms in there will help finding
-for instance the shortest path between two vertices, or loops in the graph.
+[модуль графов](http://erlang.org/doc/man/digraph.html) (так же как и [digraph_utils](http://erlang.org/doc/man/digraph_utils.html)) содержит функции для работы с ориентированными графами состоящими из вершин и ребер.
 
-Given three vertices, find the shortest path from the first to the last.
+После построения графа, функции из модуля помогут найти кратчайший путь между двумя вершинами, петлями в графе.
+
+Если передать 3 ребра, алгоритм найдет кратчайший путь от первого ребра к последнему.
 
 ```iex
 iex> digraph = :digraph.new()
@@ -92,22 +74,15 @@ iex> :digraph.get_short_path(digraph, v0, v2)
 [{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}]
 ```
 
-Note that the functions in `:digraph` alter the graph structure in-place, this
-is possible because they are implemented as ETS tables, explained next.
+Обратите внимание что функции `:digraph` изменяют структура графа на месте, это возможно благодаря тому что они выполнены в виде ETS таблиц, подробности далее.
 
-## Erlang Term Storage
+## Erlang Term хранилище
 
-The modules [`ets`](http://erlang.org/doc/man/ets.html) and
-[`dets`](http://erlang.org/doc/man/dets.html) handle storage of large
-data structures in memory or on disk respectively.
+Модуль [`ets`](http://erlang.org/doc/man/ets.html) и [`dets`](http://erlang.org/doc/man/dets.html) используются для хранения большого объема данных в памяти или на диске.
 
-ETS lets you create a table containing tuples. By default, ETS tables
-are protected, which means only the owner process may write to the table
-but any other process can read. ETS has some functionality to be used as
-a simple database, a key-value store or as a cache mechanism.
+ETS позволяет создавать таблицы состоящие из кортежей. По умолчанию, ETS таблицы защищены, это означает что только владелец процесса может писать в таблицу однако други процессы могут её читать. ETS имеет функционал схожий с простой базой данных, используемой в качестве хранения пар ключ-значение или для реализации механизма кэширования.
 
-The functions in the `ets` module will modify the state of the table as a
-side-effect.
+Побочным эффектом использования функций модуля `ets` служит изменение состояния таблицы.
 
 ```iex
 iex> table = :ets.new(:ets_test, [])
@@ -121,11 +96,9 @@ iex> :ets.i(table)
 <3   > {<<"China">>,1374000000}
 ```
 
-## The math module
+## `Math` модуль
 
-[The `math` module](http://erlang.org/doc/man/math.html) contains common
-mathematical operations covering trigonometry, exponential, and logarithmic
-functions.
+[модуль `math`](http://erlang.org/doc/man/math.html) содержит функции для выполнения основных математических, тригонометрических, экспоненциальных и логарифмитических операций.
 
 ```iex
 iex> angle_45_deg = :math.pi() * 45.0 / 180.0
@@ -137,10 +110,9 @@ iex> :math.log(7.694785265142018e23)
 55.0
 ```
 
-## The queue module
+## Модуль очередей
 
-The [`queue` is a data structure](http://erlang.org/doc/man/queue.html)
-that implements (double-ended) FIFO (first-in first-out) queues efficiently:
+[Структура данных `queue`](http://erlang.org/doc/man/queue.html) это эффективная реализация (симметричной) FIFO (метод "первым пришел - первым вышел") очереди:
 
 ```iex
 iex> q = :queue.new
@@ -157,10 +129,9 @@ iex> value
 :empty
 ```
 
-## The rand module
+## Модуль `rand`
 
-[`rand` has functions](http://erlang.org/doc/man/rand.html) for returning
-random values and setting the random seed.
+Модуль [`rand`](http://erlang.org/doc/man/rand.html) возвращает рандомное значение и принимает значение для установки рандомности значения.
 
 ```iex
 iex> :rand.uniform()
@@ -172,20 +143,18 @@ iex> :rand.uniform(6)
 6
 ```
 
-## The zip and zlib modules
+## Модуль zip и zlib
 
-[The `zip` module](http://erlang.org/doc/man/zip.html) lets you read and write
-ZIP files to and from disk or memory, as well as extracting file information.
+[Модуль `zip`](http://erlang.org/doc/man/zip.html) позволяет читать и записывать ZIP файлы с диска и памяти, а так же для получения информации о файле.
 
-This code counts the number of files in a ZIP file:
+Этот код считает количество файлов в ZIP архиве:
 
 ```iex
 iex> :zip.foldl(fn _, _, _, acc -> acc + 1 end, 0, :binary.bin_to_list("file.zip"))
 {:ok, 633}
 ```
 
-[The `zlib` module](http://erlang.org/doc/man/zlib.html) deals with data compression in zlib format, as found in the
-`gzip` command.
+[Модуль `zlib`](http://erlang.org/doc/man/zlib.html) работает с файлами в формате *zlib*, аналогичнен команде `gzip`.
 
 ```iex
 iex> song = "
