@@ -7,61 +7,60 @@ title: Операторы case, cond, и if
 
 {% include toc.html %}
 
-In this chapter, we will learn about the `case`, `cond`, and `if` control flow structures.
+В данном уроке, мы изучим работу с операторами `case`, `cond`, и `if` которые используются для создания условий в программе.
 
 ## `case`
 
-`case` allows us to compare a value against many patterns until we find a matching one:
+Оператор `case` позволяет проводить сравнение передаваемого значения с несколькими условиями, до тех пор пока не найдет соотвествие:
 
 ```iex
 iex> case {1, 2, 3} do
 ...>   {4, 5, 6} ->
-...>     "This clause won't match"
+...>     "Данное условие не выполняется"
 ...>   {1, x, 3} ->
-...>     "This clause will match and bind x to 2 in this clause"
+...>     "Данное условие выполняется благодаря оператору x"
 ...>   _ ->
-...>     "This clause would match any value"
+...>     "Данное условие соотвествует любому значению"
 ...> end
-"This clause will match and bind x to 2 in this clause"
 ```
 
-If you want to pattern match against an existing variable, you need to use the `^` operator:
+Для того что бы использовать в качестве условия существующую переменную, используют оператор `^`:
 
 ```iex
 iex> x = 1
 1
 iex> case 10 do
-...>   ^x -> "Won't match"
-...>   _  -> "Will match"
+...>   ^x -> "Не соотвествует условию"
+...>   _  -> "Соотвествует условию"
 ...> end
-"Will match"
+"Соотвествует условию"
 ```
 
-Clauses also allow extra conditions to be specified via guards:
+Условия можно расширять испольщуя операторы:
 
 ```iex
 iex> case {1, 2, 3} do
 ...>   {1, x, 3} when x > 0 ->
-...>     "Will match"
+...>     "Соотвествует условию"
 ...>   _ ->
-...>     "Would match, if guard condition were not satisfied"
+...>     "Данный блок выполняется если значение не соотвествует ни одному условию"
 ...> end
-"Will match"
+"Соотвествует условию"
 ```
 
-The first clause above will only match when `x` is positive.
+Первое условие соблюдается если `x` является положительным числом.
 
-## Expressions in guard clauses
+## Выражения используемые в качестве условий
 
-Elixir imports and allows the following expressions in guards by default:
+В Elixir можно использовать следующие конструкции в качестве условий:
 
-* comparison operators (`==`, `!=`, `===`, `!==`, `>`, `>=`, `<`, `<=`)
-* boolean operators (`and`, `or`, `not`)
-* arithmetic operations (`+`, `-`, `*`, `/`)
-* arithmetic unary operators (`+`, `-`)
-* the binary concatenation operator `<>`
-* the `in` operator as long as the right side is a range or a list
-* all the following type check functions:
+* операторы сравнения (`==`, `!=`, `===`, `!==`, `>`, `>=`, `<`, `<=`)
+* булевы операторы (`and`, `or`, `not`)
+* арифмитические операторы (`+`, `-`, `*`, `/`)
+* унарные арифмитические операторы (`+`, `-`)
+* оператор объеденения двоичных данных `<>`
+* оператор `in` в том случае если левой частью является список или диапозон
+* Все функции проверки типа данных:
     * `is_atom/1`
     * `is_binary/1`
     * `is_bitstring/1`
@@ -78,7 +77,7 @@ Elixir imports and allows the following expressions in guards by default:
     * `is_port/1`
     * `is_reference/1`
     * `is_tuple/1`
-* plus these functions:
+* и в добавок:
     * `abs(number)`
     * `binary_part(binary, start, length)`
     * `bit_size(bitstring)`
@@ -97,30 +96,29 @@ Elixir imports and allows the following expressions in guards by default:
     * `trunc(number)`
     * `tuple_size(tuple)`
 
-Additionally, users may define their own guards. For example, the `Bitwise`
-module defines guards as functions and operators: `bnot`, `~~~`, `band`,
+В дополнение к существующим условиям, пользователи могут создавать свои "условия". Например, модуль `Bitwise`
+позволяет в качестве условий использовать операторы и функции: `bnot`, `~~~`, `band`,
 `&&&`, `bor`, `|||`, `bxor`, `^^^`, `bsl`, `<<<`, `bsr`, `>>>`.
 
-Note that while boolean operators such as `and`, `or`, `not` are allowed in guards,
-the more general operators `&&`, `||`, and `!` are not.
+Обратите внимание что в качестве условий могут выступать булевы операторы `and`, `or`, `not`, однако обычные операторы `&&`, `||`, и `!` не могут быть использованы.
 
-Keep in mind errors in guards do not leak but instead make the guard fail:
+Если условие содержит ошибку, программа не завершится ошибкой, вместо этого условие всегда будет ложным:
 
 ```iex
 iex> hd(1)
 ** (ArgumentError) argument error
 iex> case 1 do
-...>   x when hd(x) -> "Won't match"
+...>   x when hd(x) -> "Не соотвествует условию"
 ...>   x -> "Got #{x}"
 ...> end
 "Got 1"
 ```
 
-If none of the clauses match, an error is raised:
+Если выражение не соотвествует ни одному условия то возникнет ошибка:
 
 ```iex
 iex> case :ok do
-...>   :error -> "Won't match"
+...>   :error -> "Не соотвествует условию"
 ...> end
 ** (CaseClauseError) no case clause matching: :ok
 ```
