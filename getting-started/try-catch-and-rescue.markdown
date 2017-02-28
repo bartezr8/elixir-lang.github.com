@@ -1,15 +1,15 @@
 ---
 layout: getting-started
-title: try, catch, and rescue
+title: try, catch, и rescue
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-Elixir has three error mechanisms: errors, throws, and exits. In this chapter we will explore each of them and include remarks about when each should be used.
+Elixir has three error mechanisms: errors, throws, и exits. In this chapter we will explore each of them и include remarks about when each should be used.
 
-## Errors
+## Ошибки
 
 Errors (or *exceptions*) are used when exceptional things happen in the code. A sample error can be retrieved by trying to add a number into an atom:
 
@@ -26,14 +26,14 @@ iex> raise "oops"
 ** (RuntimeError) oops
 ```
 
-Other errors can be raised with `raise/2` passing the error name and a list of keyword arguments:
+Other errors can be raised with `raise/2` passing the error name и a list of keyword arguments:
 
 ```iex
 iex> raise ArgumentError, message: "invalid argument foo"
 ** (ArgumentError) invalid argument foo
 ```
 
-You can also define your own errors by creating a module and using the `defexception` construct inside it; this way, you'll create an error with the same name as the module it's defined in. The most common case is to define a custom exception with a message field:
+You can also define your own errors by creating a module и using the `defexception` construct inside it; this way, you'll create an error with the same name as the module it's defined in. The most common case is to define a custom exception with a message field:
 
 ```iex
 iex> defmodule MyError do
@@ -56,7 +56,7 @@ iex> try do
 %RuntimeError{message: "oops"}
 ```
 
-The example above rescues the runtime error and returns the error itself which is then printed in the `iex` session.
+The example above rescues the runtime error и returns the error itself which is then printed in the `iex` session.
 
 If you don't have any use for the error, you don't have to provide it:
 
@@ -99,15 +99,15 @@ iex> File.read! "unknown"
     (elixir) lib/file.ex:305: File.read!/1
 ```
 
-Many functions in the standard library follow the pattern of having a counterpart that raises an exception instead of returning tuples to match against. The convention is to create a function (`foo`) which returns `{:ok, result}` or `{:error, reason}` tuples and another function (`foo!`, same name but with a trailing `!`) that takes the same arguments as `foo` but which raises an exception if there's an error. `foo!` should return the result (not wrapped in a tuple) if everything goes fine. The [`File` module](https://hexdocs.pm/elixir/File.html) is a good example of this convention.
+Many functions in the standard library follow the pattern of having a counterpart that raises an exception instead of returning tuples to match against. The convention is to create a function (`foo`) which returns `{:ok, result}` или `{:error, reason}` tuples и another function (`foo!`, same name but with a trailing `!`) that takes the same arguments as `foo` but which raises an exception if there's an error. `foo!` should return the result (not wrapped in a tuple) if everything goes fine. The [`File` module](https://hexdocs.pm/elixir/File.html) is a good example of this convention.
 
-In Elixir, we avoid using `try/rescue` because **we don't use errors for control flow**. We take errors literally: they are reserved for unexpected and/or exceptional situations. In case you actually need flow control constructs, *throws* should be used. That's what we are going to see next.
+В Elixir, we avoid using `try/rescue` because **we don't use errors for control flow**. We take errors literally: they are reserved for unexpected и/или exceptional situations. In case you actually need flow control constructs, *throws* should be used. That's what we are going to see next.
 
-## Throws
+## Исключения
 
-In Elixir, a value can be thrown and later be caught. `throw` and `catch` are reserved for situations where it is not possible to retrieve a value unless by using `throw` and `catch`.
+В Elixir, a value can be thrown и later be caught. `throw` и `catch` are reserved for situations where it is not possible to retrieve a value unless by using `throw` и `catch`.
 
-Those situations are quite uncommon in practice except when interfacing with libraries that do not provide a proper API. For example, let's imagine the `Enum` module did not provide any API for finding a value and that we needed to find the first multiple of 13 in a list of numbers:
+Those situations are quite uncommon in practice except when interfacing with libraries that do not provide a proper API. For example, let's imagine the `Enum` module did not provide any API for finding a value и that we needed to find the first multiple of 13 in a list of numbers:
 
 ```iex
 iex> try do
@@ -130,7 +130,7 @@ iex> Enum.find -50..50, &(rem(&1, 13) == 0)
 
 ## Exits
 
-All Elixir code runs inside processes that communicate with each other. When a process dies of "natural causes" (e.g., unhandled exceptions), it sends an `exit` signal. A process can also die by explicitly sending an exit signal:
+Все код в Elixir запускается внутри процессов которые могут взаимодействовать друг с другом. Когда процесс умирает по "естественным причинам" (в отличии, от необработанных исключений), он отправляет сигнал `exit`. Процесс может погибнуть отправив при этом сигнал завершения:
 
 ```iex
 iex> spawn_link fn -> exit(1) end
@@ -138,9 +138,9 @@ iex> spawn_link fn -> exit(1) end
 ** (EXIT from #PID<0.56.0>) 1
 ```
 
-In the example above, the linked process died by sending an `exit` signal with value of 1. The Elixir shell automatically handles those messages and prints them to the terminal.
+В примере выше, процесс погибает отправив сигнал `exit` с значением 1. Оболочка Elixir автоматически обрабатывает сообщения и выводит его в терминал.
 
-`exit` can also be "caught" using `try/catch`:
+Сигнал `exit` можно "отловить" испльзуя `try/catch`:
 
 ```iex
 iex> try do
@@ -151,9 +151,9 @@ iex> try do
 "not really"
 ```
 
-Using `try/catch` is already uncommon and using it to catch exits is even more rare.
+Для подобных случаев конструкция `try/catch` используется не часто, для обработки завершения процесса ещё реже.
 
-`exit` signals are an important part of the fault tolerant system provided by the Erlang <abbr title="Virtual Machine">VM</abbr>. Processes usually run under supervision trees which are themselves processes that listen to `exit` signals from the supervised processes. Once an exit signal is received, the supervision strategy kicks in and the supervised process is restarted.
+Сигнал `exit` один из способов дружественного взаимодействия с процессами в Erlang <abbr title="Virtual Machine">VM</abbr>. Processes usually run under supervision trees which are themselves processes that listen to `exit` signals from the supervised processes. Once an exit signal is received, the supervision strategy kicks in and the supervised process is restarted.
 
 It is exactly this supervision system that makes constructs like `try/catch` and `try/rescue` so uncommon in Elixir. Instead of rescuing an error, we'd rather "fail fast" since the supervision tree will guarantee our application will go back to a known initial state after the error.
 

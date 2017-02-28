@@ -1,23 +1,23 @@
 ---
 layout: getting-started
-title: Macros
+title: Макросы
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-## Foreword
+## Предисловие
 
 Even though Elixir attempts its best to provide a safe environment for macros, the major responsibility of writing clean code with macros falls on developers. Macros are harder to write than ordinary Elixir functions and it's considered to be bad style to use them when they're not necessary. So write macros responsibly.
 
 Elixir already provides mechanisms to write your every day code in a simple and readable fashion by using its data structures and functions. Macros should only be used as a last resort. Remember that **explicit is better than implicit**. **Clear code is better than concise code.**
 
-## Our first macro
+## Наш первый макрос
 
-Macros in Elixir are defined via `defmacro/2`.
+Для объявления макроса в Elixir используется функция `defmacro/2`.
 
-> For this chapter, we will be using files instead of running code samples in IEx. That's because the code samples will span multiple lines of code and typing them all in IEx can be counter-productive. You should be able to run the code samples by saving them into a `macros.exs` file and running it with `elixir macros.exs` or `iex macros.exs`.
+> В данном уроке, мы будем писать примеры в файле вместо интерактивной оболочки IEx. That's because the code samples will span multiple lines of code and typing them all in IEx can be counter-productive. You should be able to run the code samples by saving them into a `macros.exs` file and running it with `elixir macros.exs` or `iex macros.exs`.
 
 In order to better understand how macros work, let's create a new module where we are going to implement `unless`, which does the opposite of `if`, as a macro and as a function:
 
@@ -204,11 +204,11 @@ end
 
 Take note of the second argument to `Macro.var/2`. This is the context being used and will determine hygiene as described in the next section.
 
-## The environment
+## Окружение
 
-When calling `Macro.expand_once/2` earlier in this chapter, we used the special form `__ENV__`.
+В предыдущем уроке мы использовали функцию `Macro.expand_once/2`, передавая в неё магическую константу `__ENV__`.
 
-`__ENV__` returns an instance of the `Macro.Env` struct which contains useful information about the compilation environment, including the current module, file and line, all variables defined in the current scope, as well as imports, requires and so on:
+Константа `__ENV__` возвращает экземпляр `Macro.Env` который содержит полезную информацию об окружении в котором производится компиляция, включая текущий модуль, файл и строку на которой произведен вызов, все переменные объявлены внутри текущей области видимости, так же как и *imports*, *requires* и т.д:
 
 ```iex
 iex> __ENV__.module
@@ -223,13 +223,13 @@ iex> __ENV__.requires
 [IEx.Helpers, Integer, Kernel, Kernel.Typespec]
 ```
 
-Many of the functions in the `Macro` module expect an environment. You can read more about these functions in [the docs for the `Macro` module](https://hexdocs.pm/elixir/Macro.html) and learn more about the compilation environment in the [docs for `Macro.Env`](https://hexdocs.pm/elixir/Macro.Env.html).
+Большинство функций из модуля `Macro` используют текущее окружение. Подробнее об этих функциях вы можете узнать из [документации по модулю `Macro`](https://hexdocs.pm/elixir/Macro.html), подробности по окружению сборки вы можете узнать из [документации по `Macro.Env`](https://hexdocs.pm/elixir/Macro.Env.html).
 
-## Private macros
+## Приватные макросы
 
-Elixir also supports private macros via `defmacrop`. As private functions, these macros are only available inside the module that defines them, and only at compilation time.
+В Elixir есть возможность сделать макросы приватными `defmacrop`. Приватные функции, доступны в том модуле в котором они объявлены, и только во время компиляции.
 
-It is important that a macro is defined before its usage. Failing to define a macro before its invocation will raise an error at runtime, since the macro won't be expanded and will be translated to a function call:
+Макросы обязательно должны быть объявлены до того как они будут использованны. Использование макроса до того как он был объявлен вызовет ошибку во время выполнения, since the macro won't be expanded and will be translated to a function call:
 
 ```iex
 iex> defmodule Sample do
