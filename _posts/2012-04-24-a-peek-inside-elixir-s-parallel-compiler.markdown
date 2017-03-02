@@ -1,18 +1,18 @@
 ---
 layout: post
-title: A peek inside Elixir's Parallel Compiler
+title: Изучаем параллельный компилятор Elixir's
 author: José Valim
 category: Internals
-excerpt: Today, a parallel compiler just landed in Elixir master. The goal of the parallel compiler is to compile files in parallel, automatically detecting dependencies between files. In this blog post, we are going to take a peek into the parallel compiler internals and learn more about Erlang and Elixir in the process.
+excerpt: На сегодняшний день, параллельный компилятор доступен только в мастер ветке Elixir. Основной целью параллельного компилятора является компиляция файлов параллельно ( А вы чего ожидали :) ), автоматическое определение зависимостей между файлами. В данной статье, мы быстро рассмотрим параллельный компилятор и узнаем побольше об Erlang и Elixir.
 ---
 
-Today, a parallel compiler just landed in Elixir master. The goal of the parallel compiler is to compile files in parallel, automatically detecting dependencies between files. In this blog post, we are going to take a peek into the parallel compiler internals and learn more about Erlang and Elixir in the process.
+На сегодняшний день, параллельный компилятор доступен только в мастер ветке Elixir. Основной целью параллельного компилятора является компиляция файлов параллельно ( А вы чего ожидали :) ), автоматическое определение зависимостей между файлами. В данной статье, мы быстро рассмотрим параллельный компилятор и узнаем побольше об Erlang и Elixir.
 
-## Process-based serial compilation
+## Процесс последовательной компиляции
 
-The idea of the parallel compiler is very simple: for each file we want to compile, we will spawn a new process that will be responsible for its compilation. When compilation finishes, the process is going to send a message to the main process (the one responsible for coordinating compilation) that compilation finished so a new file can be compiled.
+Идея парралельного компилирования очень проста: для каждого компилируемого файла, мы создаем новый процесс который будет ответственен за его компиляцию. Когда компиляция завершится, процесс отправит сообщение тому процессу который его создал (один координирует компиляцию) that compilation finished so a new file can be compiled.
 
-In Elixir, we could write this code as follows:
+В Elixir, мы можем писать как в примере ниже:
 
     def spawn_compilers([current | files], output) do
       parent = Process.self()
@@ -48,9 +48,9 @@ After the child process is spawned, we invoke the `receive` macro and start wait
 
 With this code, we were able to compile each file inside a different process. However, notice that we are not yet compiling in parallel. Every time we spawn a child process, we wait until it succeeds (or fails) before moving to the next step. We are going to eventually compile files in parallel, but before we reach to this point, let's understand the problem of dependencies between files.
 
-## Dependency between files
+## Зависимость между файлами
 
-Imagine that we have two files, `a.ex` and `b.ex`, with the following contents:
+Представте что у нас есть два файла, `a.ex` и `b.ex`, с следующим содержимым:
 
     # a.ex
     defmodule A do
@@ -72,7 +72,7 @@ The way we are going to handle this is by pausing compilation every time a modul
 
 In order to customize this process, we are going to take a look at Erlang's error handler.
 
-## Custom error handler
+## Пользовательский обработчик событий
 
 By default, Elixir (and Erlang) code is autoloaded. This means that, if we invoke `List.delete` and the module `List` was not loaded yet, the Erlang VM is going to look into the `ebin` directory (the directory where we put compiled files) and try to load it. This process is controlled by the [`error_handler` module in Erlang](http://www.erlang.org/doc/man/error_handler.html) via two callback functions: `undefined_function` and `undefined_lambda`.
 
