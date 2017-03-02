@@ -7,25 +7,25 @@ title: Предметно-ориентированный язык
 
 {% include toc.html %}
 
-## Foreword
+## Предисловие
 
-[Предметно-ориентированный язык (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) allow developers to tailor their application to a particular domain. You don't need macros in order to have a DSL: every data structure and every function you define in your module is part of your Domain Specific Language.
+[Предметно-ориентированный язык (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) позволяет разработчикам адаптировать свои приложения приложение для конкретной предметной области. Для работы с DSL макросы не требуются: любая структура данных или функция объявленная в модуле является частью предметно-ориентированный язык (DSL).
 
-For example, imagine we want to implement a Validator module which provides a data validation domain specific language. We could implement it using data structures, functions or macros. Let's see what those different DSLs would look like:
+К примеру, представте что нам нужно написать валидатор который будет проверять данные предметно-ориентированного языка (DSL). Мы можем сделать это используя структуры данных, функции или макросы. Давайте посмотрим на что будут похожи разные DSLs:
 
 ```elixir
-# 1. data structures
+# 1. Структуры данных
 import Validator
 validate user, name: [length: 1..100],
                email: [matches: ~r/@/]
 
-# 2. functions
+# 2. Функции
 import Validator
 user
 |> validate_length(:name, 1..100)
 |> validate_matches(:email, ~r/@/)
 
-# 3. macros + modules
+# 3. Макросы + модули
 defmodule MyValidator do
   use Validator
   validate_length :name, 1..100
@@ -35,23 +35,23 @@ end
 MyValidator.validate(user)
 ```
 
-Of all the approaches above, the first is definitely the most flexible. If our domain rules can be encoded with data structures, they are by far the easiest to compose and implement, as Elixir's standard library is filled with functions for manipulating different data types.
+Из все способов описанных выше, первый определенно является самым гибким. Если конфигурацию нашей области можно будет закодировать с структурами данных, данная реализация , в стандартной библиотеке Elixir's достаточно функций для работы с различными типами данных.
 
-The second approach uses function calls which better suits more complex APIs (for example, if you need to pass many options) and reads nicely in Elixir thanks to the pipe operator.
+Второй способ использует вызов функций, такой способ лучше всего подходит для работы с различными API ( например,  если вам необходимо передать несколько параметров) и читать удобно, такая возможность стала доступной в Elixir благодаря оператору *пайп*.
 
-The third approach, uses macros, and is by far the most complex. It will take more lines of code to implement, it is hard and expensive to test (compared to testing simple functions), and it limits how the user may use the library since all validations need to be defined inside a module.
+Третий способ, использует макросы, и безусловно является самым сложным. Для написания аналогичного функционала понадобится написать гораздо больше кода, сложно в тестировании (по сравнения с тестированием обычных функций), так же это ограничивает использования данной библиотеки пользователем, так как все проверки должны быть реализованны в модуле.
 
 To drive the point home, imagine you want to validate a certain attribute only if a given condition is met. We could easily achieve it with the first solution, by manipulating the data structure accordingly, or with the second solution by using conditionals (if/else) before invoking the function. However it is impossible to do so with the macros approach unless its DSL is augmented.
 
-In other words:
+Другими словами:
 
     data > functions > macros
 
 That said, there are still cases where using macros and modules to build domain specific languages is useful. Since we have explored data structures and function definitions in the Getting Started guide, this chapter will explore how to use macros and module attributes to tackle more complex DSLs.
 
-## Building our own test case
+## Проектируем тест кейс
 
-The goal in this chapter is to build a module named `TestCase` that allows us to write the following:
+Главной целью данного урока разработка модуля `TestCase`, который мы будем использовать в разработке:
 
 ```elixir
 defmodule MyTest do
@@ -69,15 +69,15 @@ end
 MyTest.run
 ```
 
-In the example above, by using `TestCase`, we can write tests using the `test` macro, which defines a function named `run` to automatically run all tests for us. Our prototype will rely on the match operator (`=`) as a mechanism to do assertions.
+В примере выше, мы подключаем модуль `TestCase`, из него мы будем пользоваться макросом `test` для написания наших тестов, затем мы выполняем функцию `run` для автоматического запуска всех тестов. Наш прототип будет опиратся на использование оператора (`=`), в качестве механизма подтверждения.
 
-## The `test` macro
+## `test` макрос
 
-Let's start by creating a module that defines and imports the `test` macro when used:
+Для теста создадим модуль в которм объявим и импортируем макрос `test` и затем им воспользуемся:
 
 ```elixir
 defmodule TestCase do
-  # Callback invoked by `use`.
+  # Обратный вызов выполняется `use`.
   #
   # For now it returns a quoted expression that
   # imports the module itself into the user code.
@@ -91,7 +91,7 @@ defmodule TestCase do
   @doc """
   Defines a test case with the given description.
 
-  ## Examples
+  ## Примеры
 
       test "arithmetic operations" do
         4 = 2 + 2
@@ -126,7 +126,7 @@ iex> MyTest."test hello"()
 ** (MatchError) no match of right hand side value: "world"
 ```
 
-## Storing information with attributes
+## Хранение информации с атрибутами
 
 In order to finish our `TestCase` implementation, we need to be able to access all defined test cases. One way of doing this is by retrieving the tests at runtime via `__MODULE__.__info__(:functions)`, which returns a list of all functions in a given module. However, considering that we may want to store more information about each test besides the test name, a more flexible approach is required.
 
