@@ -17,23 +17,23 @@ title: Данные кавычках и без
 {:sum, [], [1, 2, 3]}
 ```
 
-You can get the representation of any expression by using the `quote` macro:
+Вы можете посмотреть реализацию любого выражения используя макрос `quote`:
 
 ```iex
 iex> quote do: sum(1, 2, 3)
 {:sum, [], [1, 2, 3]}
 ```
 
-The first element is the function name, the second is a keyword list containing metadata and the third is the arguments list.
+Первым элементом указывается имя функции, вторым список ключевых слов и третьим список аргументов.
 
-Operators are also represented as such tuples:
+Операторы также представляют кортежи как таковыеOperators are also represented as such tuples:
 
 ```iex
 iex> quote do: 1 + 2
 {:+, [context: Elixir, import: Kernel], [1, 2]}
 ```
 
-Even a map is represented as a call to `%{}`:
+Даже *map* используется как вызов для `%{}`:
 
 ```iex
 iex> quote do: %{1 => 2}

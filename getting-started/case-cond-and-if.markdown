@@ -123,7 +123,7 @@ iex> case :ok do
 ** (CaseClauseError) no case clause matching: :ok
 ```
 
-Note anonymous functions can also have multiple clauses and guards:
+Обратите внимание что у анонимных функций могут быть Note anonymous functions can also have multiple clauses and guards:
 
 ```iex
 iex> f = fn
@@ -137,7 +137,7 @@ iex> f.(-1, 3)
 -3
 ```
 
-The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.
+Количество аргументов в каждой анонимной функции должно быть одинаковым, иначе возникнет ошибка.
 
 ```iex
 iex> f2 = fn
@@ -149,7 +149,7 @@ iex> f2 = fn
 
 ## `cond`
 
-`case` is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that evaluates to true. In such cases, one may use `cond`:
+Оператор `case` является полезным когда вам нужно проверить несколько условий одновременно. Тем неменее, в большинстве случаев, возникает необходимость проверки различных условий и найти первое совпавшее. Для таких случаев, мы можем использовать оператор `cond`:
 
 ```iex
 iex> cond do
@@ -163,9 +163,9 @@ iex> cond do
 "But this will"
 ```
 
-This is equivalent to `else if` clauses in many imperative languages (although used way less frequently here).
+Данная конструкция аналогична конструкции `else if`, которая часто используется в других языках программирования (однако не часто используется в данном языке).
 
-If none of the conditions return true, an error (`CondClauseError`) is raised. For this reason, it may be necessary to add a final condition, equal to `true`, which will always match:
+Если небудет найдено значение соотвествующие условию, возникнет ошибка (`CondClauseError`). По этой причине, необходимо добавить заключительное условие, эквивалентное `true`, которое всегда будет выполнятся:
 
 ```iex
 iex> cond do
@@ -179,7 +179,7 @@ iex> cond do
 "This is always true (equivalent to else)"
 ```
 
-Finally, note `cond` considers any value besides `nil` and `false` to be true:
+И последнее, обратите внимание оператор `cond` считает любое значение истиным кроме `nil` и `false`:
 
 ```iex
 iex> cond do
@@ -189,24 +189,24 @@ iex> cond do
 "1 is considered as true"
 ```
 
-## `if` and `unless`
+## `if` и `unless`
 
-Besides `case` and `cond`, Elixir also provides the macros `if/2` and `unless/2` which are useful when you need to check for only one condition:
+Помимо `case` и `cond`, в Elixir доступны макросы `if/2` и `unless/2` которые могут быть полезны когда вам нужно проверить только одно условие:
 
 ```iex
 iex> if true do
-...>   "This works!"
+...>   "Это работает!"
 ...> end
-"This works!"
+"Это работает!"
 iex> unless true do
-...>   "This will never be seen"
+...>   "Это никогда не выведется"
 ...> end
 nil
 ```
 
-If the condition given to `if/2` returns `false` or `nil`, the body given between `do/end` is not executed and instead it returns `nil`. The opposite happens with `unless/2`.
+Если условие переданное в `if/2` возвращает `false` или `nil`, содержимое между `do/end` не выполнится и в качестве результата будет возвращено `nil`. Оператор `unless/2` является противоположным `if\2`.
 
-They also support `else` blocks:
+Так же можно использовать `else`:
 
 ```iex
 iex> if nil do
@@ -217,7 +217,7 @@ iex> if nil do
 "This will"
 ```
 
-> Note: An interesting note regarding `if/2` and `unless/2` is that they are implemented as macros in the language; they aren't special language constructs as they would be in many languages. You can check the documentation and the source of `if/2` in [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html). The `Kernel` module is also where operators like `+/2` and functions like `is_function/2` are defined, all automatically imported and available in your code by default.
+> Примечание: An interesting note regarding `if/2` and `unless/2` is that they are implemented as macros in the language; they aren't special language constructs as they would be in many languages. You can check the documentation and the source of `if/2` in [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html). The `Kernel` module is also where operators like `+/2` and functions like `is_function/2` are defined, all automatically imported and available in your code by default.
 
 ## `do/end` blocks
 
