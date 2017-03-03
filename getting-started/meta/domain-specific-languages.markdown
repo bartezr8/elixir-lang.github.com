@@ -41,13 +41,13 @@ MyValidator.validate(user)
 
 Третий способ, использует макросы, и безусловно является самым сложным. Для написания аналогичного функционала понадобится написать гораздо больше кода, сложно в тестировании (по сравнения с тестированием обычных функций), так же это ограничивает использования данной библиотеки пользователем, так как все проверки должны быть реализованны в модуле.
 
-To drive the point home, imagine you want to validate a certain attribute only if a given condition is met. We could easily achieve it with the first solution, by manipulating the data structure accordingly, or with the second solution by using conditionals (if/else) before invoking the function. However it is impossible to do so with the macros approach unless its DSL is augmented.
+Для подтверждения данной точки зрения, представте что вы хотите проверить конкретный аттрибут, только в том случае если этот условие соблюдается. Мы легко могли бы это сделать используя первый способ, путем контроля данных, или используя условия (if/else) из второго способа перед вызовом функции. Однако, это невозможно сделать используя просто макросы, без расширения их возможностей через DSL.
 
 Другими словами:
 
     data > functions > macros
 
-That said, there are still cases where using macros and modules to build domain specific languages is useful. Since we have explored data structures and function definitions in the Getting Started guide, this chapter will explore how to use macros and module attributes to tackle more complex DSLs.
+Мы сказали, что есть случаи где использование макросов и модулей где использование придметно-ориентированного языка быает полезно. Так как мы изучили структуры данных и объявление функций ранее, в этом уроке мы сосреготочимся на использовании макросов и модулей для написания более сложных DSLs.
 
 ## Проектируем тест кейс
 
@@ -107,7 +107,7 @@ defmodule TestCase do
 end
 ```
 
-Assuming we defined `TestCase` in a file named `tests.exs`, we can open it up by running `iex tests.exs` and define our first tests:
+В примере выше мы объявили модуль `TestCase` в файле `tests.exs`, давайте выполним код выполнив в консоле команду `iex tests.exs` затем напишем наш первый тест:
 
 ```iex
 iex> defmodule MyTest do
@@ -119,7 +119,7 @@ iex> defmodule MyTest do
 ...> end
 ```
 
-For now we don't have a mechanism to run tests, but we know that a function named "test hello" was defined behind the scenes. When we invoke it, it should fail:
+На данный момент у нас нет механизма для запуска тестов, но мы знаем что функция "test hello" была объявлена негласно. Если мы попытаемся вызвать ее, она должна завершится с ошибкой:
 
 ```iex
 iex> MyTest."test hello"()
@@ -128,13 +128,13 @@ iex> MyTest."test hello"()
 
 ## Хранение информации с атрибутами
 
-In order to finish our `TestCase` implementation, we need to be able to access all defined test cases. One way of doing this is by retrieving the tests at runtime via `__MODULE__.__info__(:functions)`, which returns a list of all functions in a given module. However, considering that we may want to store more information about each test besides the test name, a more flexible approach is required.
+Для завершения реализации модуля `TestCase`, нам необходимо обеспечить доступ ко всем тестовым сценариям. Как вариант мы можем вызывать тесты по ходу выполнения через `__MODULE__.__info__(:functions)`, который возвращает список всех функций в данном модуле. Однако, мы можем хранить информацию о каждом тесте после имени теста, это предоставляет более гибкий подход.
 
-When discussing module attributes in earlier chapters, we mentioned how they can be used as temporary storage. That's exactly the property we will apply in this section.
+Мы рассматривали модули в прошлой главе, при этом упоминали тот факт что их можно использовать в качестве временного хранилища.
 
-In the `__using__/1` implementation, we will initialize a module attribute named `@tests` to an empty list, then store the name of each defined test in this attribute so the tests can be invoked from the `run` function.
+В `__using__/1`, мы инициализируем атрибут модуля `@tests` который будет пустым списком, в котором мы будем хранить имя каждого теста, которые затем мы будем вызвать функцией `run`.
 
-Here is the updated code for the `TestCase` module:
+Изменим модуль `TestCase` следующим образом:
 
 ```elixir
 defmodule TestCase do
@@ -186,7 +186,7 @@ defmodule TestCase do
 end
 ```
 
-By starting a new IEx session, we can now define our tests and run them:
+После того как мы запустим новую сессию IEx, мы можем объявить наши тесты и выполнить их:
 
 ```iex
 iex> defmodule MyTest do
@@ -201,6 +201,6 @@ Running test hello
 ** (MatchError) no match of right hand side value: "world"
 ```
 
-Although we have overlooked some details, this is the main idea behind creating domain specific modules in Elixir. Macros enable us to return quoted expressions that are executed in the caller, which we can then use to transform code and store relevant information in the target module via module attributes. Finally, callbacks such as `@before_compile` allow us to inject code into the module when its definition is complete.
+Несмотря на то что мы рассмотрели не аспекты связанные с DSL, данных знаний хватит для эффективного использования DSL в Elixir. Макросы позволяют возвращать выражения в ковычках, которые выполняются в вызывающей их функции, которые мы можем использовать для преобразования кода и хранения релевантной информации в модуле через атрибуты. Наконец, обратный вызов такой как `@before_compile` позволяет нам инжектить код в модуль.
 
-Besides `@before_compile`, there are other useful module attributes like `@on_definition` and `@after_compile`, which you can read more about in [the docs for the `Module` module](https://hexdocs.pm/elixir/Module.html). You can also find useful information about macros and the compilation environment in the documentation for the [`Macro` module](https://hexdocs.pm/elixir/Macro.html) and [`Macro.Env`](https://hexdocs.pm/elixir/Macro.Env.html).
+Помимо атрибута`@before_compile`, у данного модуля есть полезные атрибуты такие как `@on_definition` и `@after_compile`, подробнее о них вы можете прочитать в документации [ модуля `Module`](https://hexdocs.pm/elixir/Module.html). Так же вы можете полезную информацию о макросах и окружении для сборки из  документации по [ модулю `Macro`](https://hexdocs.pm/elixir/Macro.html) и [`Macro.Env`](https://hexdocs.pm/elixir/Macro.Env.html).
