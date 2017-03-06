@@ -1,17 +1,17 @@
 ---
 layout: getting-started
-title: Pattern matching
+title: Сопоставление с образцом
 ---
 
 # {{ page.title }}<span hidden>.</span>
 
 {% include toc.html %}
 
-In this chapter, we will show how the `=` operator in Elixir is actually a match operator and how to use it to pattern match inside data structures. Finally, we will learn about the pin operator `^` used to access previously bound values.
+В данном уроке, мы рассмотрим как на самом деле работает оператор `=` в Elixir и как использовать сопоставление с образцом ( pattern match ) в отношении простых значений, структур и даже функций. В заключение, мы рассмотрим работу с "фиксирующим оператором"" `^` который используется для предотвращения перепресвоения переменных.
 
-## The match operator
+## Оператор сопоставления
 
-We have used the `=` operator a couple times to assign variables in Elixir:
+Ранее мы использовали оператор `=` несколько раз для присвоения значений в Elixir:
 
 ```iex
 iex> x = 1
@@ -20,7 +20,7 @@ iex> x
 1
 ```
 
-In Elixir, the `=` operator is actually called *the match operator*. Let's see why:
+В языке Elixir, оператор `=` на самом деле является *оператором сопоставления* по аналогии со знаком равенства в алгебре. Давайте посмотрим почему:
 
 ```iex
 iex> 1 = x
@@ -29,9 +29,9 @@ iex> 2 = x
 ** (MatchError) no match of right hand side value: 1
 ```
 
-Notice that `1 = x` is a valid expression, and it matched because both the left and right side are equal to 1. When the sides do not match, a `MatchError` is raised.
+Обратите внимание что выражение `1 = x` является валидным, и условие соблюдается потому что обе части выражения ( левая и правая ) равны 1. Если стороны не равны, возникнет ошибка `MatchError`.
 
-A variable can only be assigned on the left side of `=`:
+Переменная используемая для присвоения должна распологаться с лева от оператора `=`:
 
 ```iex
 iex> 1 = unknown
@@ -40,9 +40,9 @@ iex> 1 = unknown
 
 Since there is no variable `unknown` previously defined, Elixir imagined you were trying to call a function named `unknown/0`, but such a function does not exist.
 
-## Pattern matching
+## Сопоставление с образцом
 
-The match operator is not only used to match against simple values, but it is also useful for destructuring more complex data types. For example, we can pattern match on tuples:
+Оператор сравнения используется для сравнения простых значений, так же он используется для деструктурирующего присваивания. Для примера, воспользуемся сопоставлением с образцом по отношению к кортежу:
 
 ```iex
 iex> {a, b, c} = {:hello, "world", 42}
@@ -53,14 +53,14 @@ iex> b
 "world"
 ```
 
-A pattern match will error if the sides can't be matched, for example if the tuples have different sizes:
+Сопоставлением с образцом приводит к ошибке если стороны выражения неравны, в текущем примере кортежи имеют разный размер:
 
 ```iex
 iex> {a, b, c} = {:hello, "world"}
 ** (MatchError) no match of right hand side value: {:hello, "world"}
 ```
 
-And also when comparing different types:
+А также если тип данных различается:
 
 ```iex
 iex> {a, b, c} = [:hello, "world", 42]
@@ -79,7 +79,7 @@ iex> {:ok, result} = {:error, :oops}
 ** (MatchError) no match of right hand side value: {:error, :oops}
 ```
 
-We can pattern match on lists:
+Мы можем использовать *pattern match* на списках:
 
 ```iex
 iex> [a, b, c] = [1, 2, 3]
@@ -88,7 +88,7 @@ iex> a
 1
 ```
 
-A list also supports matching on its own head and tail:
+Списки так же поддерживают сопоставление с головой и хвостом:
 
 ```iex
 iex> [head | tail] = [1, 2, 3]
@@ -99,14 +99,14 @@ iex> tail
 [2, 3]
 ```
 
-Similar to the `hd/1` and `tl/1` functions, we can't match an empty list with a head and tail pattern:
+Подобно функциям `hd/1` и `tl/1`, мы неможем сопостовлять пустой список используя шаблон головы и хоста:
 
 ```iex
 iex> [h | t] = []
 ** (MatchError) no match of right hand side value: []
 ```
 
-The `[head | tail]` format is not only used on pattern matching but also for prepending items to a list:
+Шаблон `[head | tail]` может быть использован, не только для сопоставления с образом, так же его можно использовать для добавления элементов в список:
 
 ```iex
 iex> list = [1, 2, 3]
@@ -115,11 +115,11 @@ iex> [0 | list]
 [0, 1, 2, 3]
 ```
 
-Pattern matching allows developers to easily destructure data types such as tuples and lists. As we will see in the following chapters, it is one of the foundations of recursion in Elixir and applies to other types as well, like maps and binaries.
+Сопоставление с образцом Pattern matching allows developers to easily destructure data types such as tuples and lists. As we will see in the following chapters, it is one of the foundations of recursion in Elixir and applies to other types as well, like maps and binaries.
 
-## The pin operator
+## Фиксирующий оператор
 
-Variables in Elixir can be rebound:
+Значение переменные в Elixir могут быть перепресвоены:
 
 ```iex
 iex> x = 1
@@ -128,29 +128,28 @@ iex> x = 2
 2
 ```
 
-Use the pin operator `^` when you want to pattern match against an existing variable's value rather than rebinding the variable:
+Фиксирующий оператор `^` используется если необходимо выполнить сравнение с текущим значением переменной, а не присвоить ей новое:
 
 ```iex
 iex> x = 1
 1
 iex> ^x = 2
-** (MatchError) no match of right hand side value: 2
+** (MatchError) правая сторона выражения не равна значению: 2
 iex> {y, ^x} = {2, 1}
 {2, 1}
 iex> y
 2
 iex> {y, ^x} = {2, 2}
-** (MatchError) no match of right hand side value: {2, 2}
+** (MatchError) правая сторона выражения не равна значению: {2, 2}
 ```
 
-Because we have assigned the value of 1 to the variable x, this last example could also have been written as:
+Поскольку мы присвоили значение 1 переменной x, последний пример можно переписать следующим образом:
 
 ```
 iex> {y, 1} = {2, 2}
-** (MatchError) no match of right hand side value: {2, 2}
+** (MatchError) правая сторона выражения не равна значению: {2, 2}
 ```
-
-If a variable is mentioned more than once in a pattern, all references should bind to the same pattern:
+Если переменная упоминается несколько раз в шаблоне, все ссылки должны связываться по таму же шаблону:
 
 ```iex
 iex> {x, x} = {1, 1}
@@ -159,7 +158,7 @@ iex> {x, x} = {1, 2}
 ** (MatchError) no match of right hand side value: {1, 2}
 ```
 
-In some cases, you don't care about a particular value in a pattern. It is a common practice to bind those values to the underscore, `_`. For example, if only the head of the list matters to us, we can assign the tail to underscore:
+В некоторых случаях, вам ненужно беспокоится о текущем значении в шаблоне. Обычной в таких случаях связывают значение с `_`. Например, если нам нужна только голова списка, мы можем связать хвост списка с `_`:
 
 ```iex
 iex> [h | _] = [1, 2, 3]
@@ -168,18 +167,18 @@ iex> h
 1
 ```
 
-The variable `_` is special in that it can never be read from. Trying to read from it gives an unbound variable error:
+Переменная `_` является специализированной, значение которой невозможно прочесть. При попытке прочтения значения данной переменной возникнет ошибка:
 
 ```iex
 iex> _
 ** (CompileError) iex:1: unbound variable _
 ```
 
-Although pattern matching allows us to build powerful constructs, its usage is limited. For instance, you cannot make function calls on the left side of a match. The following example is invalid:
+Хотя сопоставление с образцом позволяет создавать мощные конструкции, его использование ограничено. Например, вы не можете совершать вызовы функций слево от оператора. Следующий пример неверен:
 
 ```iex
 iex> length([1, [2], 3]) = 3
 ** (CompileError) iex:1: illegal pattern
 ```
 
-This finishes our introduction to pattern matching. As we will see in the next chapter, pattern matching is very common in many language constructs.
+На этом мы заканчиваем урок по *сопоставлению с образцом*. Как мы увидим в последующих уроках, *сопоставление с образцом* очень часто используется при разработке.

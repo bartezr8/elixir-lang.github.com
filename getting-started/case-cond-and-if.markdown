@@ -123,7 +123,7 @@ iex> case :ok do
 ** (CaseClauseError) no case clause matching: :ok
 ```
 
-Обратите внимание что у анонимных функций могут быть Note anonymous functions can also have multiple clauses and guards:
+Обратите внимание что у анонимных функций может быть несколько условий и *guards*:
 
 ```iex
 iex> f = fn
@@ -217,25 +217,25 @@ iex> if nil do
 "This will"
 ```
 
-> Примечание: An interesting note regarding `if/2` and `unless/2` is that they are implemented as macros in the language; they aren't special language constructs as they would be in many languages. You can check the documentation and the source of `if/2` in [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html). The `Kernel` module is also where operators like `+/2` and functions like `is_function/2` are defined, all automatically imported and available in your code by default.
+> Примечание: Интересная особенность касается `if/2` и `unless/2` которые в Elixir реализованны как макросы; Они не являются специальными языковыми конструкциями, какими они являются в других языках. Вы можете убедится в этом, изучив документацию и исходный код макроса `if/2` и [документацию по модулю `Kernel`](https://hexdocs.pm/elixir/Kernel.html). В модуле `Kernel` объявлены такие операторы как `+/2` и функции подобные `is_function/2`, все они импортируются автоматически и доступны по умолчанию.
 
-## `do/end` blocks
+## Блоки `do/end`
 
-At this point, we have learned four control structures: `case`, `cond`, `if`, and `unless`, and they were all wrapped in `do/end` blocks. It happens we could also write `if` as follows:
+Мы уже изучили, четыре управляющие конструкции: `case`, `cond`, `if`, и `unless`, и все они в качестве обертки используют блоки `do/end`. Используя их мы можем записать инструкцию `if` следующим образом:
 
 ```iex
 iex> if true, do: 1 + 2
 3
 ```
 
-Notice how the example above has a comma between `true` and `do:`, that's because it is using Elixir's regular syntax where each argument is separated by comma. We say this syntax is using *keyword lists*. We can pass `else` using keywords too:
+Обратите внимание на запятую между `true` и `do:`, она там используется потому что в Elixir's каждый аргумент разделяется запятой. Мы сказали что данный синтаксис использует *список ключевых слов*. Мы можем передать `else` используя ключевое слово:
 
 ```iex
 iex> if false, do: :this, else: :that
 :that
 ```
 
-`do/end` blocks are a syntactic convenience built on top of the keywords one. That's why `do/end` blocks do not require a comma between the previous argument and the block. They are useful exactly because they remove the verbosity when writing blocks of code. These are equivalent:
+Блок `do/end` blocks are a syntactic convenience built on top of the keywords one. That's why `do/end` blocks do not require a comma between the previous argument and the block. They are useful exactly because they remove the verbosity when writing blocks of code. These are equivalent:
 
 ```iex
 iex> if true do
@@ -250,22 +250,22 @@ iex> if true, do: (
 13
 ```
 
-One thing to keep in mind when using `do/end` blocks is they are always bound to the outermost function call. For example, the following expression:
+Запомните одну вещь, используя блок `do/end` всегда связаны с вызовом стороней функции. Например, следующее выражение:
 
 ```iex
 iex> is_number if true do
 ...>  1 + 2
 ...> end
-** (CompileError) undefined function: is_number/2
+** (CompileError) неизвестная функция: is_number/2
 ```
 
-Would be parsed as:
+Будет преобрзованно в:
 
 ```iex
 iex> is_number(if true) do
 ...>  1 + 2
 ...> end
-** (CompileError) undefined function: is_number/2
+** (CompileError) неизвестная функция: is_number/2
 ```
 
 which leads to an undefined function error because that invocation passes two arguments, and `is_number/2` does not exist. The `if true` expression is invalid in itself because it needs the block, but since the arity of `is_number/2` does not match, Elixir does not even reach its evaluation.
