@@ -5,7 +5,6 @@ kramdown:
   hard_wrap: false
 repository: elixir-lang/elixir-lang.github.com
 gems:
-  - jemoji
   - jekyll-sitemap
   - jekyll-redirect-from
   - jekyll-seo-tag
