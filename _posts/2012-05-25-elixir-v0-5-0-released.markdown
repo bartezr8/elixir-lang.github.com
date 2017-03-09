@@ -3,17 +3,17 @@ layout: post
 title: Elixir v0.5.0 released
 author: José Valim
 category: Releases
-excerpt: We have finally released Elixir v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
+excerpt: Мы наконецто выпустили Elixir v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
 
 ---
 
-We have finally released [Elixir](/) v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
+Мы наконецто выпустили [Elixir](/) v0.5.0! Это первый релиз после того как мы переписали язык. В данной заметке, мы поговорим о том чего нам удалось достичь на данный момент и то к чему мы будем стремится!
 
-If you don't care about any of these, you can go straight to our [Getting Started guide](/getting-started/introduction.html). If you do, keep on reading!
+Если вам это не интересно то вы можете сразу перейти к [руководству для начинающих ](/getting-started/introduction.html). Если интересно, продолжайте читать!
 
-## Looking back
+## Оглядываясь назад
 
-I have started working in Elixir at the beginning of 2011. Around April that year, I had released the version v0.3.0 that was stable enough for me to start using in my own projects. However, after using it in a couple projects quickly reviewed that I was not happy with some of the design decisions taken early on.
+Я начал работу над Elixir в начале 2011. Примерно в Апреле прошлого года, я выпустил версию v0.3.0 that was stable enough for me to start using in my own projects. However, after using it in a couple projects quickly reviewed that I was not happy with some of the design decisions taken early on.
 
 At that time, Elixir attempted to be a considerable departure from Erlang and that revealed very fast to a bad design decision because, in order to use any Erlang module, we first would have to provide an Elixir wrapper for it. Any new function or module in new Erlang releases would have to be wrapped first in Elixir, which means we would always play catch up with Erlang.
 
@@ -23,7 +23,7 @@ It was around October 2011, during a short stay in San Francisco, that I came up
 
 Around February of that year, feeling confident enough about the direction the language was moving (and initial benchmarks I had made at that point), I have pitched Elixir to [my company, Plataformatec](http://plataformatec.com.br/), and they have accepted to sponsor Elixir. With their help, Elixir developed even faster and that's what we are going to take a look next.
 
-## Where we are
+## То где мы сейчас
 
 One of the goals we have set was to have a good website and documentation before the next official release. With the help of the Plataformatec team, we created a logo for Elixir and put this website live.
 
@@ -35,7 +35,7 @@ Although the initial release was scheduled to April 2012, the feedback from such
 
 With v0.5.0 finally out, we are committing to a stable syntax and a basic standard library. In the last couple days before the release, we have been working on streamlining the documentation and ensure Elixir works on Mac, Linux and Windows machines!
 
-## Looking forward
+## Смотря вперед
 
 There are still many, many things to do! In the next months, we will continue working on growing our community, talks and other documentation material. A huge thanks to [Alexei Sholik](https://twitter.com/true_droid) who is moving this area forward.
 
