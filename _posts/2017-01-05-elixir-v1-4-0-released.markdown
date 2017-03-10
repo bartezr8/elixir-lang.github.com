@@ -1,14 +1,14 @@
 ---
 layout: post
-title: Elixir v1.4 released
+title: Вышел Elixir v1.4
 author: José Valim
 category: Releases
-excerpt: Elixir v1.4 brings many improvements to the language, its standard library and the Mix build tool.
+excerpt: Выпуск Elixir v1.4 содержит много улучшений языка, стандартной библиотеки и инструмента сборки Mix.
 ---
 
-Elixir v1.4 brings new features, enhancements and bug fixes. The most notable changes are the addition of the `Registry` module, the `Task.async_stream/3` and `Task.async_stream/5` function which aid developers in writing concurrent software, and the new application inference and commands added to Mix.
+В вупуске Elixir v1.4 содержится много новых фич, улучшений и исправлений ошибок. Наиболее значимые изменения касаются модуля `Registry`, функций `Task.async_stream/3` и `Task.async_stream/5` которые упращают разработку распределенного ПО, и новый интерфейс для инструмента сборки Mix.
 
-In this post we will cover the main additions. The complete [release notes](https://github.com/elixir-lang/elixir/releases/tag/v1.4.0) are also available.
+В данной статье мы рассмотрим только основные изменения. Более полный список изменений доступен смотрите [здесь](https://github.com/elixir-lang/elixir/releases/tag/v1.4.0).
 
 ## Registry
 

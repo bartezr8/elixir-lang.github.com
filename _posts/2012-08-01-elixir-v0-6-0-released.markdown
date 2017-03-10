@@ -1,27 +1,27 @@
 ---
 layout: post
-title: Elixir v0.6.0 released
+title: Вышел Elixir v0.6.0
 author: José Valim
 category: Releases
-excerpt: We have finally released Elixir v0.6.0! This release includes a build tool called Mix, support for Erlang typespecs, many improvements to IEx and improved IO, File and Macro support.
+excerpt: Мы наконец то выпустили Elixir v0.6.0! Данный выпуск включает инструмент сборки под названием Mix, добавлена поддержка Erlang typespecs, много улучшений IEx, улучшена поддержка IO, File и Macro.
 
 ---
 
-We have finally released [Elixir](/) v0.6.0! This release includes a build tool called Mix, support for Erlang typespecs, many improvements to IEx and improved IO, File and Macro support.
+Мы наконец то выпустили Elixir v0.6.0! Данный выпуск включает инструмент сборки под названием Mix, добавлена поддержка Erlang typespecs, много улучшений IEx, улучшена поддержка IO, File и Macro.
 
-## What's new
+## Что нового ?
 
-When [we released version v0.5.0](/blog/2012/05/25/elixir-v0-5-0-released/), we have set three major goals for release v0.6.0:
+После того как мы [выпустили версию v0.5.0](/blog/2012/05/25/elixir-v0-5-0-released/), мы поставили себе несколько основных целей для версии v0.6.0:
 
-1. Provide a build tool that makes it easy to create, compile and test Elixir projects;
-2. Support [Erlang typespecs](http://www.erlang.org/doc/reference_manual/typespec.html);
-3. Improve IO and File modules to be more robust and complete.
+1. Сделать инструмент сборки, который позволит упростить создание, сборку и тестирование Elixir проектов;
+2. Сделать поддержку [Erlang typespecs](http://www.erlang.org/doc/reference_manual/typespec.html);
+3. Улучшить модули IO и File.
 
-Our interactive shell (IEx) also had many improvements, thanks to the Elixir developer community. We now have easy access to documentation, remote shells, autocomplete and much more. In order to show you a bit of what you can do in this release, we have prepared a short (~6 min) screencast:
+Наша интерактивная оболочка (IEx) так же требовала улучшения, хотим выразить огромную благодарность сообществу Elixir. Теперь у нас есть простой доступ к документации, удаленный shells, автокомплит и многое другое. Для того что бы показать что мы сделали в данной версии, пы подготовли небольшое видео (~6 мин):
 
 <iframe src="https://player.vimeo.com/video/46709928" class="video" width="600" height="337" allowfullscreen></iframe>
-<a href="https://vimeo.com/46709928">Elixir v0.6 quick tour - Mix and IEx</a> from <a href="https://vimeo.com/user3182384">Plataformatec</a> on <a href="https://vimeo.com">Vimeo</a>.
+<a href="https://vimeo.com/46709928">Elixir v0.6 быстрый тур - Mix и IEx</a> от <a href="https://vimeo.com/user3182384">Plataformatec</a> на <a href="https://vimeo.com">Vimeo</a>.
 
-That's it. For the next months, we will continue improving Elixir (you can see some ideas floating around in the [issues tracker](https://github.com/elixir-lang/elixir/issues)) but we will start to focus on other tools and libraries for the community.
+На этом все. Следующие месяцы, мы продолжим работу над улучшением Elixir (некоторые идеи пришли нам после изучения [баг трекера](https://github.com/elixir-lang/elixir/issues)) однако основной целью на данный момент являтся работа над инструментами, библиотеками и работа с сообществом.
 
-Thank you and don't forget to [give Elixir a try](/getting-started/introduction.html)!
+Всем спасмбо и не забывайте [поробовать Elixir](/getting-started/introduction.html)!
