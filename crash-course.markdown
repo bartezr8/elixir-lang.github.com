@@ -200,10 +200,10 @@ X = 10.
 im_a_var
 x = 10
 
-Module  # this is called an atom alias; it expands to :'Elixir.Module'
+Module  # здесь мы вызываем псевдоним атома; который будет преобразован в :'Elixir.Module'
 ```
 
-It is also possible to create atoms that start with a character other than a lowercase letter. The syntax is different between the two languages:
+Так же можно создать атом который будет начинатся с буквы в нижнем регистре. Синтаксис в этих языках отличается:
 
 **Erlang**
 
@@ -226,12 +226,12 @@ is_atom :""                 #=> true
 
 ### Кортежи
 
-Способ написания кортежей в данных языках одинаковый, но APIs разное. Elixir attempts to normalize Erlang libraries in a way that:
+Способ написания кортежей в данных языках одинаковый, но APIs разное. Elixir пытается нормализовать библиотеки Erlang следующим образом:
 
-1. The `subject` of the function is always the first argument.
-2. All data structures functions employ zero-based access.
+1. `subject` всегда является первым аргументом функции.
+2. Все структуры данных имеют доступ нулевого уровня.
 
-That said, Elixir does not import the default `element` and `setelement` functions, but instead provides `elem` and `put_elem`:
+Тем неменее, Elixir по умолчанию не импортирует функции `element` и `setelement`, вместо них доступны функции `elem` и `put_elem`:
 
 **Erlang**
 
@@ -249,7 +249,7 @@ put_elem({:a, :b, :c}, 0, :d) #=> {:d, :b, :c}
 
 ### Списки и двоичные данные
 
-Elixir has a shortcut syntax for binaries:
+В Elixir доступен краткий синтаксис для создания двоичных данных:
 
 **Erlang**
 
@@ -268,9 +268,9 @@ is_binary <<"Hello">>    #=> true
 <<"Hello">> === "Hello"  #=> true
 ```
 
-In Elixir, the word **string** means a UTF-8 binary and there is a `String` module that works on such data. Elixir also expects your source files to be UTF-8 encoded. On the other hand, **string** in Erlang refers to char lists and there is a `:string` module, that's not UTF-8 aware and works mostly with char lists.
+В Elixir, слово **string** обозначает двоичные данные в кодировке UTF-8 и модуль `String` предназначен для работы с такими данными. Elixir ожидает что все файлы с исходным кодом будут в кодировке UTF-8. С другой стороны, **string** в Erlang является списком символов с которыми работает модуль `:string`, не является UTF-8 и работает приемущественно с списками символов.
 
-Elixir also supports multiline strings (also called *heredocs*):
+Elixir поодерживает многострочную нотацию создания строки (так же известную как *heredocs*):
 
 ```elixir
 is_binary """
@@ -283,7 +283,7 @@ lines.
 
 ### Списки ключевых слов
 
-Elixir offers a literal syntax for creating a list of two-item tuples where the first item in the tuple is an atom and calls them keyword lists:
+В Elixir доступен offers a literal syntax for creating a list of two-item tuples where the first item in the tuple is an atom and calls them keyword lists:
 
 **Erlang**
 
