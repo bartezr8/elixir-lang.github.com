@@ -1,5 +1,5 @@
 ---
-title: "Learning resources"
+title: "Ресурсы для изучения"
 section: learning
 layout: default
 ---
@@ -8,68 +8,63 @@ layout: default
 
 {% include toc.html %}
 
-Our website provides a [Getting Started guide](/getting-started/introduction.html) to learn more about Elixir's foundation and explore how to build projects with [Mix and OTP](getting-started/mix-otp/introduction-to-mix.html).
-
-The Elixir Community has also produced plenty of resources to explore Elixir from different backgrounds and other perspectives. We are sure you will find a resource that follows your pace and interests.
+На нашем сайте есть [руководство для начинающих](/getting-started/introduction.html) с помощью которого вы сможете получить базовые знания по Elixir's и научитесь собирать проекты используя [Mix и OTP](getting-started/mix-otp/introduction-to-mix.html).
 
 ## Learn Elixir
 
-<h4 class="resource">Programming Elixir 1.3</h4>
+<h4 class="resource">Программируем на Elixir 1.3</h4>
 
-<a class="cover" href="https://pragprog.com/book/elixir13/programming-elixir-1-3" title="Programming Elixir 1.3: Functional |&gt; Concurrent |&gt; Pragmatic |&gt; Fun
-– by Dave Thomas"><img src="/images/learning/programming-elixir-1-3.jpg" alt="Programming Elixir cover" width="190" /></a>
+<a class="cover" href="https://pragprog.com/book/elixir13/programming-elixir-1-3" title="Программирование на Elixir 1.3: функциональный |&gt; параллельный |&gt; прогматичный |&gt; забавный – от  Dave Thomas"><img src="/images/learning/programming-elixir-1-3.jpg" alt="Программируем на Elixir" width="190" /></a>
 
-Explore functional programming without the academic overtones (tell me about monads just one more time). Create concurrent applications, but get them right without all the locking and consistency headaches. Meet Elixir, a modern, functional, concurrent language built on the rock-solid Erlang VM.
+Объяснение функционального программирования не академическим языком ( о да, давайте поговорим о монадах еще раз). Разработке параллельных приложениях, без головной боли. Встречайте Elixir, современный, функциональный, параллельный язык работающий поверх Erlang VM.
 
-Elixir’s pragmatic syntax and built-in support for metaprogramming will make you productive and keep you interested for the long haul. Maybe the time is right for the Next Big Thing. Maybe it’s Elixir. This book is the introduction to Elixir for experienced programmers, completely updated for Elixir 1.3.
-
-<div class="clear"></div>
-
-<h4 class="resource">Elixir in Action</h4>
-
-<a class="cover" href="http://manning.com/juric/" title="Elixir in Action
-– by Saša Jurić"><img src="/images/learning/elixir-in-action.jpg" alt="Elixir in Action cover" width="190" /></a>
-
-Elixir in Action is a tutorial book that aims to bring developers new to Elixir and Erlang to the point where they can develop complex systems on their own. No knowledge about Elixir, Erlang, or functional programming is required, but it is assumed that a reader has a few years of production experience using mainstream OO languages, for example C#, Java, Python, or Ruby.
-
-The book starts with a basic introduction to the Elixir language and functional programming idioms. The central part of the book deals with Erlang VM and OTP, discussing topics such as concurrent programming, fault-tolerance, and distributed systems. Finally, you'll learn how to package your code into components, create a standalone deployable release, and troubleshoot the running system. The theory is demonstrated through a simplistic example that is gradually expanded throughout the book into a fully standalone releasable system.
+У Elixir’s прогматичный синтаксис и встроенная поддержка метапрограммирования, это позволит вам разрабатывать приложения быстро и продуктивно. Возможно пришло время для новых вещей. Возможно ими станет Elixir. Данная книга проведет вас по миру Elixir и позволит стать более опытным разработчиком, переработана к выходу Elixir 1.3.
 
 <div class="clear"></div>
 
-<h4 class="resource">Introducing Elixir</h4>
+<h4 class="resource">Elixir в действии</h4>
 
-<a class="cover" href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir: Getting Started in Functional Programming
-– by Simon St. Laurent, J. David Eisenberg"><img src="/images/learning/introducing-elixir.jpg" alt="Introducing Elixir cover" width="190" /></a>
+<a class="cover" href="http://manning.com/juric/" title="Elixir в действии – by Saša Jurić"><img src="/images/learning/elixir-in-action.jpg" alt="Elixir в действии" width="190" /></a>
 
-Elixir is an excellent language if you want to learn about functional programming, and with this hands-on introduction, you’ll discover just how powerful and fun Elixir can be. This language combines the robust functional programming of Erlang with a syntax similar to Ruby, and includes powerful features for metaprogramming.
+Elixir в действии это руководство назначение которого научить начинающих разработчиков Elixir и Erlang, самостоятельно разрабатывать приложения на данных языках. Для изучения данной книги, не требуется знаний Elixir, Erlang, или любых других функциональных языков, но ожидается что у читателя есть опыт работы, в несколько лет с такими языками как C#, Java, Python, или Ruby.
 
-This book shows you how to write simple Elixir programs by teaching one skill at a time. Once you pick up pattern matching, process-oriented programming, and other concepts, you’ll understand why Elixir makes it easier to build concurrent and resilient programs that scale up and down with ease.
+Данная книга начинается с простого введения в язык программирования Elixir и основы функционального программирования. Основная часть книги посвещена работе с Erlang VM и OTP, разбору тем связанных с параллельным программированием, отказоустойчивостью , и распределенными системами. И наконец, вы научитесь как завернуть ваш код в компонент, создадите продуктовый релиз, и изучите особенности с запуском в системе.
 
 <div class="clear"></div>
 
-<h4 class="resource">The Little Elixir and OTP Guidebook</h4>
+<h4 class="resource">Введение в Elixir</h4>
+
+<a class="cover" href="http://shop.oreilly.com/product/0636920030584.do" title="Введение в Elixir: введение в функциональное программирование – от St. Laurent, J. David Eisenberg"><img src="/images/learning/introducing-elixir.jpg" alt="Введение в Elixir" width="190" /></a>
+
+Elixir это отличный язык для изучения функционального программирования, используя данное руководство, вы узнаете насколько мощным и приятным может быть Elixir. Данный язык сочитает надежность функционального программирования в Erlang с синтаксисом похожим на Ruby, так же включает мощный механизм для метапрограммирования.
+
+Данная книга научит вас как писать простые программы Elixir путем последовательного изучения одного понятия за раз. Например *pattern matching*, *process-ориентированное* программирование, и другие понятия, вы поймете почему с Elixir проще всего писать  параллельные и эластичные программы которые легко масштабируются.
+
+<div class="clear"></div>
+
+<h4 class="resource">Краткое руководстово по Elixir и OTP</h4>
 
 <a class="cover" href="http://www.manning.com/tanweihao/" title="The Little Elixir and OTP Guidebook
 – by Benjamin Tan Wei Hao"><img src="/images/learning/the-little-elixir-and-otp-guidebook-meap.jpg" alt="The Little Elixir and OTP Guidebook cover" width="190" /></a>
 
-The Little Elixir & OTP Guidebook gets you started programming applications with Elixir and OTP. You begin with a quick overview of the Elixir language syntax, along with just enough functional programming to use it effectively. Then, you'll dive straight into OTP and learn how it helps you build scalable, fault-tolerant and distributed applications through several fun examples. Come rediscover the joy of programming with Elixir and remember how it feels like to be a beginner again.
+Краткое руководстово по Elixir & OTP, помогает быстро начать разрабатывать приложения используя Elixir и OTP. Книга начинается с краткого обзора синтаксиса Elixir, наряду с фукнциональным программированием достаточного для эффективного программирования. Когда, вы приступите к изучению OTP и изучите особенности построеня мастабируемого приложения.
 
 <div class="clear"></div>
 
-<h4 class="resource">Elixir Cookbook</h4>
+<h4 class="resource">Elixir рецепты</h4>
 
 <a class="cover" href="https://www.packtpub.com/application-development/elixir-cookbook" title="Elixir Cookbook
 – by Paulo A Pereira"><img src="/images/learning/elixir-cookbook.jpg" alt="Elixir Cookbook cover" width="190" /></a>
 
-This book is a set of recipes grouped by topic that acts as a reference to get ideas from or to quickly search for a solution to a problem. You will begin by launching an IEx session and using it to test some ideas. Next, you will perform various operations like loading and compiling modules, inspecting your system, generating a supervised app, and so on. Furthermore, you will be introduced to immutability, working with data structures, performing pattern matching, and using stream modules to generate infinite data sequences. You will learn about everything from joining strings to determining the word frequency in text. With respect to modules and functions, you will also discover how to load code from other modules and use guards and pattern matching in functions.
+Данная книга является сборником рецептов по Elixir которую можно использовать для поиска быстрого решения той или иной проблемы, а также лучшего решения для конкретной задачи. Вы начнете с запуска интерактивной консоли IEx которую используют для быстрой проверки идей и обучения. Затем, вы узнате как выполнять загрузку и компиляцию модулей, инспектировать систему, создавать контролируемое приложение и т.д. Затем вы узнаете, что такое иммутабильность, работа с структурой данных, освоите *pattern matching*, и на практике используете потоки для генерации бесконечной последовательности данных. Вы изучите все что касается строк, начиная с конконтенации и заканчивая определением частотности. Что касается модулей и функций, вы узнаете, как загружать код из других модулей и использовать функции защиты и *pattern matching*.
 
 <div class="clear"></div>
 
-<h4 class="resource">Elixir School</h4>
+<h4 class="resource">Школа Elixir</h4>
 
 <a class="cover" href="http://elixirschool.com" title="Elixir School"><img src="/images/learning/elixir-school.jpg" alt="Elixir School" width="190" /></a>
 
-Elixir-School is an open and community driven effort inspired by Twitter’s Scala School. The site’s content consists of peer-reviewed lessons on various Elixir topics that range in difficulty. The lessons are currently available in over 10 languages to help make programming Elixir more accessible to non-English speakers.
+Проект *школа Elixir* был вдохновлен проектом *школа Scala*. Сайт содержит множество проверенных уроков по Elixir отсортированных по степени сложности. Уроки доступны на 10 языках для того что бы разработчики не владещие анлиским могли изучить этот язык.
 
 <div class="clear"></div>
 
@@ -77,22 +72,21 @@ Elixir-School is an open and community driven effort inspired by Twitter’s Sca
 
 <a class="cover" href="http://bit.ly/2cyMhwj" title="Take Off With Elixir"><img src="https://dl.dropboxusercontent.com/u/3532678/red4_cover.jpg" alt="Red:4" width="190" /></a>
 
-
-Red:4 is a fictional aerospace startup that needs your help! Through a book, a video, or both you can learn Elixir the fun way by immersing yourself in an on-the-job style set of problems. For instance, you will set up a project to calculate escape velocity for each of the planets in our solar system, learning pattern matching and language basics along the way. You'll move on to orbital mechanics while learning how to debug and refactor your code for clarity and meaning. You'll learn list basics and data storage techniques as you build a solar flare tracking system. Finally, you'll dive into OTP using Ecto and PostgreSQL - all in an effort to overwhelm our internal systems with the power of Elixir!
+Red:4 это вымышленный аэрокосмический стартап которому нужна ваша помощь! Используя книгу, видео, или то и другое вы сможете изучить Elixir приятным для себя образом, изучив возникшие в работе проблемы и найдя их решения. Например, вы создадите проект для вычисления скорости вылета для каждой из планет в нашей солнечной системе, изучите *pattern matching* и основы языка в процессе разработки. Затем перейдете к орбитальным механизмам в процессе изучения рефакторинга и отладки приложения, для того что бы сделать его чистым и понятным. Вы изучите работу с списками и хранилищами данных, в процессе разработки системы слежения за солнечными выбросами. И наконец, вы узнаете что такое OTP используя Ecto и PostgreSQL.
 
 <div class="clear"></div>
 
 
 ## Screencasts
 
-<h4 class="resource">Elixir Sips</h4>
+<h4 class="resource">Elixir глотками</h4>
 
 <a class="cover" href="http://elixirsips.com" title="Elixir Sips: Learn Elixir with Two Short Videos Each Week
 – with Josh Adams"><img src="/images/learning/elixir-sips.png" alt="ElixirSips cover" width="190" /></a>
 
-Elixir Sips is a screencast series that provides 2 short videos - typically from 2 to 7 minutes, but occasionally much longer - each week.  The videos consist of various topics, ranging from exploring a module in the standard library to trying out a new project to building a web-based Tetris game from scratch.
+Elixir глотками это серия видеоуроков которые идут блоками ( по 2 за раз) - длительностью от 2 до 7 минут, но иногда они идут немного дольше, выходят каждую неделю. В данных видео рассматриваются различные темы, начиная с описания модулей стандартной библиотеки до разработки с нуля веб игры по типу *Тетрис*.
 
-The intended audience ranges from someone entirely new to the Elixir language, to experienced developers that want to get a broad range of topics to think about from time to time.
+Целевая адудитория варьируется от новичков в Elixir, до опытных разработчиков которые заинтересованы в расширении кругозора время от времени.
 
 <div class="clear"></div>
 
@@ -102,36 +96,34 @@ The intended audience ranges from someone entirely new to the Elixir language, t
   <img src="/images/learning/learn-elixir-tv.png" alt="LearnElixir.tv cover" width="190" />
 </a>
 
-LearnElixir.tv is a screencast series which provides in-depth, step-by-step videos about Elixir's main features. Videos range from 7 to 15 minutes in length, and are posted weekly.
+На данном сайте подготовлен цикл видео уроков, в котором пошагово разбирается большинство особенностей языка программирования Elixir's. Продолжительность видео от 7 до 15 минут, видео выходит каждую неделю.
 
-It's intended to help beginners get familiar with all of Elixir's features by building their knowledge incrementally. Experienced Elixir developers might also learn a trick or two.
+Целью данного проекта помочь начинающим Elixir's разработчикам ознакомится с ключевыми особенностями языка. Опытные разработчики Elixir могут подсмотреть пару интересных трюков для себя.
 
 <div class="clear"></div>
 
 ## In-depth Resources
 
-<h4 class="resource">Études for Elixir</h4>
+<h4 class="resource">Уроки по Elixir</h4>
 
-<a class="cover" href="http://chimera.labs.oreilly.com/books/1234000001642" title="Études for Elixir
--– by J. David Eisenberg"><img src="/images/learning/etude-for-elixir.jpg" alt="Études for Elixir" width="190" /></a>
+<a class="cover" href="http://chimera.labs.oreilly.com/books/1234000001642" title="Уроки по Elixir – от J. David Eisenberg"><img src="/images/learning/etude-for-elixir.jpg" alt="Уроки по Elixir" width="190" /></a>
 
-Études for Elixir is an open source book of programming exercises. Each one has been designed to provide practice material for a particular Elixir programming concept. The topics are keyed to the chapters in "Introducing Elixir," but they are general enough to be used with any Elixir book. Études for Elixir can be read free online.
-
-<div class="clear"></div>
-
-<h4 class="resource">Metaprogramming Elixir</h4>
-
-<a class="cover" href="https://pragprog.com/book/cmelixir/metaprogramming-elixir" title="Metaprogramming Elixir: Write Less Code, Get More Done and Have Fun
-– by Chris Mccord"><img src="/images/learning/metaprogramming-elixir.jpg" alt="Metaprogramming Elixir cover" width="190" /></a>
-
-Write code that writes code with Elixir macros. Macros make metaprogramming possible and define the language itself. In this book, you’ll learn how to use macros to extend the language with fast, maintainable code and share functionality in ways you never thought possible. You’ll discover how to extend Elixir with your own first-class features, optimize performance, and create domain-specific languages.
+Данная книга является свободно распространяемой и включает учебный материал который состоит из цикла уроков. Каждый из которых разработан для предоставления практического материала по разработке программ на Elixir. Уроки подготовленны к главам из книги "Введение в Elixir", но могут быть использованны с любой книгой по Elixir.
 
 <div class="clear"></div>
 
-<h4 class="resource">Erlang in Anger</h4>
+<h4 class="resource">Метапрограммирование на Elixir</h4>
+
+<a class="cover" href="https://pragprog.com/book/cmelixir/metaprogramming-elixir" title="Метапрограммирование на Elixir: пиши мало, делай много и отдыхай – by Chris Mccord"><img src="/images/learning/metaprogramming-elixir.jpg" alt="Metaprogramming Elixir cover" width="190" /></a>
+
+Данная книга освещает процесс написания макросов в Elixir. Макросы позволяют с помощью метапрограммирования изменять особенности поведения языка под свои нужды. В данной книге, вас научат как используя макросы, можно быстро расширить язык, писать поддерживаемый код.
+
+<div class="clear"></div>
+
+<h4 class="resource">Erlang в ярости</h4>
 
 <a class="cover" href="http://www.erlang-in-anger.com" title="Erlang in Anger – by Fred Hebert"><img src="/images/learning/erlang-in-anger.png" alt="Erlang in Anger cover" width="190" /></a>
 
-This book intends to be a little guide about how to be the Erlang medic in a time of war. It is first and foremost a collection of tips and tricks to help understand where failures come from, and a dictionary of different code snippets and practices that helped developers debug production systems that were built in Erlang.
+Данная книга является кратким руководством для тех кто хочет стать Erlang медиком на данной войне. Данная книга является первым и наиболее полным сборником рецептов и приемов которые позволят изучить особенности языка Erlang.
 
 <div class="clear"></div>
