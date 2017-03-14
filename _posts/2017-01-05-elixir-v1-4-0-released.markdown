@@ -10,17 +10,17 @@ excerpt: Выпуск Elixir v1.4 содержит много улучшений
 
 В данной статье мы рассмотрим только основные изменения. Более полный список изменений доступен смотрите [здесь](https://github.com/elixir-lang/elixir/releases/tag/v1.4.0).
 
-## Registry
+## Модуль `Registry`
 
-The [`Registry`](https://hexdocs.pm/elixir/Registry.html) is a new module in Elixir's standard library that allows Elixir developers to implement patterns such as name lookups, code dispatching or even a pubsub system in a simple and scalable way.
+Модуль [`Registry`](https://hexdocs.pm/elixir/Registry.html) является новым в стандартной библиотеке Elixir's, позволяет разработчикам Elixir реализовывать паттерны *name lookups*, *code dispatching* или даже *pubsub system*.
 
-Broadly speaking, the Registry is a local, decentralized and scalable key-value process storage. Let's break this in parts:
+Проще говоря, модуль `Registry` это локальное, децентрализованное и масштабируемое хранилище пар "ключ-значение". Давайте выделим основные моменты:
 
-  * Local because keys and values are only accessible to the current node (opposite to distributed)
-  * Decentralized because there is no single entity responsible for managing the registry
-  * Scalable because performance scales linearly with the addition of more cores upon partitioning
+  * Локальное - ключи и значения доступны только для текущего узла (в противовес распределенному);
+  * Децентрализованное - нет единой точки управления регистрацией;
+  * Масштабируемое - производительность масштабируется линейно с путем увеличения количества ядер после разделения;
 
-A registry may have unique or duplicate keys. Every key-value pair is associated to the process registering the key. Keys are automatically removed once the owner process terminates. Starting, registering and looking up keys is quite straight-forward:
+Регистр может иметь уникальные или дублирующиеся ключи. Каждая пара "ключ-значение" связана с процессом, регистрирующим ключ. Ключи автоматически удаляются после того как процесс владелец завершен. Старт, регистрация и поиск ключей довольно простые:
 
 ```iex
 iex> Registry.start_link(:unique, MyRegistry)
@@ -29,13 +29,13 @@ iex> Registry.lookup(MyRegistry, "hello")
 [{self(), 1}]
 ```
 
-Finally, huge thanks to [Bram Verburg](https://twitter.com/voltonez) who has performed [extensive benchmarks](https://docs.google.com/spreadsheets/d/1MByRZJMCnZ1wPiLhBEnSRRSuy1QXp8kr27PIOXO3qqg/edit#gid=0) on the registry to show it scales linearly with the number of cores by increasing the number of partitions.
+И наконец, огромная благодарность [Bram Verburg](https://twitter.com/voltonez) за подготовку [тестов](https://docs.google.com/spreadsheets/d/1MByRZJMCnZ1wPiLhBEnSRRSuy1QXp8kr27PIOXO3qqg/edit#gid=0) на которых показано линейное масштабирование с увиличением числа ядер.
 
-## Syntax coloring
+## Подсветка синтаксиса
 
 Elixir v1.4 introduces the ability to syntax color inspected data structures and IEx automatically relies on this feature to provide syntax coloring for evaluated shell results:
 
-![IEx coloring](/images/contents/iex-coloring.png)
+![Подсветка IEx](/images/contents/iex-coloring.png)
 
 This behaviour can be configured via the `:syntax_colors` coloring option:
 
@@ -109,7 +109,7 @@ Finally, if there is a dependency you don't want to include in the application r
 
 We hope this feature provides a more streamlined workflow for developers who are building releases for their Elixir projects.
 
-## Mix install from SCM
+## Mix установка из SCM
 
 Mix v1.4 can now install escripts and archives from both Git and Hex, providing you with even more options for distributing Elixir code.
 
@@ -127,8 +127,8 @@ You can now also install archives from Hex in this way. Since they are fetched a
 
 It is also possible to install escripts and archives by providing a Git/GitHub repo. See `mix help escript.install` and `mix help archive.install` for more details.
 
-## Summing up
+## Резюме
 
 The full list of changes is available in our [release notes](https://github.com/elixir-lang/elixir/releases/tag/v1.4.0). Don't forget to check [the Install section](/install.html) to get Elixir installed and our [Getting Started guide](http://elixir-lang.org/getting-started/introduction.html) to learn more.
 
-Happy coding!
+Удачного кодинга!
