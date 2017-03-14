@@ -1,33 +1,33 @@
 ---
 layout: getting-started
-title: Comprehensions
+title: Абстракция списков
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-In Elixir, it is common to loop over an Enumerable, often filtering out some results and mapping values into another list. Comprehensions are syntactic sugar for such constructs: they group those common tasks into the `for` special form.
+В Elixir, обычной задачей является итерация масива данных, often filtering out some results and mapping values into another list. Comprehensions are syntactic sugar for such constructs: they group those common tasks into the `for` special form.
 
-For example, we can map a list of integers into their squared values:
+Например, мы можем отобразить список целых чисел в их значения в квадрате:
 
 ```iex
 iex> for n <- [1, 2, 3, 4], do: n * n
 [1, 4, 9, 16]
 ```
 
-A comprehension is made of three parts: generators, filters and collectables.
+Абстракция списков состоит из трех частей: генераторы, фильтры и коллекционирование.
 
-## Generators and filters
+## Генераторы и фильтры
 
-In the expression above, `n <- [1, 2, 3, 4]` is the **generator**. It is literally generating values to be used in the comprehension. Any enumerable can be passed in the right-hand side of the generator expression:
+В выражении выше , `n <- [1, 2, 3, 4]` используются **генераторы**. It is literally generating values to be used in the comprehension. Any enumerable can be passed in the right-hand side of the generator expression:
 
 ```iex
 iex> for n <- 1..4, do: n * n
 [1, 4, 9, 16]
 ```
 
-Generator expressions also support pattern matching on their left-hand side; all non-matching patterns are *ignored*. Imagine that, instead of a range, we have a keyword list where the key is the atom `:good` or `:bad` and we only want to compute the square of the `:good` values:
+В выражениях использующих генераторы можно использовать *pattern matching* в левой части выражения; Все паттерны не являющиеся *pattern matching* игнорируются *ignored*. Представте that, instead of a range, we have a keyword list where the key is the atom `:good` or `:bad` and we only want to compute the square of the `:good` values:
 
 ```iex
 iex> values = [good: 1, good: 2, bad: 3, good: 4]
@@ -112,7 +112,7 @@ end
 
 Finally, keep in mind that variable assignments inside the comprehension, be it in generators, filters or inside the block, are not reflected outside of the comprehension.
 
-## Bitstring generators
+## Генераторы битовых строк
 
 Bitstring generators are also supported and are very useful when you need to comprehend over bitstring streams. The example below receives a list of pixels from a binary with their respective red, green and blue values and converts them into tuples of three elements each:
 
@@ -124,7 +124,7 @@ iex> for <<r::8, g::8, b::8 <- pixels>>, do: {r, g, b}
 
 A bitstring generator can be mixed with "regular" enumerable generators, and supports filters as well.
 
-## The `:into` option
+## Опция `:into`
 
 In the examples above, all the comprehensions returned lists as their result. However, the result of a comprehension can be inserted into different data structures by passing the `:into` option to the comprehension.
 

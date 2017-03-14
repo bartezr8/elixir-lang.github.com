@@ -279,4 +279,4 @@ iex> is_number(if true do
 true
 ```
 
-Keyword lists play an important role in the language and are quite common in many functions and macros. We will explore them a bit more in a future chapter. Now it is time to talk about "Binaries, strings, and char lists".
+Списки ключевых слов играют важную роль в языке и довольно часто используются в функциях и макросах. Мы подробнее изучим их в следующих уроках. Далее мы поговорим об "Двоичных данных, строках, и список символов".
