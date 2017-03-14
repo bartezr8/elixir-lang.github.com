@@ -1,0 +1,4 @@
+user-agent: *
+Sitemap: http://elexir-lang.ru/sitemap.xml
+
+Host: elexir-lang.ru
