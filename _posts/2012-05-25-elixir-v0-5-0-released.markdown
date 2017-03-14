@@ -1,48 +1,48 @@
 ---
 layout: post
-title: Elixir v0.5.0 released
+title: Вышел Elixir v0.5.0
 author: José Valim
 category: Releases
-excerpt: We have finally released Elixir v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
+excerpt: Мы наконецто выпустили Elixir v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
 
 ---
 
-We have finally released [Elixir](/) v0.5.0! This marks the first release since the language was rewritten. In this blog post, we will discuss what we achieved during this time and what are the next steps!
+Мы наконецто выпустили [Elixir](/) v0.5.0! Это первый релиз после того как мы переписали язык. В данной заметке, мы поговорим о том чего нам удалось достичь на данный момент и то к чему мы будем стремится!
 
-If you don't care about any of these, you can go straight to our [Getting Started guide](/getting-started/introduction.html). If you do, keep on reading!
+Если вам это не интересно то вы можете сразу перейти к [руководству для начинающих ](/getting-started/introduction.html). Если интересно, продолжайте читать!
 
-## Looking back
+## Оглядываясь назад
 
-I have started working in Elixir at the beginning of 2011. Around April that year, I had released the version v0.3.0 that was stable enough for me to start using in my own projects. However, after using it in a couple projects quickly reviewed that I was not happy with some of the design decisions taken early on.
+Я начал работу над Elixir в начале 2011. Примерно в Апреле прошлого года, я выпустил версию v0.3.0 которая была достаточно стабильно, для того что бы я мог использовать его в моих проектах. Однако, после того как я его использовал на паре проектов я увидел что некоторые решения оказались не столь удачными, как мне казалось ранее.
 
-At that time, Elixir attempted to be a considerable departure from Erlang and that revealed very fast to a bad design decision because, in order to use any Erlang module, we first would have to provide an Elixir wrapper for it. Any new function or module in new Erlang releases would have to be wrapped first in Elixir, which means we would always play catch up with Erlang.
+В то время, Elixir значительно отличался от Erlang и это часто приводило к плохим архитектурным решениям потому что, для использования Erlang модулей, сначала нам нужно написать обертку для этого модуля на Elixir. Любые новые функции и модули в каждой новой версии Erlang тебовали переписывания этих оберток, что требует постоянного слежения за развитием Erlang.
 
-After not feeling productive enough with that Elixir version, I have decided to take a break from Elixir to study old, new and emerging languages. The challenge was to not re-invent Erlang as a language, but how to provide the productivity and flexibility I expect from Elixir while staying a 100% compatible with Erlang.
+После того как я понял что Elixir не дает мне той производительности которой я хочу, я решил сделать перерыв и немного отдохнуть от Elixir и посмотреть на другие языки. Я осознал что моя задача заключается не в создании нового Erlang, а обеспечить необходимую мне производительность и гибкость от Elixir при этом оставаясь на 100% совместимым с Erlang.
 
-It was around October 2011, during a short stay in San Francisco, that I came up with what would be [the foundation of Elixir's current version](https://github.com/josevalim/lego-lang) with the help of Yehuda Katz. Development of the new Elixir version started a few days before 2012 and continued steady when the new year came in.
+В октябре 2011, во время короткой поездки в Сан Франциско, вместе с Yehuda Katz мы решили переписать Elixir взяв основу [текущю версию Elixir's](https://github.com/josevalim/lego-lang). Разработка новой версии Elixir началась за несколько дней до начала 2012 года и активно велась на протижении всего года.
 
-Around February of that year, feeling confident enough about the direction the language was moving (and initial benchmarks I had made at that point), I have pitched Elixir to [my company, Plataformatec](http://plataformatec.com.br/), and they have accepted to sponsor Elixir. With their help, Elixir developed even faster and that's what we are going to take a look next.
+В феврале этого года, уверенный в правильности развития языка, я стал использовать Elixir в [моей компании, Plataformatec](http://plataformatec.com.br/), и они решили оказать спонсорскую поддержку Elixir. С их помощью, разработка Elixir пошла еще быстрее, я хотел бы рассказать подробнее о дальнейших планах.
 
-## Where we are
+## То где мы сейчас
 
-One of the goals we have set was to have a good website and documentation before the next official release. With the help of the Plataformatec team, we created a logo for Elixir and put this website live.
+Главной целью на данный момент является создание хорошего сайта и документирование возможностей языка перед официальным релизом. При поддержке команды *Plataformatec*, мы создали логотип для Elixir и запустили сайт.
 
-At the same time, [we were working on pygments support](https://bitbucket.org/birkenfeld/pygments-main/pull-request/57/add-elixir-and-elixir-console-lexers), a [documentation generation tool](https://github.com/elixir-lang/ex_doc) and many others. Soon, Github was able to syntax highlight Elixir code and [our API documentation was online](/).
+В тоже время, [мы продолжали работу на поддержкой pygments](https://bitbucket.org/birkenfeld/pygments-main/pull-request/57/add-elixir-and-elixir-console-lexers), и [инструментом по генерации документации](https://github.com/elixir-lang/ex_doc) и другими полезными вещами. Скоро, Github добавит поддержку синтаксиса Elixir и [документация по API будет доступна онлайн](/).
 
-At the same time, people started to gather around #elixir-lang channel on irc.freenode.net and [play with Elixir](https://github.com/elixir-lang/elixir/tree/master/lib/mix), [start their](https://github.com/guedes/exdate) [own projects](https://github.com/yrashk/validatex) and [tutorials](https://github.com/alco/elixir/wiki/Erlang-Syntax:-A-Crash-Course).
+В тоже время, мы создали канал #elixir-lang в irc.freenode.net, рекомендуем посмотреть [играем с Elixir](https://github.com/elixir-lang/elixir/tree/master/lib/mix), [с чего начать](https://github.com/guedes/exdate) [наши проекты](https://github.com/yrashk/validatex) и [руководство](https://github.com/alco/elixir/wiki/Erlang-Syntax:-A-Crash-Course).
 
-Although the initial release was scheduled to April 2012, the feedback from such early developers forced us to review some design and syntax decisions and were extremely important to shape the language as it is today.
+Хотя изначально мы планировали выпустить новую версию в Апреле 2012, обратная связь от некоторых разработчиков вынудила нас пересмотреть некоторые решения и внести ряд важных изменений в язык.
 
-With v0.5.0 finally out, we are committing to a stable syntax and a basic standard library. In the last couple days before the release, we have been working on streamlining the documentation and ensure Elixir works on Mac, Linux and Windows machines!
+С версии v0.5.0, мы увердили стандратный синтаксис и стандартную библиотеку. В течении нескольких дней перед релизом, мы работали над улучшением документации и проводили тестирование Elixir на Mac, Linux и Windows машинах!
 
-## Looking forward
+## Смотря вперед
 
-There are still many, many things to do! In the next months, we will continue working on growing our community, talks and other documentation material. A huge thanks to [Alexei Sholik](https://twitter.com/true_droid) who is moving this area forward.
+Есть еще много вещей, которые нужно сделать! В следующем месяце, мы продолжим работу над развитием сообщества и работу над документацией. Большое спасибо [Alexei Sholik](https://twitter.com/true_droid) который оказал огромную помощь в развитии проекта.
 
-We will also work on better integration and documentation on building Erlang systems. Erlang ships with the [Open Telecom Platform](https://en.wikipedia.org/wiki/Open_Telecom_Platform) which provides many tools to build distributed applications. In v0.5.0, all these tools are already available but we want to make the build process even simpler.
+Мы так же работаем над улучшением интеграции и документацией по работе с Erlang. Erlang поставлется с [Open Telecom Platform](https://en.wikipedia.org/wiki/Open_Telecom_Platform) которая содержит много инструментов для сборки и выпуска приложений. В версии v0.5.0, все эти инструменты доступны, но мы хотим сделать процесс сборки более простым.
 
-In parallel, we will improve our [documentation generation tool](https://github.com/elixir-lang/ex_doc) and [build tool](https://github.com/elixir-lang/elixir/tree/master/lib/mix) which will likely be merged into core when they are solid enough.
+Параллельно с этим, мы продолжим работу над улучшением [инструмента генерации доукументации](https://github.com/elixir-lang/ex_doc) и [инструментами сборки](https://github.com/elixir-lang/elixir/tree/master/lib/mix) которые будут добавлены в ядро после того как они станут достаточно стабильными.
 
-Finally, we will continue improving the Standard Library. Although Elixir's goal is to rely on Erlang the most as possible, we also want to provide a small Standard Library which makes better use of Elixir semantics. For the next weeks, we will focus on improving the IO and File manipulation modules. New data types may also appear, for example, ranges come to my mind.
+И наконец, мы продолжим работу над улучшением Стандартной библиотеки. Хотя Elixir's по большей части пологается на Erlang настолько на сколько это возможно, мы также хотим сделать небольшую стандратную библиотеку которая сможет эффективно использовать семантику Elixir. На следующей неделе, мы сфокусируемся над улучшением модулей IO и File. Так же будут добавлены новые типы данных, например, мне на ум приходят диапазоны.
 
-Check out our [home page](/) and the [getting started guide](/getting-started/introduction.html) for more information. Welcome aboard and grab a cup of Elixir, because you are certainly going to enjoy the ride!
+Проверьте нашу [домашнюю страницу](/) и [руководство для начинающих](/getting-started/introduction.html) для получения более подробной информации.

@@ -250,7 +250,7 @@ iex> if true, do: (
 13
 ```
 
-Запомните одну вещь, используя блок `do/end` всегда связаны с вызовом стороней функции. Например, следующее выражение:
+Запомните одну вещь, блок `do/end` как используется с вызовом стороней функции. Например, следующее выражение:
 
 ```iex
 iex> is_number if true do
@@ -268,9 +268,9 @@ iex> is_number(if true) do
 ** (CompileError) неизвестная функция: is_number/2
 ```
 
-which leads to an undefined function error because that invocation passes two arguments, and `is_number/2` does not exist. The `if true` expression is invalid in itself because it needs the block, but since the arity of `is_number/2` does not match, Elixir does not even reach its evaluation.
+Что приводит к ошибке "функция не определенна" потому функции `is_number/2` которая бы принимала два аргумента несуществует. Условие `if true` является недопустимым поскольку тоже требует использования блока `do/end`, поэтому Elixir даже не доходит до операции сравнения.
 
-Adding explicit parentheses is enough to bind the block to `if`:
+Для того что пример выше работал корректно, достаточно добавить блок `do/end` в `if`:
 
 ```iex
 iex> is_number(if true do

@@ -1,31 +1,31 @@
 ---
-title: "Erlang/Elixir Syntax: A Crash Course"
+title: "Erlang/Elixir синтаксис: обзорный курс"
 section: home
 layout: default
 ---
 
 # {{ page.title }}
 
-This is a quick introduction to the Elixir syntax for Erlang developers and vice-versa. It is the absolute minimum amount of knowledge you need in order to understand Elixir/Erlang code, support interoperability, read the docs, sample code, etc.
+Данное руководство предназначено Erlang разработчикам, для быстро изучения синтаксиса Elixir. В данном руководстве собран абсолютный минимум знаний необходимый для понимания кода написанного на Elixir/Erlang, осуществления поддержки, чтения документации, примеров кода и т.д.
 
 {% include toc.html %}
 
-## Running code
+## Выполнения кода
 
 ### Erlang
 
-The fastest way to run some code is to launch the Erlang shell -- `erl`. Many code snippets on this page can be pasted directly into the shell. However, when you want to define a named function, Erlang expects it to be inside of a module, and modules have to be compiled. Here's a skeleton for a module:
+Самый быстрый способ начать писать код, это запустить командную оболочку Erlang выполнив команду -- `erl`. Многие примеры с данной страницы можно скопировать и запустить в командной оболочке. Однако, когда вам нужно объявить именованную функцию, Erlang ожидает что она будет находится внутри модуля, и модуль должен быть скомпилирован. Ниже представлен шаблон простого модуля:
 
 ```erlang
 % module_name.erl
--module(module_name).  % you may use some other name
+-module(module_name).  % вы можете использовать любое имя
 -compile(export_all).
 
 hello() ->
   io:format("~s~n", ["Hello world!"]).
 ```
 
-Add your functions to it, save it to disk, run `erl` from the same directory and execute the `compile` command:
+Добавьте в модуль свою функцию, сохраните файл на диск, выполните `erl` в той же директории и затем выполните команду `compile`:
 
 ```erl
 Eshell V5.9  (abort with ^G)
@@ -36,11 +36,11 @@ Hello world!
 ok
 ```
 
-You may keep the shell running while you're editing the file. Just don't forget to execute `c(module_name)` to load the latest changes. Note that the filename has to be the same as the one declared in the `-module()` directive, plus an extension `.erl`.
+Вы можете держать оболочку активной, во время редактированния файла. Не забудте выполнить команду `c(module_name)` для подгрузки последних изменений. Учтите что имя файла должно совпадать с тем что указанно в директиве `-module()`, полюс расширение `.erl`.
 
 ### Elixir
 
-Elixir too has an interactive shell called `iex`. Compiling Elixir code can be done with `elixirc` (which is similar to Erlang's `erlc`). Elixir also provides an executable named `elixir` to run Elixir code. The module defined above can be written in Elixir as:
+У Elixir так же есть интерактивная оболочка называемая `iex`. Скомпилировать код Elixir можно выполнив команду `elixirc` (которая аналогична команде `erlc` в Erlang). Elixir так же предоставляет команду `elixir` для запуска кода Elixir. В Elixir модули объявляются следующим образом:
 
 ```elixir
 # module_name.ex
@@ -51,7 +51,7 @@ defmodule ModuleName do
 end
 ```
 
-And compiled from `iex`:
+и компилируются через `iex`:
 
 ```iex
 Interactive Elixir
@@ -62,7 +62,7 @@ Hello world!
 :ok
 ```
 
-However notice that in Elixir you don't need to create a file only to create a new module, Elixir modules can be defined directly in the shell:
+Однако в Elixir нет необходимости создавать на каждый модуль отдельный файл, модули в Elixir могут быть объявлены в интерактивной оболочке:
 
 ```elixir
 defmodule MyModule do
@@ -73,29 +73,29 @@ end
 ```
 
 
-## Notable differences
+## Заметный отличия
 
-This section goes over some of the syntactic differences between the two languages.
+В данном разделе представлены различия в синтаксисе этих языков.
 
-### Operator names
+### Имена операторов
 
-Some operators are spelled differently.
+Некоторые операторы пишутся по разному.
 
 | Erlang         | Elixir         | Meaning                                 |
 |----------------|----------------|-----------------------------------------|
-| and            | NOT AVAILABLE  | Logical 'and', evaluates both arguments |
-| andalso        | and            | Logical 'and', short-circuits           |
-| or             | NOT AVAILABLE  | Logical 'or', evaluates both arguments  |
-| orelse         | or             | Logical 'or', short-circuits            |
-| =:=            | ===            | A match operator                        |
-| =/=            | !==            | A negative match                        |
-| /=             | !=             | Not equals                              |
-| =<             | <=             | Less than or equals                     |
+| and            | недоступен     | Логическое 'и', вычисляет оба аргумента |
+| andalso        | and            | Логическое 'и', краткая запись          |
+| or             | недоступен     | Логическое 'или', вычисляет оба аргумента |
+| orelse         | or             | Логическое 'или', краткая запись        |
+| =:=            | ===            | Оператор равенства                      |
+| =/=            | !==            | Оператор неравенства                    |
+| /=             | !=             | не равно                                |
+| =<             | <=             | меньше или равно                        |
 
 
-### Delimiters
+### Разделители
 
-Erlang expressions are terminated with a dot `.` and comma `,` is used to evaluate multiple expressions within one context (in a function definition, for instance). In Elixir, expressions are delimited by a line break or a semicolon `;`.
+Выражения в Erlang разделяются точкой `.` и запятой `,` это необходимо для вычисления нескольких выражений с одним контекстом (при объявлении функции, для экземпляров). В Elixir, выражения разделяются символом переноса строки или точкой с запятой `;`.
 
 **Erlang**
 
@@ -111,11 +111,11 @@ x = 2; y = 3
 x + y
 ```
 
-### Variable names
+### Имена переменных
 
-Variables in Erlang can only be assigned once. The Erlang shell provides a special command `f` that allows you to erase the binding of a variable or all variables at once.
+Значения переменных в Erlang могут быть присвоены только один раз. В интерактивной оболочке Erlang доступна специальная команда `f` которая позволяет стирать значение связанное с переменной или всех переменных за раз.
 
-Elixir allows you to assign to a variable more than once. If you want to match against the value of a previously assigned variable, you should use `^`:
+Elixir позволяет присваивать значение переменной многократно. Если вам нужно получить значение переменной которое у неё было до повторного присвоения, вы может воспользоватся оператором `^`:
 
 **Erlang**
 
@@ -150,36 +150,36 @@ iex> ^a = 3
 ** (MatchError) no match of right hand side value: 3
 ```
 
-### Calling functions
+### Вызов функций
 
-Invoking a function from a module uses different syntax. In Erlang, you would write
+Для вызова функции из модуля используется разный синстаксис. В Erlang, это делается так:
 
 ```erlang
 lists:last([1, 2]).
 ```
 
-to invoke the `last` function from the `List` module. In Elixir, use the dot `.` in place of the colon `:`
+для вызова функции `last` из модуля `List`. В Elixir, используется точка `.` вместо двоеточия `:`
 
 ```elixir
 List.last([1, 2])
 ```
 
-**Note**. Since Erlang modules are represented by atoms, you may invoke Erlang functions in Elixir as follows:
+**Note**. Поскольку в Erlang модули представлены атомами, вы можете вызывать Erlang функции в Elixir:
 
 ```elixir
 :lists.sort([3, 2, 1])
 ```
 
-All of the Erlang built-ins reside in the `:erlang` module.
+Все встороенные Erlang модули находятся в модуле `:erlang`.
 
 
-## Data types
+## Типы данных
 
-Erlang and Elixir have the same data types for the most part, but there are a number of differences.
+Erlang и Elixir имеют схожите типы данных, но есть пара отличий.
 
-### Atoms
+### Атомы
 
-In Erlang, an `atom` is any identifier that starts with a lowercase letter, e.g. `ok`, `tuple`, `donut`. Identifiers that start with a capital letter are always treated as variable names. Elixir, on the other hand, uses the former for naming variables, and the latter are treated as atom aliases. Atoms in Elixir always start with a colon `:`.
+В Erlang, атомом `atom` является любой идентификатор который начинается с маленькой буквы, т.е. `ok`, `tuple`, `donut`. Идентификаторы начинающиеся с большой буквы считаются переменной. С другой стороны в Elixir, первый вариант используется для обозначения переменных, а второй - как псевдонимы атомов. В Elixir атомы всегда начинаются с двоеточия `:`.
 
 **Erlang**
 
@@ -200,10 +200,10 @@ X = 10.
 im_a_var
 x = 10
 
-Module  # this is called an atom alias; it expands to :'Elixir.Module'
+Module  # здесь мы вызываем псевдоним атома; который будет преобразован в :'Elixir.Module'
 ```
 
-It is also possible to create atoms that start with a character other than a lowercase letter. The syntax is different between the two languages:
+Так же можно создать атом который будет начинатся с буквы в нижнем регистре. Синтаксис в этих языках отличается:
 
 **Erlang**
 
@@ -224,14 +224,14 @@ is_atom :"Multiple words"   #=> true
 is_atom :""                 #=> true
 ```
 
-### Tuples
+### Кортежи
 
-The syntax for tuples is the same in both languages, but the APIs are different. Elixir attempts to normalize Erlang libraries in a way that:
+Способ написания кортежей в данных языках одинаковый, но APIs разное. Elixir пытается нормализовать библиотеки Erlang следующим образом:
 
-1. The `subject` of the function is always the first argument.
-2. All data structures functions employ zero-based access.
+1. `subject` всегда является первым аргументом функции.
+2. Все структуры данных имеют доступ нулевого уровня.
 
-That said, Elixir does not import the default `element` and `setelement` functions, but instead provides `elem` and `put_elem`:
+Тем неменее, Elixir по умолчанию не импортирует функции `element` и `setelement`, вместо них доступны функции `elem` и `put_elem`:
 
 **Erlang**
 
@@ -247,9 +247,9 @@ elem({:a, :b, :c}, 0)         #=> :a
 put_elem({:a, :b, :c}, 0, :d) #=> {:d, :b, :c}
 ```
 
-### Lists and binaries
+### Списки и двоичные данные
 
-Elixir has a shortcut syntax for binaries:
+В Elixir доступен краткий синтаксис для создания двоичных данных:
 
 **Erlang**
 
@@ -268,9 +268,9 @@ is_binary <<"Hello">>    #=> true
 <<"Hello">> === "Hello"  #=> true
 ```
 
-In Elixir, the word **string** means a UTF-8 binary and there is a `String` module that works on such data. Elixir also expects your source files to be UTF-8 encoded. On the other hand, **string** in Erlang refers to char lists and there is a `:string` module, that's not UTF-8 aware and works mostly with char lists.
+В Elixir, слово **string** обозначает двоичные данные в кодировке UTF-8 и модуль `String` предназначен для работы с такими данными. Elixir ожидает что все файлы с исходным кодом будут в кодировке UTF-8. С другой стороны, **string** в Erlang является списком символов с которыми работает модуль `:string`, не является UTF-8 и работает приемущественно с списками символов.
 
-Elixir also supports multiline strings (also called *heredocs*):
+Elixir поодерживает многострочную нотацию создания строки (так же известную как *heredocs*):
 
 ```elixir
 is_binary """
@@ -281,9 +281,9 @@ lines.
 #=> true
 ```
 
-### Keyword list
+### Списки ключевых слов
 
-Elixir offers a literal syntax for creating a list of two-item tuples where the first item in the tuple is an atom and calls them keyword lists:
+В Elixir доступен offers a literal syntax for creating a list of two-item tuples where the first item in the tuple is an atom and calls them keyword lists:
 
 **Erlang**
 
@@ -333,7 +333,7 @@ map = %{map | key: 1}
 map.key === 1
 ```
 
-### Regular expressions
+### Регулярные выражения
 
 Elixir supports a literal syntax for regular expressions. Such syntax allows regexes to be compiled at compilation time instead of runtime and does not require you to double escape special regex characters:
 
@@ -364,9 +364,9 @@ lines.
 ```
 
 
-## Modules
+## Модули
 
-Each Erlang module lives in its own file which has the following structure:
+Модули в Erlang распологаются в отдельных файлах и имеют следующую структуру:
 
 ```erlang
 -module(hello_module).
@@ -441,13 +441,13 @@ HelloModule.Utils.priv
 ```
 
 
-## Function syntax
+## Синтаксис функций
 
 [This chapter][3] from the Erlang book provides a detailed description of pattern matching and function syntax in Erlang. Here, I'm briefly covering the main points and provide sample code both in Erlang and Elixir.
 
 [3]: http://learnyousomeerlang.com/syntax-in-functions
 
-### Pattern matching
+### Сопоставление с образцом (Pattern matching)
 
 Pattern matching in Elixir is based on Erlang's implementation and in general is very similar:
 
@@ -550,7 +550,7 @@ sum "a", "b"
 #=> "ab"
 ```
 
-### Default values
+### Значение по умолчанию
 
 In addition, Elixir allows for default values for arguments, whereas Erlang does not.
 
@@ -563,7 +563,7 @@ mul_by 4, 3 #=> 12
 mul_by 4    #=> 8
 ```
 
-### Anonymous functions
+### Анонимные функции
 
 Anonymous functions are defined in the following way:
 
@@ -627,7 +627,7 @@ f.({:a, :b})
 ```
 
 
-### First-class functions
+### Функции высшего порядка
 
 Anonymous functions are first-class values, so they can be passed as arguments to other functions and also can serve as a return value. There is a special syntax to allow named functions be treated in the same manner.
 
@@ -684,7 +684,7 @@ Enum.map [1, 2, 3], &Math.square/1
 
 The above would be equivalent to Erlang's `fun math:square/1`.
 
-## Control flow
+## Управления ходом выполнения
 
 The constructs `if` and `case` are actually expressions in both Erlang and Elixir, but may be used for control flow as in imperative languages.
 
@@ -781,7 +781,7 @@ else
 end
 ```
 
-### Sending and receiving messages
+### Отправка и получение сообщений
 
 The syntax for sending and receiving differs only slightly between Erlang and Elixir.
 
@@ -816,7 +816,7 @@ end
 ```
 
 
-## Adding Elixir to existing Erlang programs
+## Добавление Elixir в существующие Erlang программы
 
 Elixir compiles into BEAM byte code (via Erlang Abstract Format). This means that Elixir code can be called from Erlang and vice versa, without the need to write any bindings. All Elixir modules start with the `Elixir.` prefix followed by the regular Elixir name. For example, here is how to use the UTF-8 aware `String` downcase from Elixir in Erlang:
 
@@ -828,13 +828,13 @@ downcase(Bin) ->
   'Elixir.String':downcase(Bin).
 ```
 
-### Rebar integration
+### Интеграция с Rebar
 
-If you are using rebar, you should be able to include Elixir git repository as a dependency:
+Если вы используете rebar, вам нужно добавить репозиторий Elixir в список зависемостей:
 
     https://github.com/elixir-lang/elixir.git
 
-Elixir is structured similar to Erlang's OTP. It is divided into applications that are placed inside the `lib` directory, as seen in its [source code repository](https://github.com/elixir-lang/elixir). Since rebar does not recognize such structure, we need to explicitly add to our `rebar.config` which Elixir apps we want to use, for example:
+Elixir построен по сохожему с Erlang's OTP принципу. It is divided into applications that are placed inside the `lib` directory, as seen in its [source code repository](https://github.com/elixir-lang/elixir). Since rebar does not recognize such structure, we need to explicitly add to our `rebar.config` which Elixir apps we want to use, for example:
 
 ```erlang
 {lib_dirs, [
@@ -842,18 +842,18 @@ Elixir is structured similar to Erlang's OTP. It is divided into applications th
 ]}.
 ```
 
-This should be enough to invoke Elixir functions straight from your Erlang code. If you are also going to write Elixir code, you can [install Elixir's rebar plugin for automatic compilation](https://github.com/yrashk/rebar_elixir_plugin).
+Этого должно быть достаточно для вызова Elixir функций в коде Erlang. Если вам нужно писать код на Elixir, вы можете [установить Elixir's rebar плагин для автоматической компиляции](https://github.com/yrashk/rebar_elixir_plugin).
 
-### Manual integration
+### Интеграция вручную
 
-If you are not using rebar, the easiest approach to use Elixir in your existing Erlang software is to install Elixir using one of the different ways specified in the [Getting Started guide](/getting-started/introduction.html) and add the `lib` directory in your checkout to `ERL_LIBS`.
+Если вы не используете rebar, самым простым способом использования Elixir кода в текущем Erlang коде, это установка Elixir одним из способов описанных в [руководстве для начинающих](/getting-started/introduction.html), затем добавить директорию `lib` в `ERL_LIBS`.
 
 
-## Further reading
+## Полезно почитать
 
-Erlang's official documentation site has a nice [collection][4] of programming examples. It can be a good exercise to translate them into Elixir. [Erlang cookbook][5] offers even more useful code examples.
+У языка Erlang's есть очень хорошая документация [на сайте][4] которая содержит подробное описание API и примеры кода. В качестве обучения данные примеры можно переписать на на Elixir. [Erlang cookbook][5] содержит более полезные примеры кода.
 
-Elixir also provides a [Getting Started guide][6] and has [documentation available online][7].
+У Elixir есть [руквоводство для начинающих][6] и [онлайн документация][7].
 
 [4]: http://www.erlang.org/doc/programming_examples/users_guide.html
 [5]: http://schemecookbook.org/Erlang/TOC
