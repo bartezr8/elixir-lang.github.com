@@ -1,13 +1,13 @@
 ---
 layout: getting-started
-title: Абстракция списков
+title: Comprehensions (Абстракция списков)
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-В Elixir, обычной задачей является итерация масива данных, often filtering out some results and mapping values into another list. Comprehensions are syntactic sugar for such constructs: they group those common tasks into the `for` special form.
+В Elixir, обычной задачей является перебор списков, кортежей и т.д, так же часто возникает необходимость отфильтровать список по какому то критерию, а из данных полученых при этом создать новый список. *Comprehensions* является синтаксическим сахаром позволяя сгруппировать схожие задачи в специальную форму для использования совместно с оператором `for`.
 
 Например, мы можем отобразить список целых чисел в их значения в квадрате:
 
@@ -16,18 +16,18 @@ iex> for n <- [1, 2, 3, 4], do: n * n
 [1, 4, 9, 16]
 ```
 
-Абстракция списков состоит из трех частей: генераторы, фильтры и коллекционирование.
+Абстракция списков состоит из трех частей: генераторы, фильтры и коллекции.
 
 ## Генераторы и фильтры
 
-В выражении выше , `n <- [1, 2, 3, 4]` используются **генераторы**. It is literally generating values to be used in the comprehension. Any enumerable can be passed in the right-hand side of the generator expression:
+В выражении выше , `n <- [1, 2, 3, 4]` используются **генераторы**. В данном примере мы буквально генерируем значения которые будут использоватся в *comprehension*. Справа от выражения в котором используется генератор можно использовать любой перечисляемый тип данных:
 
 ```iex
 iex> for n <- 1..4, do: n * n
 [1, 4, 9, 16]
 ```
 
-В выражениях использующих генераторы можно использовать *pattern matching* в левой части выражения; Все паттерны не являющиеся *pattern matching* игнорируются *ignored*. Представте that, instead of a range, we have a keyword list where the key is the atom `:good` or `:bad` and we only want to compute the square of the `:good` values:
+В выражениях использующих генераторы можно использовать *pattern matching* в левой части выражения; Все паттерны не являющиеся *pattern matching* игнорируются *ignored*. Представте, что вместо диапозонов, мы используем список ключевых слов, в котором в качестве ключа выступает атом `:good` и `:bad` и мы хотим вычислить только квадрат из значения `:good`:
 
 ```iex
 iex> values = [good: 1, good: 2, bad: 3, good: 4]
@@ -35,7 +35,7 @@ iex> for {:good, n} <- values, do: n * n
 [1, 4, 16]
 ```
 
-Alternatively to pattern matching, filters can be used to select some particular elements. For example, we can select the multiples of 3 and discard all others:
+Альтернативой *pattern matching*, выступают фильтры которые могут быть использованны для получения конкретных значений. Например, мы можем выбрать 3 из них и отказатся от других:
 
 ```iex
 iex> multiple_of_3? = fn(n) -> rem(n, 3) == 0 end
@@ -43,7 +43,7 @@ iex> for n <- 0..5, multiple_of_3?.(n), do: n * n
 [0, 9]
 ```
 
-Comprehensions discard all elements for which the filter expression returns `false` or `nil`; all other values are selected.
+*Comprehensions* отбрасывает все элементы для которых выражение возвращает `false` или `nil`; Все остальные значения остаются выбранными.
 
 Comprehensions generally provide a much more concise representation than using the equivalent functions from the `Enum` and `Stream` modules. Furthermore, comprehensions also allow multiple generators and filters to be given. Here is an example that receives a list of directories and gets the size of each file in those directories:
 

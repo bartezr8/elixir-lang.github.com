@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: Keywords and maps
+title: Keywords и maps
 redirect_from: /getting-started/maps-and-dicts.html
 ---
 
@@ -96,7 +96,7 @@ In order to manipulate keyword lists, Elixir provides [the `Keyword` module](htt
 
 ## Maps
 
-Whenever you need a key-value store, maps are the "go to" data structure in Elixir. A map is created using the `%{}` syntax:
+Когда вам нужно хранилище ключ-значение, maps в Elixir являются структурой данных типа "go to". Создать map можно используя синтакс `%{}`:
 
 ```iex
 iex> map = %{:a => 1, 2 => :b}
@@ -109,12 +109,12 @@ iex> map[:c]
 nil
 ```
 
-Compared to keyword lists, we can already see two differences:
+Если мы сравним *maps* с списком keyword, мы увидим два существеных отличия:
 
-  * Maps allow any value as a key.
-  * Maps' keys do not follow any ordering.
+  * Maps в качестве ключа могут использовать любое значение.
+  * Ключи в Maps не сортируются по какому либо принципу.
 
-In contrast to keyword lists, maps are very useful with pattern matching. When a map is used in a pattern, it will always match on a subset of the given value:
+В отличии от списка keyword, maps отлично сочитаются с pattern matching. Когда map используются в шаблоне, it will always match on a subset of the given value:
 
 ```iex
 iex> %{} = %{:a => 1, 2 => :b}
