@@ -1,13 +1,13 @@
 ---
 layout: getting-started
-title: Сопоставление с образцом
+title: pattern matching
 ---
 
 # {{ page.title }}<span hidden>.</span>
 
 {% include toc.html %}
 
-В данном уроке, мы рассмотрим как на самом деле работает оператор `=` в Elixir и как использовать сопоставление с образцом ( pattern match ) в отношении простых значений, структур и даже функций. В заключение, мы рассмотрим работу с "фиксирующим оператором"" `^` который используется для предотвращения перепресвоения переменных.
+В данном уроке, мы рассмотрим как на самом деле работает оператор `=` в Elixir и как использовать pattern matching ( pattern match ) в отношении простых значений, структур и даже функций. В заключение, мы рассмотрим работу с "фиксирующим оператором"" `^` который используется для предотвращения перепресвоения переменных.
 
 ## Оператор сопоставления
 
@@ -40,7 +40,7 @@ iex> 1 = unknown
 
 Since there is no variable `unknown` previously defined, Elixir imagined you were trying to call a function named `unknown/0`, but such a function does not exist.
 
-## Сопоставление с образцом
+## pattern matching
 
 Оператор сравнения используется для сравнения простых значений, так же он используется для деструктурирующего присваивания. Для примера, воспользуемся сопоставлением с образцом по отношению к кортежу:
 
@@ -115,7 +115,7 @@ iex> [0 | list]
 [0, 1, 2, 3]
 ```
 
-Сопоставление с образцом Pattern matching allows developers to easily destructure data types such as tuples and lists. As we will see in the following chapters, it is one of the foundations of recursion in Elixir and applies to other types as well, like maps and binaries.
+pattern matching Pattern matching allows developers to easily destructure data types such as tuples and lists. As we will see in the following chapters, it is one of the foundations of recursion in Elixir and applies to other types as well, like maps and binaries.
 
 ## Фиксирующий оператор
 
@@ -174,11 +174,11 @@ iex> _
 ** (CompileError) iex:1: unbound variable _
 ```
 
-Хотя сопоставление с образцом позволяет создавать мощные конструкции, его использование ограничено. Например, вы не можете совершать вызовы функций слево от оператора. Следующий пример неверен:
+Хотя pattern matching позволяет создавать мощные конструкции, его использование ограничено. Например, вы не можете совершать вызовы функций слево от оператора. Следующий пример неверен:
 
 ```iex
 iex> length([1, [2], 3]) = 3
 ** (CompileError) iex:1: illegal pattern
 ```
 
-На этом мы заканчиваем урок по *сопоставлению с образцом*. Как мы увидим в последующих уроках, *сопоставление с образцом* очень часто используется при разработке.
+На этом мы заканчиваем урок по *pattern matching*. Как мы увидим в последующих уроках, *pattern matching* очень часто используется при разработке.
