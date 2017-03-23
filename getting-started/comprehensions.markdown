@@ -7,6 +7,12 @@ title: Comprehensions (Абстракция списков)
 
 {% include toc.html %}
 
+*Примечание*: к сожалению я неспог найти точного определения данного термина поэтому оставляют его без перевода. В википедии для него дается следующее описание:
+
+> Абстракция списков или списковое включение (англ. list comprehension, нем. Erfassung der Liste) в синтаксисе некоторых языков программирования — это способ компактного описания операций обработки списков.
+
+>Списковое включение позволяет вычислять и бесконечные списки (в языках, которые их поддерживают). Например, на языке Миранда бесконечный список чётных положительных чисел можно записать следующим образом:
+
 В Elixir, обычной задачей является перебор списков, кортежей и т.д, так же часто возникает необходимость отфильтровать список по какому то критерию, а из данных полученых при этом создать новый список. *Comprehensions* является синтаксическим сахаром позволяя сгруппировать схожие задачи в специальную форму для использования совместно с оператором `for`.
 
 Например, мы можем отобразить список целых чисел в их значения в квадрате:
@@ -35,7 +41,7 @@ iex> for {:good, n} <- values, do: n * n
 [1, 4, 16]
 ```
 
-Альтернативой *pattern matching*, выступают фильтры которые могут быть использованны для получения конкретных значений. Например, мы можем выбрать 3 из них и отказатся от других:
+Альтернативой *pattern matching*, выступают фильтры которые могут быть использованны для получения конкретных значений. Например, мы можем выбрать три значения из списка и отказатся от других:
 
 ```iex
 iex> multiple_of_3? = fn(n) -> rem(n, 3) == 0 end
@@ -45,7 +51,7 @@ iex> for n <- 0..5, multiple_of_3?.(n), do: n * n
 
 *Comprehensions* отбрасывает все элементы для которых выражение возвращает `false` или `nil`; Все остальные значения остаются выбранными.
 
-Comprehensions generally provide a much more concise representation than using the equivalent functions from the `Enum` and `Stream` modules. Furthermore, comprehensions also allow multiple generators and filters to be given. Here is an example that receives a list of directories and gets the size of each file in those directories:
+Comprehensions представляет собой более краткую запись некоторых функций из модулей `Enum` и `Stream`. Кроме того, comprehensions позволяет использовать несколько фильтров и генераторов одновременно. Для примера, возьмем список папок и вычислим размер каждого файла, для каждой папки:
 
 ```elixir
 dirs = ['/home/mikey', '/home/james']
@@ -57,14 +63,14 @@ for dir  <- dirs,
 end
 ```
 
-Multiple generators can also be used to calculate the cartesian product of two lists:
+Множество генераторов можно также использовать для вычисления декартового произведения двух списков:
 
 ```iex
 iex> for i <- [:a, :b, :c], j <- [1, 2], do:  {i, j}
 [a: 1, a: 2, b: 1, b: 2, c: 1, c: 2]
 ```
 
-A more advanced example of multiple generators and filters is Pythagorean triples. A Pythagorean triple is a set of positive integers such that `a*a + b*b = c*c`, let's write a comprehension in a file named `triple.exs`:
+Более продвинутый пример множественных генераторов и фильтров - это триплеты Пифагора. Пифагорейская тройка представляет собой набор натуральных чисел, таких как `a * a + b * b = c * c`, напишем *Comprehensions* в файле с именем` triple.exs`:
 
 ```elixir
 defmodule Triple do
@@ -79,7 +85,7 @@ defmodule Triple do
 end
 ```
 
-Now on terminal:
+Выполним в терминале команду:
 
 ```bash
 iex triple.exs
@@ -95,7 +101,7 @@ iex> Triple.pythagorean(48)
  {9, 12, 15}, {12, 5, 13}, {12, 9, 15}, {12, 16, 20}, {15, 8, 17}, {16, 12, 20}]
 ```
 
-The code above is quite expensive when the range of search is a large number. Additionally, since the tuple `{b, a, c}` represents the same Pythagorean triple as `{a, b, c}`, our function yields duplicate triples. We can optimize the comprehension and eliminate the duplicate results by referencing the variables from previous generators in the following ones, for example:
+Пример приведенный выше является ресурсозатратным когда диапазон для поиска состоит из большого количества элементов. Кроме того, поскольку кортеж `{b, a, c}` являтеся той же самой Пифагоровской тройкой, как и `{a, b, c}`, наша функция будет дублировать тройки. Мы можем оптимизировать работу comprehension и исключить возможность дублирования результатов, используя результат работы предыдущего генератора в последующих, например:
 
 ```elixir
 defmodule Triple do
@@ -110,11 +116,11 @@ defmodule Triple do
 end
 ```
 
-Finally, keep in mind that variable assignments inside the comprehension, be it in generators, filters or inside the block, are not reflected outside of the comprehension.
+И наконец, имейте в виду что обявление переменной внутри *comprehension*, будь то генератор, фильтр или внутри блока, они будет недоступна снаружи comprehension.
 
 ## Генераторы битовых строк
 
-Bitstring generators are also supported and are very useful when you need to comprehend over bitstring streams. The example below receives a list of pixels from a binary with their respective red, green and blue values and converts them into tuples of three elements each:
+В Elixir доступны генераторы битовых строк, они крайне полезны когда вам необходимо выполнять обработку потока битовых строк. В примере ниже мы получаем список пикселей из двоичного файла, с их соответствующими значениями красного, зеленого и синего и преобразуем их в кортежи по три элемента в каждом:
 
 ```iex
 iex> pixels = <<213, 45, 132, 64, 76, 32, 76, 0, 0, 234, 32, 15>>
@@ -122,29 +128,29 @@ iex> for <<r::8, g::8, b::8 <- pixels>>, do: {r, g, b}
 [{213, 45, 132}, {64, 76, 32}, {76, 0, 0}, {234, 32, 15}]
 ```
 
-A bitstring generator can be mixed with "regular" enumerable generators, and supports filters as well.
+Генератор битовых строк может быть смешан с «обычными» перечислимыми генераторами и также поддерживает фильтры.
 
 ## Опция `:into`
 
-In the examples above, all the comprehensions returned lists as their result. However, the result of a comprehension can be inserted into different data structures by passing the `:into` option to the comprehension.
+В примере выше, все *comprehensions* возвращают список в качестве результата. Однако, результат *comprehension* может быть передан в другую структуру данных посредством опции `:into`.
 
-For example, a bitstring generator can be used with the `:into` option in order to easily remove all spaces in a string:
+Например, генератор битовых строк может быть использован с опцией `:into` для быстрого удаления всех пробелов в строке:
 
 ```iex
 iex> for <<c <- " hello world ">>, c != ?\s, into: "", do: <<c>>
 "helloworld"
 ```
 
-Sets, maps and other dictionaries can also be given to the `:into` option. In general, `:into` accepts any structure that implements the `Collectable` protocol.
+Наборы, maps и другие словари могут использовать опцию `:into`. В целом, `:into` может использовать любая структура реализованная через протокол `Collectable`.
 
-A common use case of `:into` can be transforming values in a map, without touching the keys:
+Частым случаем применения опции `:into` является процедура преобразования значения в map, не затрагивая при этом ключи:
 
 ```iex
 iex> for {key, val} <- %{"a" => 1, "b" => 2}, into: %{}, do: {key, val * val}
 %{"a" => 1, "b" => 4}
 ```
 
-Let's make another example using streams. Since the `IO` module provides streams (that are both `Enumerable`s and `Collectable`s), an echo terminal that echoes back the upcased version of whatever is typed can be implemented using comprehensions:
+Давайте рассмотрим другой пример который использует потоки. Мы будем использовать модуль `IO` который предоставляет инструменты для работы с потоками (так же как `Enumerable`s и `Collectable`s), мы напишем эхо-терминал который будет возвращать модифицированную версию, результатов выведеных в `stdio`, это можно сделать используя *comprehensions*:
 
 ```iex
 iex> stream = IO.stream(:stdio, :line)
@@ -153,4 +159,4 @@ iex> for line <- stream, into: stream do
 ...> end
 ```
 
-Now type any string into the terminal and you will see that the same value will be printed in upper-case. Unfortunately, this example also got your IEx shell stuck in the comprehension, so you will need to hit `Ctrl+C` twice to get out of it. :)
+Теперь введите любую строку в терминал, и вы увидите что одно и тоже значение будет выведено в терминал дважды вверхнем регистре и нижнем. К сожалению, этот пример так же будет влиять на работу IEx, поэтому для выхода вам нужно будет дважды нажать `Ctrl+C`. :)
