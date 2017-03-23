@@ -23,7 +23,7 @@ iex> %{map | a: 3}
 
 ## Объявление структуры
 
-Для объявления структуры, используется конструктор `defstruct`:
+Для объявления структуры, используется оператор `defstruct`:
 
 ```iex
 iex> defmodule User do
@@ -31,11 +31,11 @@ iex> defmodule User do
 ...> end
 ```
 
-The keyword list used with `defstruct` defines what fields the struct will have along with their default values.
+Ключевое слово *list* используется с `defstruct` для указания набора полей структуры и присвоения этим полям значений по умолчанию.
 
-Structs take the name of the module they're defined in. In the example above, we defined a struct named `User`.
+В качестве имени структура использует имя модуля в котором она была объявлена. В примере выше, объявленная структура будет иметь имя `User`.
 
-We can now create `User` structs by using a syntax similar to the one used to create maps:
+Теперь мы можем создать структуру `User` используя синтаксис похожий на синтаксис который используется для создания maps:
 
 ```iex
 iex> %User{}
@@ -44,7 +44,7 @@ iex> %User{name: "Meg"}
 %User{age: 27, name: "Meg"}
 ```
 
-Structs provide *compile-time* guarantees that only the fields (and *all* of them) defined through `defstruct` will be allowed to exist in a struct:
+Структура использует механизм *compile-time* который гарантирует что в структуре будут присутствовать только те поля (и *все* из них) которые были объявлены через `defstruct`:
 
 ```iex
 iex> %User{oops: :field}
@@ -53,7 +53,7 @@ iex> %User{oops: :field}
 
 ## Доступ к структурам и их обновление
 
-When we discussed maps, we showed how we can access and update the fields of a map. The same techniques (and the same syntax) apply to structs as well:
+Когда мы изучали *maps*, мы рассматривали как можно получать данные из них, и как обновлять в них данные. В структурах действует тот же принцип (и синтаксис) для работы с данными:
 
 ```iex
 iex> john = %User{}
@@ -66,9 +66,9 @@ iex> %{meg | oops: :field}
 ** (KeyError) key :oops not found in: %User{age: 27, name: "Meg"}
 ```
 
-When using the update syntax (`|`), the <abbr title="Virtual Machine">VM</abbr> is aware that no new keys will be added to the struct, allowing the maps underneath to share their structure in memory. In the example above, both `john` and `meg` share the same key structure in memory.
+Когда для обновления используется (`|`), Erlang <abbr title="Virtual Machine">VM</abbr> гарантирует что в структуру небудут добавлены новые данные, это позволяет оптимально использовать память для хранения структур. В примере выше, значения `john` и `meg` будут хранится единой структурой в памяти.
 
-Structs can also be used in pattern matching, both for matching on the value of specific keys as well as for ensuring that the matching value is a struct of the same type as the matched value.
+Структуры можно использовать совместно с pattern matching, для сапоставления значений конкретных ключей, так и для обеспечения соотвествия значений структуры того же типа, что и согласованное значение.
 
 ```iex
 iex> %User{name: name} = john
@@ -79,9 +79,9 @@ iex> %User{} = %{}
 ** (MatchError) no match of right hand side value: %{}
 ```
 
-## Structs are bare maps underneath
+## Структуры - это простые maps
 
-In the example above, pattern matching works because underneath structs are bare maps with a fixed set of fields. As maps, structs store a "special" field named `__struct__` that holds the name of the struct:
+В примере выше, *pattern matching* работает потому что на поверку структуры являются стирильными *maps* с фиксированным набором полей. Так же как и у maps, у структур есть специальное поле `__struct__` которое хранит имя данной структуры:
 
 ```iex
 iex> is_map(john)
@@ -90,7 +90,7 @@ iex> john.__struct__
 User
 ```
 
-Notice that we referred to structs as **bare** maps because none of the protocols implemented for maps are available for structs. For example, you can neither enumerate nor access a struct:
+Мы уже сказали что структуры это **стирильные** maps, потому что к ним не применимы функции предназначеные для работы с maps. Например, пвы неможете и получить доступ к данным или итерировать структуру:
 
 ```iex
 iex> john = %User{}
@@ -102,7 +102,7 @@ iex> Enum.each john, fn({field, value}) -> IO.puts(value) end
 ** (Protocol.UndefinedError) protocol Enumerable not implemented for %User{age: 27, name: "John"}
 ```
 
-However, since structs are just maps, they work with the functions from the `Map` module:
+Однако, поскольку структуры по факту являются просто *maps* для работы с ними можно использовать функции из модуля `Map`:
 
 ```iex
 iex> kurt = Map.put(%User{}, :name, "Kurt")
@@ -113,7 +113,7 @@ iex> Map.keys(john)
 [:__struct__, :age, :name]
 ```
 
-Structs alongside protocols provide one of the most important features for Elixir developers: data polymorphism. That's what we will explore in the next chapter.
+Структуры наряду с протоколами обеспечивают одну из наиболее важных функций для разработчиков Elixir: полиморфизм данных. Это мы и рассмотрим в следующей главе.
 
 ## Значения по умолчанию и обязательные ключи
 
@@ -127,7 +127,7 @@ iex> %Product{}
 %Product{name: nil}
 ```
 
-You can also enforce that certain keys have to be specified when creating the struct:
+Вы можете указать обязательные ключи, которые должны быть обязательно указаны при создании структуры:
 
 ```iex
 iex> defmodule Car do
