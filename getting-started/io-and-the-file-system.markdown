@@ -9,11 +9,11 @@ title: Операции ввода/вывода и работа с файлов�
 
 В этом уроке мы рассмотрим механизм ввода/вывода и работу с файловой системой, а также связанных с ними модулей, таких как [`IO`](https://hexdocs.pm/elixir/IO.html), [`File`](https://hexdocs.pm/elixir/File.html) и [`Path`](https://hexdocs.pm/elixir/Path.html).
 
-We had originally sketched this chapter to come much earlier in the getting started guide. However, we noticed the IO system provides a great opportunity to shed some light on some philosophies and curiosities of Elixir and the <abbr title="Virtual Machine">VM</abbr>.
+Первоначально мы планировалли использовать данную главу в качестве ознокомительно по данному языку. Это было свзязано с тем что система ввода/вывода предоставляет оличную возможность по изучению философии Elixir и ознакомлению с Erlang <abbr title="Virtual Machine">VM</abbr>.
 
 ## Модуль `IO`
 
-The [`IO`](http://elixir-lang.org/docs/v1.0/elixir/IO.html) module is the main mechanism in Elixir for reading and writing to standard input/output (`:stdio`), standard error (`:stderr`), files, and other IO devices. Usage of the module is pretty straightforward:
+Модуль [`IO`](http://elixir-lang.org/docs/v1.0/elixir/IO.html) является основным механизмом в Elixir для чтения и записи данных из стандартного канала ввода/вывода (`:stdio`), стандартного канала вывода ошибок (`:stderr`), файлов, и других устройств IO. Модуль прост в использовании:
 
 ```iex
 iex> IO.puts "hello world"
@@ -24,7 +24,7 @@ yes or no? yes
 "yes\n"
 ```
 
-By default, functions in the `IO` module read from the standard input and write to the standard output. We can change that by passing, for example, `:stderr` as an argument (in order to write to the standard error device):
+По умолчанию, функции в модуле `IO` производят чтение с стандартного канала ввода и производят запись в стандартный канал вывода. Мы можем изменить это поведение, например, передадим атом `:stderr` в качестве аргумента (для записи в стандартный канал ошибок):
 
 ```iex
 iex> IO.puts :stderr, "hello world"
@@ -34,7 +34,7 @@ hello world
 
 ## Модуль `File`
 
-The [`File`](https://hexdocs.pm/elixir/File.html) module contains functions that allow us to open files as IO devices. By default, files are opened in binary mode, which requires developers to use the specific `IO.binread/2` and `IO.binwrite/2` functions from the `IO` module:
+Модуль [`File`](https://hexdocs.pm/elixir/File.html) включает в себя функции которые позволяют открывать файлы как устройства IO. По умолчанию, файлы открываются в двоичном формате, это вынуждает разработчиков использовать специальные функции `IO.binread/2` и `IO.binwrite/2` из модуля `IO`:
 
 ```iex
 iex> {:ok, file} = File.open "hello", [:write]
@@ -47,11 +47,11 @@ iex> File.read "hello"
 {:ok, "world"}
 ```
 
-A file can also be opened with `:utf8` encoding, which tells the `File` module to interpret the bytes read from the file as UTF-8-encoded bytes.
+Файл может быть открыт в кодировке `:utf8`, данная настройка говорит модулю `File` при чтении интерпретировать байты из файла как байты в кодировке UTF-8.
 
-Besides functions for opening, reading and writing files, the `File` module has many functions to work with the file system. Those functions are named after their UNIX equivalents. For example, `File.rm/1` can be used to remove files, `File.mkdir/1` to create directories, `File.mkdir_p/1` to create directories and all their parent chain. There are even `File.cp_r/2` and `File.rm_rf/1` to respectively copy and remove files and directories recursively (i.e., copying and removing the contents of the directories too).
+По мимо функций отвечающих за открытие, чтение и запись файлов, модуль `File` содержит множество функций для работы с файловой системой. Эти функции имеют имена схожие с именами их UNIX аналогов. Например, функция `File.rm/1` используется для удаления файла, функция `File.mkdir/1` используется для создания папки, функция `File.mkdir_p/1` выполняет создание всех отсутствующих папок в указанном пути. Есть даже `File.cp_r/2` и `File.rm_rf/1` которые отвечают за рекурсивное копирование и удаление папок (включая копирование и удаление содержимого каталогов).
 
-You will also notice that functions in the `File` module have two variants: one "regular" variant and another variant with a trailing bang (`!`). For example, when we read the `"hello"` file in the example above, we use `File.read/1`. Alternatively, we can use `File.read!/1`:
+Как вы могли заметить функции в модуле `File` имеют два варианта: обычный и альтернативный с использование знака (`!`). Например, когда мы выполнялиw чтение из файла `"hello"` в примере выше, мы использовали функцию `File.read/1`. Вместо этого мы можем использовать `File.read!/1`:
 
 ```iex
 iex> File.read "hello"
@@ -64,30 +64,30 @@ iex> File.read! "unknown"
 ** (File.Error) could not read file "unknown": no such file or directory
 ```
 
-Notice that the version with `!` returns the contents of the file instead of a tuple, and if anything goes wrong the function raises an error.
+Обратите внимание что в данном варианте мы использовали знак `!` результатом выполнения функции в этом случае будет содержимое файла вместо кортежа, и если что то пойдет не так то функция вернет ошибку.
 
-The version without `!` is preferred when you want to handle different outcomes using pattern matching:
+Использование функции без знака `!` предпочтительна когда вы хотите обработать результат используя *pattern matching*:
 
 ```elixir
 case File.read(file) do
-  {:ok, body}      -> # do something with the `body`
-  {:error, reason} -> # handle the error caused by `reason`
+  {:ok, body}      -> # сделать что то с `body`
+  {:error, reason} -> # обработать ошибку `reason`
 end
 ```
 
-However, if you expect the file to be there, the bang variation is more useful as it raises a meaningful error message. Avoid writing:
+Однако, если вам известно что будет передан файл, эффективнее будет использовать вызов без знака т.к в этом случает информация об ошибке будет более развернутой. Предотвратим запись:
 
 ```elixir
 {:ok, body} = File.read(file)
 ```
 
-as, in case of an error, `File.read/1` will return `{:error, reason}` and the pattern matching will fail. You will still get the desired result (a raised error), but the message will be about the pattern which doesn't match (thus being cryptic in respect to what the error actually is about).
+в данном случае возникнет ошибка, функция `File.read/1` вернет `{:error, reason}` и *pattern matching* несработает. Вы все равно получите результат (в данном случае ошибку), но тело ошибки будет содержать сообщение о несовпадении с шаблоном (вводя тем самым в заблуждении, так причина ошибки не в этом).
 
-Therefore, if you don't want to handle the error outcomes, prefer using `File.read!/1`.
+Поэтому, если вам ненужно выполнять обработку ошибок предпочтительней будет использовать `File.read!/1`.
 
 ## Модуль `Path`
 
-The majority of the functions in the `File` module expect paths as arguments. Most commonly, those paths will be regular binaries. The [`Path`](https://hexdocs.pm/elixir/Path.html) module provides facilities for working with such paths:
+Большинство функций из модуля `File` в качестве аргумента ожидает путь. Чаще всего, в качестве пути выступает местоположение двоичного файла. Модуль [`Path`](https://hexdocs.pm/elixir/Path.html) предоставляет средства для работы с следующими путями:
 
 ```iex
 iex> Path.join("foo", "bar")
@@ -96,9 +96,9 @@ iex> Path.expand("~/hello")
 "/Users/jose/hello"
 ```
 
-Using functions from the `Path` module as opposed to directly manipulating strings is preferred since the `Path` module takes care of different operating systems transparently. Finally, keep in mind that Elixir will automatically convert slashes (`/`) into backslashes (`\`) on Windows when performing file operations.
+Использвание функции из модуля `Path` для работы с путями предпочтительней обычной манипуляции с строками, так как модуль `Path` сглаживает различия в формировании пути в  различных оперативных системах. И наконец, запомните что Elixir автоматически преобразует знак слэш (`/`) в обратный слэш (`\`) в Windows при работе с файлами.
 
-With this we have covered the main modules that Elixir provides for dealing with IO and interacting with the file system. In the next sections, we will discuss some advanced topics regarding IO. Those sections are not necessary in order to write Elixir code, so feel free to skip them, but they do provide a nice overview of how the IO system is implemented in the <abbr title="Virtual Machine">VM</abbr> and other curiosities.
+Мы рассмотрели основные модули которые предоставляет Elixir для работы с IO и файловой системой. Далее мы рассмотрим некоторые особенности при работе с IO. Изучение данных разделов не обязательно, поэтому вы можете их пропустить, но они хорошо описывают работу IO в Erlang <abbr title="Virtual Machine">VM</abbr>.
 
 ## Процессы и управление группами
 
@@ -133,9 +133,9 @@ iex> IO.read(pid, 2)
 "he"
 ```
 
-By modelling IO devices with processes, the Erlang <abbr title="Virtual Machine">VM</abbr> allows different nodes in the same network to exchange file processes in order to read/write files in between nodes. Of all IO devices, there is one that is special to each process: the **управление группами**.
+Путем моделирования IO устройств с процессами, Erlang <abbr title="Virtual Machine">VM</abbr> позволяет различным нодам обмениватся файловыми процессами между собой. Из всех IO устройств, существует один который является особым для каждого процесса: он осуществяет **управление группами**.
 
-When you write to `:stdio`, you are actually sending a message to the group leader, which writes to the standard-output file descriptor:
+Когда вы пишите в `:stdio`, вы фактически отправляете сообщение лидеру группы, который записывает дескриптор файла стандартного вывода:
 
 ```iex
 iex> IO.puts :stdio, "hello"
@@ -146,13 +146,13 @@ hello
 :ok
 ```
 
-The group leader can be configured per process and is used in different situations. For example, when executing code in a remote terminal, it guarantees messages in a remote node are redirected and printed in the terminal that triggered the request.
+Лидер группы может быть настроен для каждого процесса и используется в разных ситуациях. Например, при выполнении кода в удаленном терминале он гарантирует, что сообщения в удаленном узле перенаправляются и печатаются в терминале, который выполнил запрос.
 
 ## `iodata` и `chardata`
 
-In all of the examples above, we used binaries when writing to files. In the chapter ["Binaries, strings and char lists"](/getting-started/binaries-strings-and-char-lists.html), we mentioned how strings are made of bytes while char lists are lists with unicode codepoints.
+Во всех примера выше, мы использовали двоичные данные при работе с файлами. В уроке ["Двоичные данные, строки и списки символов"](/getting-started/binaries-strings-and-char-lists.html), Мы упоминали, как строки создаются из байтов, а списки символов - списки с кодовыми точками в кодировке Юникод.
 
-The functions in `IO` и `File` also allow lists to be given as arguments. Not only that, they also allow a mixed list of lists, integers и binaries to be given:
+Функции из модулей `IO` и `File` также могут принимать списки в качестве аргументов. Кроме того, они также позволяют использовать смешанный список состоящий из списков, целых чисел и двоичных данных:
 
 ```iex
 iex> IO.puts 'hello world'
@@ -163,10 +163,10 @@ hello world
 :ok
 ```
 
-However, using list in IO operations requires some attention. A list may represent either a bunch of bytes or a bunch of characters and which one to use depends on the encoding of the IO device. If the file is opened without encoding, the file is expected to be in raw mode, and the functions in the `IO` module starting with `bin*` must be used. Those functions expect an `iodata` as argument; i.e., they expect a list of integers representing bytes and binaries to be given.
+Однако, использование списков при работе с вводом/выводом требует вниматлеьности. Список может представлять собой кучу байтов, а то какие из них будут использоватся зависит от кодировки используемой IO устройством. Если файл открывается без использования кодировки, файл будет обрабатыватся в *raw* режиме, для работы с такими данными предназначены функции начинающиеся `bin*` из модуля `IO`. Эти функции в качестве аргумента ожидают `iodata`; т.е., они ожидают список целых чисел, представляющих байты и двоичные файлы, которые дожны быть переданны.
 
-On the other hand, `:stdio` and files opened with `:utf8` encoding work with the remaining functions in the `IO` module. Those functions expect a `char_data` as an argument, that is, a list of characters or strings.
+С другой стороны, `:stdio` и файлы открытые с кодировкой `:utf8` работают с остальными функциями модуля `IO`. Эти функции ожидают в качестве аргумента `char_data`, то есть, список из символов или строк.
 
-Although this is a subtle difference, you only need to worry about these details if you intend to pass lists to those functions. Binaries are already represented by the underlying bytes and as such their representation is always "raw".
+Хотя это различие и незначительно, вам нужно помнить об этом если вы собираетесь передавать в эти функции списки в качестве аргументов. Бинарики уже представлены базовыми байтами, поэтому они всегда считаются "raw".
 
-This finishes our tour of IO devices and IO related functionality. We have learned about four Elixir modules - [`IO`](https://hexdocs.pm/elixir/IO.html), [`File`](https://hexdocs.pm/elixir/File.html), [`Path`](https://hexdocs.pm/elixir/Path.html) and [`StringIO`](https://hexdocs.pm/elixir/StringIO.html) - as well as how the <abbr title="Virtual Machine">VM</abbr> uses processes for the underlying IO mechanisms and how to use `chardata` and `iodata` for IO operations.
+На этом мы заканчиваем обзор IO устройств и связанного с ними функционала. Мы изучили четыре модуля - [`IO`](https://hexdocs.pm/elixir/IO.html), [`File`](https://hexdocs.pm/elixir/File.html), [`Path`](https://hexdocs.pm/elixir/Path.html) и [`StringIO`](https://hexdocs.pm/elixir/StringIO.html) - а также то как Erlang <abbr title="Virtual Machine">VM</abbr> использует процессы для работы с механизмом ввода/вывода, так же мы узнали как использовать  `chardata` и `iodata` при работе с операциями ввода/вывода.
