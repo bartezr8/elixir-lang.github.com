@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: Recursion
+title: Рекурсии
 ---
 
 # {{ page.title }}

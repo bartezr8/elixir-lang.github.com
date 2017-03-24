@@ -1,23 +1,23 @@
 ---
 layout: getting-started
-title: Module attributes
+title: Атрибуты модулей
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-Module attributes in Elixir serve three purposes:
+Атрибуты модулей в Elixir служат трем основным целям:
 
-1. They serve to annotate the module, often with information to be used by the user or the <abbr title="Virtual Machine">VM</abbr>.
-2. They work as constants.
-3. They work as a temporary module storage to be used during compilation.
+1. Они используются для описания модуля, которое впоследствии используется пользователем или виртуальной машиной.
+2. Они работают как константы.
+3. Они работают как временное хранилище, которое будет использоватся в процессе компиляции.
 
-Let's check each case, one by one.
+Давайте поочередно проверим каждое утверждение.
 
-## As annotations
+## Как описание
 
-Elixir brings the concept of module attributes from Erlang. For example:
+Elixir позаимствовал концепцию модулей из Erlang. Например:
 
 ```elixir
 defmodule MyServer do
@@ -25,18 +25,18 @@ defmodule MyServer do
 end
 ```
 
-In the example above, we are explicitly setting the version attribute for that module. `@vsn` is used by the code reloading mechanism in the Erlang <abbr title="Virtual Machine">VM</abbr> to check if a module has been updated or not. If no version is specified, the version is set to the MD5 checksum of the module functions.
+В примере выше, мы сохраняем версию модуля в аттрибуте. Аттрибут `@vsn` использует механизм перезагрузки кода в Erlang <abbr title="Virtual Machine">VM</abbr> для отслеживания изменений в модуле. В качестве версии устанавливается контрольная сумма MD5 для функций модуля.
 
-Elixir has a handful of reserved attributes. Here are a few of them, the most commonly used ones:
+В Elixir есть несколько зарезервированных аттрибутов. Наиболее часто используемыми являются:
 
-* `@moduledoc` - provides documentation for the current module.
-* `@doc` - provides documentation for the function or macro that follows the attribute.
-* `@behaviour` - (notice the British spelling) used for specifying an <abbr title="Open Telecom Platform">OTP</abbr> or user-defined behaviour.
-* `@before_compile` - provides a hook that will be invoked before the module is compiled. This makes it possible to inject functions inside the module exactly before compilation.
+* `@moduledoc` - предоставляет документацию для текущего модуля.
+* `@doc` - предоставляет документацию для функции или макроса, следующего за атрибутом.
+* `@behaviour` - (Обратите внимание на британскую орфографию), используется для определения <abbr title = "Открытая платформа Telecom> OTP </ abbr> или пользовательского поведения.
+* `@before_compile` - предоставляет хук который будет вызван после того как модуль скомпилируется. Позволяет инжектить функции точно перед компиляцией.
 
-`@moduledoc` and `@doc` are by far the most used attributes, and we expect you to use them a lot. Elixir treats documentation as first-class and provides many functions to access documentation. You can read more about [writing documentation in Elixir in our official documentation](https://hexdocs.pm/elixir/writing-documentation.html).
+`@moduledoc` и `@doc` являются наиболее часто используемыми аттрибутами, и мы надеемся что вы будете их часто использовать. Подробнее об этом в статье [написание документации в Elixir](https://hexdocs.pm/elixir/writing-documentation.html).
 
-Let's go back to the `Math` module defined in the previous chapters, add some documentation and save it to the `math.ex` file:
+Давайте вернемся к модулю `Math` который мы объявили в предыдущей главе, добавим к нему описание и сохраним его в файл `math.ex`:
 
 ```elixir
 defmodule Math do
@@ -57,7 +57,7 @@ defmodule Math do
 end
 ```
 
-Elixir promotes the use of Markdown with heredocs to write readable documentation. Heredocs are multiline strings, they start and end with triple double-quotes, keeping the formatting of the inner text. We can access the documentation of any compiled module directly from IEx:
+В Elixir можно использовать разметку Markdown совместно с heredocs для написания удобочитаемой документации. Heredocs это формат поддерживающий многострочные комментарии, он начинается и заканчиватся тремя обратными кавычками, сохраняя форматирование текста внутри себя. Мы можем получить документацию по любому скомпилированному модулю напрямую из IEx:
 
 ```bash
 $ elixirc math.ex
@@ -71,15 +71,15 @@ iex> h Math.sum # Access the docs for the sum function
 ...
 ```
 
-We also provide a tool called [ExDoc](https://github.com/elixir-lang/ex_doc) which is used to generate HTML pages from the documentation.
+Так же для создания документации можно воспользоватся инструментом под названием [ExDoc](https://github.com/elixir-lang/ex_doc) который предназначен для генерации HTML страниц на основе аттрибутов документации.
 
-You can take a look at the docs for [Module](https://hexdocs.pm/elixir/Module.html) for a complete list of supported attributes. Elixir also uses attributes to define [typespecs](/getting-started/typespecs-and-behaviours.html).
+С полным списком поддерживаемых атриботов вы можете ознакомится на странице документаци [Модуля](https://hexdocs.pm/elixir/Module.html). Так же Elixir использует аттрибуты для объявления [typespecs](/getting-started/typespecs-and-behaviours.html).
 
-This section covers built-in attributes. However, attributes can also be used by developers or extended by libraries to support custom behaviour.
+В этом разделе описаны встроенные атрибуты. Однако атрибуты могут также использоваться разработчиками или  библиотеками.
 
-## As constants
+## Как константа
 
-Elixir developers will often use module attributes as constants:
+Elixir разработчики могут использовать аттрибуты модуля как константы:
 
 ```elixir
 defmodule MyServer do
@@ -88,9 +88,9 @@ defmodule MyServer do
 end
 ```
 
-> Note: Unlike Erlang, user defined attributes are not stored in the module by default. The value exists only during compilation time. A developer can configure an attribute to behave closer to Erlang by calling [`Module.register_attribute/3`](https://hexdocs.pm/elixir/Module.html#register_attribute/3).
+> Примичание: в отличии от Erlang, аттрибуты заданные пользователем не сохраняются в модуле по умолчанию. Они существуют только во время компиляции. Разработчик может настроить атрибут так, что бы его поведение было похоже на поведение в Erlang используя функцию [`Module.register_attribute/3`](https://hexdocs.pm/elixir/Module.html#register_attribute/3).
 
-Trying to access an attribute that was not defined will print a warning:
+Попытка обращения к необъявленному атрибуту, приведет к возникновению ошибки:
 
 ```elixir
 defmodule MyServer do
@@ -99,7 +99,7 @@ end
 warning: undefined module attribute @unknown, please remove access to @unknown or explicitly set it before access
 ```
 
-Finally, attributes can also be read inside functions:
+И наконец, значение аттрибута можно прочитать внутри функции:
 
 ```elixir
 defmodule MyServer do
@@ -113,13 +113,13 @@ MyServer.first_data #=> 14
 MyServer.second_data #=> 13
 ```
 
-Every time an attribute is read inside a function, a snapshot of its current value is taken. In other words, the value is read at compilation time and not at runtime. As we are going to see, this also makes attributes useful to be used as storage during module compilation.
+Каждый раз, когда атрибут считывается внутри функции, берется моментальный снимок его текущего значения. Другими словами, значение считывается во время компиляции, а не во время выполнения. Как мы увидим, это также делает атрибуты полезными для использования в качестве хранилища во время компиляции модуля.
 
-## As temporary storage
+## Как временное хранилище
 
-One of the projects in the Elixir organization is [the `Plug` project](https://github.com/elixir-lang/plug), which is meant to be a common foundation for building web libraries and frameworks in Elixir.
+Один из проектов написанных на Elixir известный как [`Plug`](https://github.com/elixir-lang/plug), который предназначен для использования в качестве базы для написания библиотек и фреймворков на Elixir.
 
-The Plug library also allows developers to define their own plugs which can be run in a web server:
+Библиотека Plug позволяет разработчикам собственные plugs, которые могут быть запущены в веб сервере:
 
 ```elixir
 defmodule MyPlug do
@@ -141,11 +141,11 @@ IO.puts "Running MyPlug with Cowboy on http://localhost:4000"
 Plug.Adapters.Cowboy.http MyPlug, []
 ```
 
-In the example above, we have used the `plug/1` macro to connect functions that will be invoked when there is a web request. Internally, every time you call `plug/1`, the Plug library stores the given argument in a `@plugs` attribute. Just before the module is compiled, Plug runs a callback that defines a function (`call/2`) which handles HTTP requests. This function will run all plugs inside `@plugs` in order.
+В примере выше, мы использовали макрос `plug/1` для подключения функции которая будет вызыватся при каждом запросе на сервер. Каждый раз когда вы вызываете `plug/1`, библиотека Plug сохраняет переданный аргумент в аттрибуте `@plugs`. Перед тем как модуль будет скомпилирован, Plug выполнит функцию обратного вызова, которая была объявлена функцией (`call/2`) во время обработки HTTP запроса. Эта функция запустит все plugs внутри `@plugs` по порядку.
 
-In order to understand the underlying code, we'd need macros, so we will revisit this pattern in the meta-programming guide. However the focus here is on how using module attributes as storage allows developers to create DSLs.
+Для того что бы понять основы, нам нужны макросы, поэтому мы вернемся к этому примеру в уроке по мета-программированию. Однако основное внимание нужно уделить тому, как использование аттрибутов в качестве хранилища позволяет разработчикам создавать DSLs.
 
-Another example comes from [the ExUnit framework](https://hexdocs.pm/ex_unit/) which uses module attributes as annotation and storage:
+В качестве другого примера может служить [фреймворк ExUnit](https://hexdocs.pm/ex_unit/) который использует аттрибуты модуля в качестве анотации и хранилища:
 
 ```elixir
 defmodule MyTest do
@@ -158,8 +158,6 @@ defmodule MyTest do
 end
 ```
 
-Tags in ExUnit are used to annotate tests. Tags can be later used to filter tests. For example, you can avoid running external tests on your machine because they are slow and dependent on other services, while they can still be enabled in your build system.
+Теги в ExUnit используются для описания тестов. Теги впоследствии могут использованны для сортировки тестов. Например, вы можете избежать запуска внешних тестов на своей машине, потому что они медленные и зависят от других сервисов, в то время как они все еще доступны в вашем приложении.
 
-We hope this section shines some light on how Elixir supports meta-programming and how module attributes play an important role when doing so.
-
-In the next chapters we'll explore structs and protocols before moving to exception handling and other constructs like sigils and comprehensions.
+В следующем уроке мы рассмотрим структуры и протоколы, перед тем как перейти к обработке ошибок и другим конструкциям языка, таким как sigils и comprehensions.

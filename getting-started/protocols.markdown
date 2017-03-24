@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: Protocols
+title: Протоколы
 ---
 
 # {{ page.title }}
